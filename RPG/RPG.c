@@ -8,10 +8,12 @@ struct personagem {
     char name[18];
     int pv;
     int ataque;
+    int ataquemagico;
     int defesa;
     int nivel;
     int espada;
     int gold;
+    int pocao;
 
 }player;
 
@@ -25,18 +27,88 @@ struct enemy {
 
 loja(struct personagem *player){
     printf("#########################");
-    printf("#Seja bem vindo a loja!#\n");
-    printf("#Voce tem %d gold#\n", player->gold);
-    printf("#Opcoes\n");
+    printf("Seja bem vindo a loja!#\n");
+    printf("Voce tem %d gold#\n", player->gold);
+    printf("Opcoes\n");
     printf("#1 - Aprimorar espada - 10c - o Aprimoramento aumenta sua espada em 1 de dano\n");
+}
+
+batalha(struct personagem *player, struct enemy *inimigo){
+
+    int escolha = 0;
+
+    for (inimigo->pv > 0; player->pv > 0;)
+    {
+    escolha = 0;
+    printf("#########################");
+    printf("#Voce tem %d pv\n", player->pv);
+    printf("#O inimigo tem %d pv#\n", inimigo->pv);
+    printf("#########################");
+    printf("#Opcoes\n");
+    printf("#1 - Ataque corporal#\n");
+    printf("#2 - Ataque magico#\n");
+    printf("#3 - Beber pocao de vida\n");
+    printf("#########################");
+    scanf("%d", &escolha);
+    switch (escolha)
+    {
+    case 1:
+        atacar(&player, &inimigo);
+        verificacaodemorte(&player, &inimigo); 
+        batalha(&player, &inimigo);
+        break;
+    case 2:
+
+    ataquemagico(&player, &inimigo);
+    verificacaodemorte(&player, &inimigo);
+    batalha(&player, &inimigo);
+    break;
+    case 3:   
+        regeneracao(&player);
+        batalha(&player, &inimigo);
+        break;
+    default:
+        printf("Opcao Invalida\n");
+        batalha(&player, &inimigo);
+        break;
+    }
+
+    receberataque(&player, &inimigo); //recebe o ataque do inimigo
+
+    }
+}
+
+regeneracao(struct personagem *player){
+
+    if (player->pocao < 0)
+    {
+        printf("Voce nao tem pocao de vida\n");
+    }
+    else
+    {
+        player->pv = 20;
+        printf("#########################\n");
+        printf("#Voce regenerou seu pv#\n");
+        printf("#########################");
+        player->pocao--;
+    }
 }
 
 atacar(struct personagem *player, struct enemy *enemy) {
     int dano;
+    player->ataque = rand() % 10 + 5;
     dano = (player->espada + player->ataque) - enemy->defesa;
     enemy->pv = enemy->pv - dano;
     printf("\n%s atacou %s e causou %d de dano\n", player->name, enemy->name, dano);
-    verificacaodemorte(player, enemy);
+}
+
+ataquemagico(struct personagem *player, struct enemy *enemy) {
+    int dano;
+    player->ataquemagico = rand() % 10 + 10;
+    dano = (player->ataquemagico) - enemy->defesa;
+    enemy->pv = enemy->pv - dano;
+    printf("\n%s atacou %s e causou %d de dano\n", player->name, enemy->name, dano);
+    player->ataquemagico--;
 }
 
 receberataque(struct personagem *player, struct enemy *enemy) {
@@ -44,17 +116,40 @@ receberataque(struct personagem *player, struct enemy *enemy) {
     dano = enemy->ataque - player->defesa;
     player->pv = player->pv - dano;
     printf("\n%s recebeu um ataque de %s e causou %d de dano\n", player->name, enemy->name, dano);
-    verificacaodemorte(player, enemy);
 }
 
 verificacaodemorte(struct personagem *player, struct enemy *enemy) {
+
+    int coinsareceber = 0;
+
     if (player->pv <= 0) {
         printf("\n%s morreu\n", player->name);
-        exit(0);
+        printf("#########################\n");
+        printf("#Voce perdeu o jogo!#\n");
+        delay(2000);
+        printf("\n#########################");
+        delay(2000);
+        printf("3");
+        delay(1000);
+        printf("2");
+        delay(1000);
+        printf("1");
+        delay(1000);
+        system("cls");
+        carregarjogo(&player, &inimigo);
     }
     if (enemy->pv <= 0) {
         printf("\n%s morreu\n", enemy->name);
-        exit(0);
+        printf("\n#########################");
+        coinsareceber = rand() % 10 + 10;
+        delay(2000);
+        printf("#Voce recebeu %d de coins#\n", coinsareceber);
+        player->gold = player->gold + coinsareceber;
+        player->nivel++;
+        system("pause");
+        salvarjogo(&player, &inimigo);
+        system("cls");
+        nivel(&player, &inimigo);
     }
 }
 
@@ -90,6 +185,7 @@ carregarjogo(struct personagem *player, struct enemy *enemy) {
     fscanf(save, "%d\n", &enemy->ataque);
     fscanf(save, "%d\n", &enemy->defesa);
     fclose(save);
+    nivel(player, enemy);
 }
 
 resetenemy(struct enemy *enemy) {
@@ -158,12 +254,30 @@ case 2:
     printf("%s: Sim, passei a noite tentando enteder do que se tratava esses segredos\n\n", player->name);
     delay(2000);
     system("pause");
+    system("cls");
+    printf("Guerreiro Maior: Ei voces, o chefe esta aguardando voces\n\n");
+    delay(2000);
+    printf("Os guerreiros seguiram ate o altar do chefe\n\n");
+    delay(2000);
+    printf("Guerreiro Maior: %s\n\n", player->name);
+    delay(2000);
+    printf("Guerreiro Maior: Boa Sorte!");
+    delay(2000);
+    system("pause");
+    system("cls");
 
     player->nivel = 3;
     salvarjogo(player, enemy);
     resetenemy(enemy);
     system("cls");
     nivel(player, enemy);
+    break;
+
+    case 3:
+    delay(2000);
+    printf("Chefe-Rei: GUERREIROS, eu chamei hoje voces aqui, os mais fortes e valentes dessa vila");
+    printf("")
+
     break;
 }
 }
@@ -176,10 +290,12 @@ int main()
     inimigo.ataque = 2;
     inimigo.defesa = 2;
     player.pv = 20;
+    player.ataquemagico = 3;
     player.ataque = 8;
     player.defesa = 5;
     player.nivel = 1;
     player.espada = 1;
+    player.pocao = 1;
 
     carregarjogo(&player, &inimigo);
     nivel(&player, &inimigo);
