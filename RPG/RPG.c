@@ -3,11 +3,11 @@
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
+#include <locale.h>
 
 struct personagem {
-
     char name[18];
-    int pv;
+    int pvjogador;
     int ataque;
     int ataquemagico;
     int defesa;
@@ -15,7 +15,6 @@ struct personagem {
     int espada;
     int gold;
     int pocao;
-
 }player;
 
 struct enemy {
@@ -26,86 +25,26 @@ struct enemy {
 
 }inimigo;
 
-loja(struct personagem *player){
-    printf("#########################");
-    printf("Seja bem vindo a loja!#\n");
-    printf("Voce tem %d gold#\n", player->gold);
-    printf("Opcoes\n");
-    printf("#1 - Aprimorar espada - 10c - o Aprimoramento aumenta sua espada em 1 de dano\n");
-}
-
-batalha(struct personagem *player, struct enemy *inimigo){
-
-    int escolha = 0;
-
-    for (inimigo->pv > 0; player->pv > 0;)
-    {
-    escolha = 0;
-    printf("#########################");
-    printf("#Voce tem %d pv\n", player->pv);
-    printf("#O inimigo tem %d pv#\n", inimigo->pv);
-    printf("#########################");
-    printf("#Opcoes\n");
-    printf("#1 - Ataque corporal#\n");
-    printf("#2 - Ataque magico#\n");
-    printf("#3 - Beber pocao de vida\n");
-    printf("#########################");
-    scanf("%d", &escolha);
-    switch (escolha)
-    {
-    case 1:
-        atacar(&player, &inimigo);
-        verificacaodemorte(&player, &inimigo); 
-        batalha(&player, &inimigo);
-        break;
-    case 2:
-
-    ataquemagico(&player, &inimigo);
-    verificacaodemorte(&player, &inimigo);
-    batalha(&player, &inimigo);
-    break;
-    case 3:   
-        regeneracao(&player);
-        batalha(&player, &inimigo);
-        break;
-    default:
-        printf("Opcao Invalida\n");
-        batalha(&player, &inimigo);
-        break;
-    }
-
-    receberataque(&player, &inimigo); //recebe o ataque do inimigo
-
-    }
-}
-
-regeneracao(struct personagem *player){
-
-    if (player->pocao < 0)
-    {
-        printf("Voce nao tem pocao de vida\n");
-    }
-    else
-    {
-        player->pv = 20;
-        printf("#########################\n");
-        printf("#Voce regenerou seu pv#\n");
-        printf("#########################");
-        player->pocao--;
-    }
-}
+// loja(struct personagem *player){
+//     printf("#########################");
+//     printf("Seja bem vindo a loja!#\n");
+//     printf("Voce tem %d gold#\n", player->gold);
+//     printf("Opcoes\n");
+//     printf("#1 - Aprimorar espada - 10c - o Aprimoramento aumenta sua espada em 1 de dano\n");
+// }
 
 atacar(struct personagem *player, struct enemy *enemy) {
-    int dano;
-    player->ataque = rand() % 10 + 5;
+    int dano = 0;
+    player->ataque = 5+(rand()%10);
     dano = (player->espada + player->ataque) - enemy->defesa;
     enemy->pv = enemy->pv - dano;
     printf("\n%s atacou %s e causou %d de dano\n", player->name, enemy->name, dano);
+    delay(1000);
 }
 
 ataquemagico(struct personagem *player, struct enemy *enemy) {
-    int dano;
-    player->ataquemagico = rand() % 10 + 10;
+    int dano = 0;
+    player->ataquemagico = 10 + (rand()%10);
     dano = (player->ataquemagico) - enemy->defesa;
     enemy->pv = enemy->pv - dano;
     printf("\n%s atacou %s e causou %d de dano\n", player->name, enemy->name, dano);
@@ -113,9 +52,9 @@ ataquemagico(struct personagem *player, struct enemy *enemy) {
 }
 
 receberataque(struct personagem *player, struct enemy *enemy) {
-    int dano;
+    int dano = 0;
     dano = enemy->ataque - player->defesa;
-    player->pv = player->pv - dano;
+    player->pvjogador = player->pvjogador - dano;
     printf("\n%s recebeu um ataque de %s e causou %d de dano\n", player->name, enemy->name, dano);
 }
 
@@ -123,13 +62,13 @@ verificacaodemorte(struct personagem *player, struct enemy *enemy) {
 
     int coinsareceber = 0;
 
-    if (player->pv <= 0) {
+    if (player->pvjogador <= 0) {
         printf("\n%s morreu\n", player->name);
         printf("#########################\n");
         printf("#Voce perdeu o jogo!#\n");
-        delay(2000);
+        delay(1000);
         printf("\n#########################");
-        delay(2000);
+        delay(1000);
         printf("3");
         delay(1000);
         printf("2");
@@ -142,15 +81,28 @@ verificacaodemorte(struct personagem *player, struct enemy *enemy) {
     if (enemy->pv <= 0) {
         printf("\n%s morreu\n", enemy->name);
         printf("\n#########################");
-        coinsareceber = rand() % 10 + 10;
-        delay(2000);
+        coinsareceber = (rand()%10) + 10;
+        delay(1000);
         printf("#Voce recebeu %d de coins#\n", coinsareceber);
         player->gold = player->gold + coinsareceber;
-        player->nivel++;
         system("pause");
-        salvarjogo(&player, &inimigo);
         system("cls");
-        nivel(&player, &inimigo);
+    }
+}
+
+regeneracao(struct personagem *player){
+
+    if (player->pocao <= 0)
+    {
+        printf("Voce nao tem pocao de vida\n");
+    }
+    else
+    {
+        player->pvjogador = 20;
+        printf("#########################\n");
+        printf("#Voce regenerou seu pv#\n");
+        printf("#########################");
+        player->pocao--;
     }
 }
 
@@ -158,12 +110,13 @@ salvarjogo(struct personagem *player, struct enemy *enemy) {
     FILE *save;
     save = fopen("salvamento.txt", "w");
     fprintf(save, "%s\n", player->name);
-    fprintf(save, "%d\n", player->pv);
+    fprintf(save, "%d\n", player->pvjogador);
     fprintf(save, "%d\n", player->nivel);
     fprintf(save, "%d\n", player->ataque);
     fprintf(save, "%d\n", player->gold);
     fprintf(save, "%d\n", player->defesa);
     fprintf(save, "%d\n", player->espada);
+    fprintf(save, "%d\n", player->pocao);
     fprintf(save, "%s\n", enemy->name);
     fprintf(save, "%d\n", enemy->pv);
     fprintf(save, "%d\n", enemy->ataque);
@@ -175,12 +128,13 @@ carregarjogo(struct personagem *player, struct enemy *enemy) {
     FILE *save;
     save = fopen("salvamento.txt", "r");
     fscanf(save, "%s\n", player->name);
-    fscanf(save, "%d\n", &player->pv);
+    fscanf(save, "%d\n", &player->pvjogador);
     fscanf(save, "%d\n", &player->nivel);
     fscanf(save, "%d\n", &player->ataque);
     fscanf(save, "%d\n", &player->defesa);
     fscanf(save, "%d\n", &player->gold);
     fscanf(save, "%d\n", &player->espada);
+    fscanf(save, "%s\n", &player->pocao);
     fscanf(save, "%s\n", enemy->name);
     fscanf(save, "%d\n", &enemy->pv);
     fscanf(save, "%d\n", &enemy->ataque);
@@ -190,10 +144,13 @@ carregarjogo(struct personagem *player, struct enemy *enemy) {
 }
 
 resetenemy(struct enemy *enemy) {
-    strcpy(enemy->name, "Guerreiro Inimigo");
-    inimigo.pv = 4 + rand()%10;
-    inimigo.ataque = 2;
-    inimigo.defesa = 2;
+    enemy->pv = 4 + rand()%10;
+    enemy->ataque = rand() % 5 + 2;
+    enemy->defesa = rand() % 2 + 2;
+}
+
+resetvida(struct personagem *player) {
+    player->pvjogador = 20;
 }
 
 delay(int ms) {
@@ -201,25 +158,64 @@ delay(int ms) {
     while (clock() < start + ms);
 }
 
+batalha(struct personagem *player, struct enemy *inimigo){
+
+    int escolha = 0;
+
+    for (inimigo->pv >= 0; player->pvjogador >= 0;)
+    {
+    escolha = 0;
+    printf("#########################\n");
+    printf("# Voce tem %d pv #\n", player->pvjogador);
+    printf("# O inimigo tem %d pv #\n", inimigo->pv);
+    printf("#########################\n");
+    printf("# Opcoes\n");
+    printf("# 1 - Ataque corporal #\n");
+    printf("# 2 - Ataque magico #\n");
+    printf("# 3 - Beber pocao de vida #\n");
+    printf("#########################\n\n");
+    scanf("%d", &escolha);
+    switch (escolha)
+    {
+    case 1:
+        atacar(&player, &inimigo);
+        verificacaodemorte(&player, &inimigo); 
+        break;
+    case 2:
+
+    ataquemagico(&player, &inimigo);
+    verificacaodemorte(&player, &inimigo);
+    break;
+    case 3:   
+        regeneracao(&player);
+        break;
+    default:
+        printf("Opcao Invalida\n");
+        break;
+    }
+    receberataque(&player, &inimigo); //recebe o ataque do inimigo
+    }
+}
 
 nivel(struct personagem *player, struct enemy *enemy) {
 switch (player->nivel)
 {
 case 1:
+    resetvida(player);
     printf("Provavelmente e a primeira vez que voce coloca seus pes nessas terras distantes.\n\n");
-    delay(2000);
+    delay(1000);
     printf("Como podemos lhe chamar?\n\n");
     scanf("%s", player->name);
-    delay(2000);
+    delay(1000);
     system("cls");
     printf("Bem-vindo %s\n\n", player->name);
-    delay(2000);
-    printf("Antes e começar irei lhe dar alguns itens\n\n");
-    delay(2000);
+    delay(1000);
+    printf("Antes e comecar irei lhe dar alguns itens\n\n");
+    delay(1000);
     printf("Voce recebeu uma espada.\n\n");
-    delay(2000);
+    delay(1000);
     printf("Voce recebeu 20 pontos de vida e 9 pontos de ataque com espada e 5 pontos de defesa.\n\n");
-    delay(2000);
+    delay(1000);
     system("pause");
 
     player->nivel = 2;
@@ -230,40 +226,39 @@ case 1:
     break;
 
 case 2:
-    delay(2000);
+    resetvida(player);
+    delay(1000);
     printf("Seu nome e %s\n\n", player->name);
-    delay(2000);
-    printf("Voce mora na Vila de Highlander, um guerreiro bastante valente,");
+    delay(1000);
+    printf("Voce mora na Vila de Ratanaba, um guerreiro bastante valente,\n");
     printf("e por este motivo o Chefe-rei chama voce e alguns outros guerreiros");
     printf("para tratar sobre alguns assuntos\n\n");
-    delay(2000);
+    delay(1000);
     system("pause");
     system("cls");
-    delay(2000);
-    printf("Guerreiro: %s\n\n", player->name);
-    delay(2000);
-    printf("Voce ouve seu nome ser chamado de longe\n\n");
-    delay(2000);
+    delay(1000);
+    printf("Voz desconecida: %s\n\n", player->name);
+    delay(1000);
+    printf("Narrador: Voce ouve seu nome ser chamado de longe\n");
+    delay(1000);
     printf("Ao olhar para tras voce ver Alex, um velho amigo de infancia\n\n");
-    delay(2000);
+    delay(1000);
     printf("%s: Alex, a quanto tempo meu velho e bom amigo\n\n", player->name);
-    delay(2000);
-    printf("Alex: E, faz bastante tempo que nao nos vemos\n\n");
-    delay(2000);
+    delay(1000);
+    printf("Alex: Eh, faz bastante tempo que nao nos vemos\n\n");
+    delay(1000);
     printf("Alex: O Rei-Chafe tambem o chamou aqui hoje?\n\n");
-    delay(2000);
+    delay(1000);
     printf("%s: Sim, passei a noite tentando enteder do que se tratava esses segredos\n\n", player->name);
-    delay(2000);
+    delay(1000);
     system("pause");
     system("cls");
     printf("Guerreiro Maior: Ei voces, o chefe esta aguardando voces\n\n");
-    delay(2000);
-    printf("Os guerreiros seguiram ate o altar do chefe\n\n");
-    delay(2000);
-    printf("Guerreiro Maior: %s\n\n", player->name);
-    delay(2000);
-    printf("Guerreiro Maior: Boa Sorte!");
-    delay(2000);
+    delay(1000);
+    printf("Narrador: Os guerreiros seguiram ate o altar do chefe\n\n");
+    delay(1000);
+    printf("Guerreiro Maior: %s, Boa Sorte!\n\n", player->name);
+    delay(1000);
     system("pause");
     system("cls");
 
@@ -275,10 +270,132 @@ case 2:
     break;
 
     case 3:
-    delay(2000);
-    printf("Chefe-Rei: GUERREIROS, eu chamei hoje voces aqui, os mais fortes e valentes dessa vila");
-    printf("")
+    delay(1000);
+    printf("Chefe-Rei: GUERREIROS, eu chamei hoje voces aqui, os mais fortes e valentes dessa vila\n");
+    printf("para fazermos uma grande descoberta, encontramos mapas perdidos de nossos acenstrais\n\n");
+    delay(5000);
+    printf("Chefe-Rei: Voces iram partir esta noite, e aquele que conseguir entronctrar o tesouro\n");
+    printf("sera muito bem recompensado\n\n");
+    delay(1000);
+    printf("Guerreiro Azul: Ja que e apenas uma exploracao, porque vossa exelencia chamou estes tantos de guerreiros\n");
+    printf("Eu faria isto sozinho sem nenhuma preocupacao\n\n");
+    delay(5000);
+    printf("Chefe-Rei: Silencio garoto, nao e algo que voce possa fazer sozinho\n");
+    printf("infelizmente nos nao somos os unicos que sabemos deste tesouro\n");
+    printf("nossos inimigos tambem estao a caminho, entao peco-lhes que tomem bastante cuidado\n\n");
+    delay(5000);
+    system("pause");
+    system("cls");
+    printf("Guerreiro Vermelho: Okay meu Chefe, como sera separado as equipes?\n\n");
+    delay(1000);
+    printf("Chefe-Rei: voces serao separados em 3 grupos\n");
+    delay(1000);
+    printf("Grupo 1: Guerreiro Azul e Vermelho\n");
+    delay(1000);
+    printf("Grupo 2: Guerreiro Verde e Amarelo\n");
+    delay(1000);
+    printf("Grupo 3: Alex e %s\n\n", player->name);
+    delay(1000);
+    system("pause");
+    player->nivel = 4;
+    salvarjogo(player, enemy);
+    resetenemy(enemy);
+    system("cls");
+    nivel(player, enemy);
+    break;
 
+    case 4:
+
+    printf("### NAQUELA NOITE ###\n\n");
+    delay(1000);
+    printf("Alex: voce tem ideia do que estamos preste a presenciar?\n", player->name);
+    printf("eu ouvi alguns boatos sobre uma maldicao neste tesouro.\n\n");
+    delay(5000);
+    int alternativa;
+    printf("Escolha uma das alternativas:\n\n");
+    printf("1 - Maldicao? isso nao existe, deve ser apenas boatos\n");
+    printf("2 - Eu tambem andei pensando muito sobre isso, mas nao podemos fazer nada\n");
+    printf("3 - Nos vamos conseguir, afinal nos somos os melhores de ratanaba\n");
+    scanf("%d", &alternativa);
+    if (alternativa == 1)
+    {
+        printf("%s: Maldicao? isso nao existe, deve ser apenas boatos\n\n", player->name);
+        delay(1000);
+        printf("Alex: Acho que voce nao deveria subestimar esse tipo de coisa\n\n");
+    }
+    else if (alternativa == 2)
+    {
+        printf("%s: Eu tambem andei pensando muito sobre isso, mas nao podemos fazer nada\n\n", player->name);
+        delay(1000);
+        printf("Alex: Voce acha que ainda da tempo de desistir?\n\n");
+        delay(1000);
+        printf("%s: Se fizermos isso, o chefe iria nos queimar em praca publica\n\n", player->name);
+        delay(1000);
+        printf("Alex: Voce tem razao\n\n");
+    }
+    else if (alternativa == 3)
+    {
+        printf("%s: Nos vamos conseguir, afinal nos somos os melhores de ratanaba\n\n", player->name);
+        delay(1000);
+        printf("Alex: Verdade, devem ser apenas boatos\n\n");
+    }
+    else
+    {
+        printf("%s: Nos vamos conseguir, afinal nos somos os melhores de ratanaba\n\n", player->name);
+        delay(1000);
+        printf("Alex: Verdade, devem ser apenas boatos\n\n");
+    }
+    delay(5000);
+    printf("\nNarrador: Os dois guerreiros chegaram na carroca a qual eles iriam ate o monumento encontrado\n\n");
+    delay(5000);
+
+    system("pause");
+    system("cls");
+
+    player->nivel = 5;
+    salvarjogo(player, enemy);
+    resetenemy(enemy);
+    system("cls");
+    nivel(player, enemy);
+    break;
+
+    case 5:
+
+    resetvida(&player);
+    resetenemy(&enemy);
+    printf("### NAQUELA MADRUGADA ###\n\n");
+    delay(1000);
+    printf("Narrador: A carroca estava em total silencio, nenhum homem naquele lugar\n");
+    printf("era capaz de falar uma palavra se quer\n");
+    delay(5000);
+    system("pause");
+    system("cls");
+    printf("### UM POUCO MAIS TARDE ###");
+    delay(1000);
+    printf("\nNarrador: A carroca chegou ao monumento, parecia ser uma piramide\n");
+    printf("no primeiro momento, todos ficaram encucados com aquilo, pois nunca tinham\n");
+    printf("visto algo de tamanha magnitude\n\n");
+    delay(2000);
+    printf("Desconhecido: EEEEEEI!, ALI ESTAO ELES!\n\n");
+    delay(1000);
+    printf("Narrador: Todos olharam para tras, parecia ser um guerreiro, mas nao de sua mesma vila\n");
+    delay(1000);
+    printf("O Guerreiro correu ate os grupos, ele parecia estar bastante hostil\n\n");
+    delay(2000);
+    printf("%s estava no alvo do Inimigo\n\n", player->name);
+
+    system("pause");
+    system("cls");
+
+    batalha(player, enemy);
+
+    system("pause");
+    system("cls");
+    player->nivel = 6;
+    salvarjogo(player, enemy);
+    resetenemy(enemy);
+    system("cls");
+    nivel(player, enemy);
     break;
 }
 }
@@ -290,7 +407,7 @@ int main()
     inimigo.pv = 10;
     inimigo.ataque = 2;
     inimigo.defesa = 2;
-    player.pv = 20;
+    player.pvjogador = 20;
     player.ataquemagico = 3;
     player.ataque = 8;
     player.defesa = 5;
