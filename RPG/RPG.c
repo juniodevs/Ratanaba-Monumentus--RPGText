@@ -3,7 +3,6 @@
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
-#include <locale.h>
 
 struct personagem {
     char name[18];
@@ -33,15 +32,6 @@ struct enemy {
 //     printf("#1 - Aprimorar espada - 10c - o Aprimoramento aumenta sua espada em 1 de dano\n");
 // }
 
-atacar(struct personagem *player, struct enemy *enemy) {
-    int dano = 0;
-    player->ataque = 5+(rand()%10);
-    dano = (player->espada + player->ataque) - enemy->defesa;
-    enemy->pv = enemy->pv - dano;
-    printf("\n%s atacou %s e causou %d de dano\n", player->name, enemy->name, dano);
-    delay(1000);
-}
-
 ataquemagico(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
     player->ataquemagico = 10 + (rand()%10);
@@ -55,7 +45,9 @@ receberataque(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
     dano = enemy->ataque - player->defesa;
     player->pvjogador = player->pvjogador - dano;
+    delay(1000);
     printf("\n%s recebeu um ataque de %s e causou %d de dano\n", player->name, enemy->name, dano);
+    delay(1000);
 }
 
 verificacaodemorte(struct personagem *player, struct enemy *enemy) {
@@ -144,13 +136,15 @@ carregarjogo(struct personagem *player, struct enemy *enemy) {
 }
 
 resetenemy(struct enemy *enemy) {
-    enemy->pv = 4 + rand()%10;
-    enemy->ataque = rand() % 5 + 2;
-    enemy->defesa = rand() % 2 + 2;
+    enemy->pv = 7 + rand()%10;
+    enemy->ataque = 2 + rand()%5;
+    enemy->defesa = 2 + rand()%2;
 }
 
 resetvida(struct personagem *player) {
     player->pvjogador = 20;
+    player->ataque = 8;
+    player->espada = 1;
 }
 
 delay(int ms) {
@@ -158,14 +152,26 @@ delay(int ms) {
     while (clock() < start + ms);
 }
 
+atacar(struct personagem *player, struct enemy *enemy) {
+    int dano = 0;
+    player->espada = 1 + (rand()%2);
+    player->ataque = 5+(rand()%10);
+    dano = (player->espada + player->ataque) - enemy->defesa;
+    enemy->pv = enemy->pv - dano;
+    printf("\n%s atacou %s e causou %d de dano\n", player->name, enemy->name, dano);
+    delay(1000);
+}
+
 batalha(struct personagem *player, struct enemy *inimigo){
 
     int escolha = 0;
 
-    for (inimigo->pv >= 0; player->pvjogador >= 0;)
+    for (inimigo->pv >= 0 ; player->pvjogador >= 0;)
     {
     escolha = 0;
-    printf("#########################\n");
+    if (inimigo->pv >= 0 && player->pvjogador >= 0)
+    {
+        printf("#########################\n");
     printf("# Voce tem %d pv #\n", player->pvjogador);
     printf("# O inimigo tem %d pv #\n", inimigo->pv);
     printf("#########################\n");
@@ -178,22 +184,33 @@ batalha(struct personagem *player, struct enemy *inimigo){
     switch (escolha)
     {
     case 1:
-        atacar(&player, &inimigo);
-        verificacaodemorte(&player, &inimigo); 
+        atacar(player, inimigo);
+        verificacaodemorte(player, inimigo); 
         break;
     case 2:
 
-    ataquemagico(&player, &inimigo);
-    verificacaodemorte(&player, &inimigo);
+        ataquemagico(player, inimigo);
+        verificacaodemorte(player, inimigo);
     break;
     case 3:   
-        regeneracao(&player);
+        regeneracao(player);
         break;
     default:
         printf("Opcao Invalida\n");
         break;
     }
-    receberataque(&player, &inimigo); //recebe o ataque do inimigo
+    if (inimigo->pv>=0)
+    {
+        receberataque(player, inimigo); //recebe o ataque do inimigo
+    } 
+    }
+    else
+    {
+        player->nivel++;
+        salvarjogo(player, inimigo);
+        system("cls");
+        return nivel(player, inimigo);
+    }
     }
 }
 
@@ -397,22 +414,28 @@ case 2:
     system("cls");
     nivel(player, enemy);
     break;
+
+    case 6:
+    resetvida(&player);
+    resetenemy(&enemy);
+    printf("### CONTINUACAO ###\n\n");
+    delay(1000);
+    system("pause");
+    break;
 }
 }
 
 int main()
 {
     srand(time(NULL));
-    strcpy(inimigo.name, "Guerreiro Inimigo");
+    strcpy(inimigo.name, "Inimigo");
     inimigo.pv = 10;
     inimigo.ataque = 2;
     inimigo.defesa = 2;
     player.pvjogador = 20;
     player.ataquemagico = 3;
-    player.ataque = 8;
     player.defesa = 5;
     player.nivel = 1;
-    player.espada = 1;
     player.pocao = 1;
 
     carregarjogo(&player, &inimigo);
