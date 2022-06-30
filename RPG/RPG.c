@@ -5,6 +5,7 @@
 #include <ctype.h>
 
 struct personagem {
+
     char name[18];
     int pv;
     int ataque;
@@ -65,7 +66,7 @@ salvarjogo(struct personagem *player, struct enemy *enemy) {
     fprintf(save, "%d\n", player->pv);
     fprintf(save, "%d\n", player->nivel);
     fprintf(save, "%d\n", player->ataque);
-    fprintf(save, "%d\n", player->gold);    
+    fprintf(save, "%d\n", player->gold);
     fprintf(save, "%d\n", player->defesa);
     fprintf(save, "%d\n", player->espada);
     fprintf(save, "%s\n", enemy->name);
@@ -183,6 +184,6 @@ int main()
 
     carregarjogo(&player, &inimigo);
     nivel(&player, &inimigo);
-    
+
   return 0;
 }
