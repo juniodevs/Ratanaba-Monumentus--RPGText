@@ -1,6 +1,6 @@
 //SERGIN
 //JULHO
-//JUNIO
+//JUNIO bbbbbbbbbbb
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -203,14 +203,14 @@ batalha(struct personagem *player, struct enemy *inimigo){
     {
     case 1:
         atacar(player, inimigo);
-        verificacaodemorte(player, inimigo); 
+        verificacaodemorte(player, inimigo);
         break;
     case 2:
 
         ataquemagico(player, inimigo);
         verificacaodemorte(player, inimigo);
     break;
-    case 3:   
+    case 3:
         regeneracao(player);
         break;
     default:
@@ -220,7 +220,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
     if (inimigo->pv>=0)
     {
         receberataque(player, inimigo); //recebe o ataque do inimigo
-    } 
+    }
     }
     else
     {
