@@ -1,3 +1,7 @@
+//SERGIN
+//JULHO
+//JUNIO
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,6 +19,12 @@ struct personagem {
     int gold;
     int pocao;
 }player;
+
+struct classes
+{
+
+}classe[5];
+
 
 struct enemy {
     char name[18];
