@@ -133,24 +133,24 @@ carregarjogo(struct personagem *player, struct enemy *enemy) {
     fscanf(save, "%d\n", &enemy->defesa);
     fclose(save);
     nivel(player, enemy);
-}
+} // LOAD
 
 resetenemy(struct enemy *enemy) {
     enemy->pv = 7 + rand()%10;
     enemy->ataque = 2 + rand()%5;
     enemy->defesa = 2 + rand()%2;
-}
+} // reseta a vida e ataque do inimigo
 
 resetvida(struct personagem *player) {
     player->pvjogador = 20;
     player->ataque = 8;
     player->espada = 1;
-}
+} // reseta a vida do jogador
 
 delay(int ms) {
     clock_t start = clock();
     while (clock() < start + ms);
-}
+} // timer para ações
 
 atacar(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
@@ -160,7 +160,7 @@ atacar(struct personagem *player, struct enemy *enemy) {
     enemy->pv = enemy->pv - dano;
     printf("\n%s atacou %s e causou %d de dano\n", player->name, enemy->name, dano);
     delay(1000);
-}
+} //função de ataque ao inimigo
 
 batalha(struct personagem *player, struct enemy *inimigo){
 
@@ -211,6 +211,40 @@ batalha(struct personagem *player, struct enemy *inimigo){
         system("cls");
         return nivel(player, inimigo);
     }
+    }
+}
+
+menu(struct personagem *player, struct enemy *inimigo) {
+    int escolha = 0;
+    printf("#########################\n");
+    printf("# 1 - Iniciar jogo      #\n");
+    printf("# 2 - Carregar jogo     #\n");
+    printf("# 3 - Sair              #\n");
+    printf("#########################\n\n");
+    scanf("%d", &escolha);
+    switch (escolha)
+    {
+    case 1:
+        resetvida(player);
+        resetenemy(inimigo);
+        nivel(player, inimigo);
+        break;
+    case 2:
+        carregarjogo(player, inimigo);
+        nivel(player, inimigo);
+        break;
+    case 3:
+        printf("#########################\n");
+        printf("#  Obrigado por jogar   #\n");
+        printf("#########################\n");
+        system("pause");
+        system("cls");
+        break;
+    default:
+        printf("Opcao Invalida\n");
+        delay(2000);
+        system("cls");
+        menu(player, inimigo);
     }
 }
 
@@ -438,8 +472,7 @@ int main()
     player.nivel = 1;
     player.pocao = 1;
 
-    carregarjogo(&player, &inimigo);
-    nivel(&player, &inimigo);
+    menu(&player, &inimigo);
 
   return 0;
 }
