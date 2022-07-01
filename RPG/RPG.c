@@ -44,10 +44,18 @@ ataquemagico(struct personagem *player, struct enemy *enemy) {
 receberataque(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
     dano = enemy->ataque - player->defesa;
-    player->pvjogador = player->pvjogador - dano;
-    delay(1000);
-    printf("\n%s recebeu um ataque de %s e causou %d de dano\n", player->name, enemy->name, dano);
-    delay(1000);
+    if (dano < 0) {
+        dano = 0;
+        printf("\n%s nao conseguiu atacar %s\n", enemy->name, player->name);
+    }
+    else
+    {
+        player->pvjogador = player->pvjogador - dano;
+        delay(1000);
+        printf("\n%s recebeu um ataque de %s e causou %d de dano\n", player->name, enemy->name, dano);
+        delay(1000);
+    }
+
 }
 
 verificacaodemorte(struct personagem *player, struct enemy *enemy) {
@@ -101,43 +109,43 @@ regeneracao(struct personagem *player){
 salvarjogo(struct personagem *player, struct enemy *enemy) {
     FILE *save;
     save = fopen("salvamento.txt", "w");
-    fprintf(save, "%s\n", player->name);
-    fprintf(save, "%d\n", player->pvjogador);
-    fprintf(save, "%d\n", player->nivel);
-    fprintf(save, "%d\n", player->ataque);
-    fprintf(save, "%d\n", player->gold);
-    fprintf(save, "%d\n", player->defesa);
-    fprintf(save, "%d\n", player->espada);
-    fprintf(save, "%d\n", player->pocao);
-    fprintf(save, "%s\n", enemy->name);
-    fprintf(save, "%d\n", enemy->pv);
-    fprintf(save, "%d\n", enemy->ataque);
-    fprintf(save, "%d\n", enemy->defesa);
+    fprintf(save, "nome: %s\n", player->name);
+    fprintf(save, "vida: %d\n", player->pvjogador);
+    fprintf(save, "nivel: %d\n", player->nivel);
+    fprintf(save, "ataque: %d\n", player->ataque);
+    fprintf(save, "coins: %d\n", player->gold);
+    fprintf(save, "defesa: %d\n", player->defesa);
+    fprintf(save, "espada: %d\n", player->espada);
+    fprintf(save, "pocoes: %d\n", player->pocao);
+    fprintf(save, "nomeinimigo: %s\n", enemy->name);
+    fprintf(save, "vidainimigo: %d\n", enemy->pv);
+    fprintf(save, "ataqueinimigo: %d\n", enemy->ataque);
+    fprintf(save, "defesainimigo: %d\n", enemy->defesa);
     fclose(save);
 }
 
 carregarjogo(struct personagem *player, struct enemy *enemy) {
     FILE *save;
     save = fopen("salvamento.txt", "r");
-    fscanf(save, "%s\n", player->name);
-    fscanf(save, "%d\n", &player->pvjogador);
-    fscanf(save, "%d\n", &player->nivel);
-    fscanf(save, "%d\n", &player->ataque);
-    fscanf(save, "%d\n", &player->defesa);
-    fscanf(save, "%d\n", &player->gold);
-    fscanf(save, "%d\n", &player->espada);
-    fscanf(save, "%s\n", &player->pocao);
-    fscanf(save, "%s\n", enemy->name);
-    fscanf(save, "%d\n", &enemy->pv);
-    fscanf(save, "%d\n", &enemy->ataque);
-    fscanf(save, "%d\n", &enemy->defesa);
+    fscanf(save, "nome: %s\n", player->name);
+    fscanf(save, "vida: %d\n", &player->pvjogador);
+    fscanf(save, "nivel: %d\n", &player->nivel);
+    fscanf(save, "ataque: %d\n", &player->ataque);
+    fscanf(save, "defesa: %d\n", &player->defesa);
+    fscanf(save, "coins: %d\n", &player->gold);
+    fscanf(save, "espada: %d\n", &player->espada);
+    fscanf(save, "pocoes: %s\n", &player->pocao);
+    fscanf(save, "nomeinimigo: %s\n", enemy->name);
+    fscanf(save, "vidainimigo: %d\n", &enemy->pv);
+    fscanf(save, "ataqueinimigo: %d\n", &enemy->ataque);
+    fscanf(save, "defesainimigo: %d\n", &enemy->defesa);
     fclose(save);
     nivel(player, enemy);
 } // LOAD
 
 resetenemy(struct enemy *enemy) {
     enemy->pv = 7 + rand()%10;
-    enemy->ataque = 2 + rand()%5;
+    enemy->ataque = 3 + rand()%5;
     enemy->defesa = 2 + rand()%2;
 } // reseta a vida e ataque do inimigo
 
@@ -171,7 +179,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
     escolha = 0;
     if (inimigo->pv >= 0 && player->pvjogador >= 0)
     {
-        printf("#########################\n");
+    printf("#########################\n");
     printf("# Voce tem %d pv #\n", player->pvjogador);
     printf("# O inimigo tem %d pv #\n", inimigo->pv);
     printf("#########################\n");
@@ -282,8 +290,8 @@ case 2:
     printf("Seu nome e %s\n\n", player->name);
     delay(1000);
     printf("Voce mora na Vila de Ratanaba, um guerreiro bastante valente,\n");
-    printf("e por este motivo o Chefe-rei chama voce e alguns outros guerreiros");
-    printf("para tratar sobre alguns assuntos\n\n");
+    printf("e por este motivo o Chefe-rei chama voce e alguns outros guerreiros\n");
+    printf("para tratar sobre alguns assuntos secretos\n\n");
     delay(1000);
     system("pause");
     system("cls");
@@ -438,20 +446,21 @@ case 2:
     system("pause");
     system("cls");
 
+    resetvida(&player);
+    resetenemy(enemy);
+
     batalha(player, enemy);
 
     system("pause");
     system("cls");
     player->nivel = 6;
-    salvarjogo(player, enemy);
+    resetvida(&player);
     resetenemy(enemy);
-    system("cls");
+    salvarjogo(player, enemy);
     nivel(player, enemy);
     break;
 
     case 6:
-    resetvida(&player);
-    resetenemy(&enemy);
     printf("### CONTINUACAO ###\n\n");
     delay(1000);
     system("pause");
