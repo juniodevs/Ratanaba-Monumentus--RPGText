@@ -8,10 +8,12 @@
 #include <time.h>
 #include <unistd.h>
 #include <conio.h>
+#include <windows.h>
 
 
 void ASCIIinimigo() //TEMPLATE PARA ASCII
 {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
  printf("                         ~O               o~\n"); //LEMBRAR DO \N PARA QUEBRAR LINHAS
  printf("                       /~()-{---     ---}-()~/\n");
  printf("                        /~)               (~.\n");
