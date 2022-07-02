@@ -1,14 +1,9 @@
-//SERGIN
-//JULHO
-//JUNIO
-//TESTE PULL
-//FLAFLA
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
+
 
 struct personagem {
     char name[18];
@@ -21,11 +16,6 @@ struct personagem {
     int gold;
     int pocao;
 }player;
-
-struct classes
-{
-
-}classe[5];
 
 
 struct enemy {
