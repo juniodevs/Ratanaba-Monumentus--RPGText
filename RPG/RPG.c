@@ -357,7 +357,7 @@ switch (player->nivel)
 case 1:
     resetvida(player);
     Dialogo("Provavelmente e a primeira vez que voce coloca seus pes nessas terras distantes.\n\n", 0);
-    Dialogo("Como podemos lhe chamar?\n");
+    Dialogo("Como podemos lhe chamar?\n", 0);
     scanf("%s", player->name);
     
     system("cls");
@@ -377,40 +377,6 @@ case 1:
 case 2:
     resetvida(player);
     
-    printf("Seu nome e %s\n\n", player->name);
-    
-    printf("Voce mora na Vila de Ratanaba, um guerreiro bastante valente,\n");
-    printf("e por este motivo o Chefe-rei chama voce e alguns outros guerreiros\n");
-    printf("para tratar sobre alguns assuntos secretos\n\n");
-    
-    system("pause");
-    system("cls");
-    
-    printf("Voz desconecida: %s\n\n", player->name);
-    
-    printf("Narrador: Voce ouve seu nome ser chamado de longe\n");
-    
-    printf("Ao olhar para tras voce ver Alex, um velho amigo de infancia\n\n");
-    
-    printf("%s: Alex, a quanto tempo meu velho e bom amigo\n\n", player->name);
-    
-    printf("Alex: Eh, faz bastante tempo que nao nos vemos\n\n");
-    
-    printf("Alex: O Rei-Chafe tambem o chamou aqui hoje?\n\n");
-    
-    printf("%s: Sim, passei a noite tentando enteder do que se tratava esses segredos\n\n", player->name);
-    
-    system("pause");
-    system("cls");
-    printf("Guerreiro Maior: Ei voces, o chefe esta aguardando voces\n\n");
-    
-    printf("Narrador: Os guerreiros seguiram ate o altar do chefe\n\n");
-    
-    printf("Guerreiro Maior: %s, Boa Sorte!\n\n", player->name);
-    
-    system("pause");
-    system("cls");
-
     player->nivel = 3;
     salvarjogo(player, enemy);
     resetenemy(enemy);
@@ -419,29 +385,10 @@ case 2:
     break;
 
     case 3:
-    
-    printf("Chefe-Rei: GUERREIROS, eu chamei hoje voces aqui, os mais fortes e valentes dessa vila\n");
-    printf("para fazermos uma grande descoberta, encontramos mapas perdidos de nossos acenstrais\n\n");
-    printf("Chefe-Rei: Voces iram partir esta noite, e aquele que conseguir entronctrar o tesouro\n");
-    printf("sera muito bem recompensado\n\n");
-    
-    printf("Guerreiro Azul: Ja que e apenas uma exploracao, porque vossa exelencia chamou estes tantos de guerreiros\n");
-    printf("Eu faria isto sozinho sem nenhuma preocupacao\n\n");
-    printf("Chefe-Rei: Silencio garoto, nao e algo que voce possa fazer sozinho\n");
-    printf("infelizmente nos nao somos os unicos que sabemos deste tesouro\n");
-    printf("nossos inimigos tambem estao a caminho, entao peco-lhes que tomem bastante cuidado\n\n");
-    system("pause");
-    system("cls");
-    printf("Guerreiro Vermelho: Okay meu Chefe, como sera separado as equipes?\n\n");
-    
-    printf("Chefe-Rei: voces serao separados em 3 grupos\n");
-    
-    printf("Grupo 1: Guerreiro Azul e Vermelho\n");
-    
-    printf("Grupo 2: Guerreiro Verde e Amarelo\n");
-    
-    printf("Grupo 3: Alex e %s\n\n", player->name);
-    
+    resetvida(player);
+
+
+
     system("pause");
     player->nivel = 4;
     salvarjogo(player, enemy);
@@ -451,49 +398,7 @@ case 2:
     break;
 
     case 4:
-
-    printf("### NAQUELA NOITE ###\n\n");
-    
-    printf("Alex: voce tem ideia do que estamos preste a presenciar?\n", player->name);
-    printf("eu ouvi alguns boatos sobre uma maldicao neste tesouro.\n\n");
-    int alternativa;
-    printf("Escolha uma das alternativas:\n\n");
-    printf("1 - Maldicao? isso nao existe, deve ser apenas boatos\n");
-    printf("2 - Eu tambem andei pensando muito sobre isso, mas nao podemos fazer nada\n");
-    printf("3 - Nos vamos conseguir, afinal nos somos os melhores de ratanaba\n");
-    scanf("%d", &alternativa);
-    if (alternativa == 1)
-    {
-        printf("%s: Maldicao? isso nao existe, deve ser apenas boatos\n\n", player->name);
-        
-        printf("Alex: Acho que voce nao deveria subestimar esse tipo de coisa\n\n");
-    }
-    else if (alternativa == 2)
-    {
-        printf("%s: Eu tambem andei pensando muito sobre isso, mas nao podemos fazer nada\n\n", player->name);
-        
-        printf("Alex: Voce acha que ainda da tempo de desistir?\n\n");
-        
-        printf("%s: Se fizermos isso, o chefe iria nos queimar em praca publica\n\n", player->name);
-        
-        printf("Alex: Voce tem razao\n\n");
-    }
-    else if (alternativa == 3)
-    {
-        printf("%s: Nos vamos conseguir, afinal nos somos os melhores de ratanaba\n\n", player->name);
-        
-        printf("Alex: Verdade, devem ser apenas boatos\n\n");
-    }
-    else
-    {
-        printf("%s: Nos vamos conseguir, afinal nos somos os melhores de ratanaba\n\n", player->name);
-        
-        printf("Alex: Verdade, devem ser apenas boatos\n\n");
-    }
-    printf("\nNarrador: Os dois guerreiros chegaram na carroca a qual eles iriam ate o monumento encontrado\n\n");
-
-    system("pause");
-    system("cls");
+    resetvida(player);
 
     player->nivel = 5;
     salvarjogo(player, enemy);
@@ -506,31 +411,9 @@ case 2:
 
     resetvida(&player);
     resetenemy(&enemy);
-    printf("### NAQUELA MADRUGADA ###\n\n");
-    
-    printf("Narrador: A carroca estava em total silencio, nenhum homem naquele lugar\n");
-    printf("era capaz de falar uma palavra se quer\n");
-    system("pause");
-    system("cls");
-    printf("### UM POUCO MAIS TARDE ###");
-    printf("\nNarrador: A carroca chegou ao monumento, parecia ser uma piramide\n");
-    printf("no primeiro momento, todos ficaram encucados com aquilo, pois nunca tinham\n");
-    printf("visto algo de tamanha magnitude\n\n");
-    printf("Desconhecido: EEEEEEI!, ALI ESTAO ELES!\n\n");
-    printf("Narrador: Todos olharam para tras, parecia ser um guerreiro, mas nao de sua mesma vila\n");
-    printf("O Guerreiro correu ate os grupos, ele parecia estar bastante hostil\n\n");
-    printf("%s estava no alvo do Inimigo\n\n", player->name);
-
-    system("pause");
-    system("cls");
-
-    resetvida(&player);
-    resetenemy(enemy);
 
     batalha(player, enemy);
 
-    system("pause");
-    system("cls");
     player->nivel = 6;
     resetvida(&player);
     resetenemy(enemy);
