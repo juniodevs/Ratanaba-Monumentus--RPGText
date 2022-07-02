@@ -4,6 +4,7 @@
 #include <time.h>
 #include <ctype.h>
 #include <locale.h>
+#include "asciiarte.h"
 
 struct personagem {
     char name[18];
@@ -204,6 +205,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
     while (KeyDown2 != 13)
       {
         system("cls");
+        
             printf("\n\n");
             printf("                         ==================\n");
             printf("                         Voce tem %d pv\n", player->pvjogador);
@@ -215,6 +217,8 @@ batalha(struct personagem *player, struct enemy *inimigo){
             localdaseta2(3, posicaodatecla2); printf("* - Beber pocao de vida\n");
             localdaseta2(4, posicaodatecla2); printf("-AINDAPORVIR-\n");
             printf("\t\t\t------------------\n");
+
+            ASCIIinimigo();
 
             KeyDown2 = getch(); //RECEBER ENTER
             

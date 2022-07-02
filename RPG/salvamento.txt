@@ -1,12 +1,12 @@
-nome: Saitama
+nome: 
 vida: 20
-nivel: 2
+nivel: 6
 ataque: 8
-coins: 0
+coins: 12
 defesa: 5
 espada: 1
 pocoes: 1
 nomeinimigo: Inimigo
-vidainimigo: 12
-ataqueinimigo: 7
+vidainimigo: 15
+ataqueinimigo: 4
 defesainimigo: 2
