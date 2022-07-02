@@ -18,6 +18,21 @@ struct personagem {
 }player; //STRUCT PARA CRIAÇÃO DE PERSONAGEM
 
 
+struct classesdebatalha{
+
+    int espada; //GUERREIRO
+    int magia; //MAGO
+    int machado; //BARBARO
+    int arco; //ARQUEIRO
+    int stand; //USUARIO DE STAND
+}classesdebatalha;
+
+escolhadeclasse(struct personagem *player)
+{
+    
+}
+
+
 struct enemy {
     char name[18];
     int pv;
@@ -33,55 +48,26 @@ struct enemy {
 //     printf("#1 - Aprimorar espada - 10c - o Aprimoramento aumenta sua espada em 1 de dano\n");
 // } //LOJA DE APRIMORAMENTO DE ITENS
 
-ataquemagico(struct personagem *player, struct enemy *enemy) {
-    int dano = 0;
-    player->ataquemagico = 10 + (rand()%10);
-    dano = (player->ataquemagico) - enemy->defesa;
-    enemy->pv = enemy->pv - dano;
-    printf("\n%s atacou %s e causou %d de dano\n", player->name, enemy->name, dano);
-    player->ataquemagico--;
-} //ATAQUE MAGICO
-
-receberataque(struct personagem *player, struct enemy *enemy) {
-    int dano = 0;
-    dano = enemy->ataque - player->defesa;
-    if (dano < 0) {
-        dano = 0;
-        printf("\n%s nao conseguiu atacar %s\n", enemy->name, player->name);
-    }
-    else
-    {
-        player->pvjogador = player->pvjogador - dano;
-        
-        printf("\n%s recebeu um ataque de %s e causou %d de dano\n", player->name, enemy->name, dano);
-        
-    }
-} //FUNÇÃO DE RECEBER ATAQUE
 
 verificacaodemorte(struct personagem *player, struct enemy *enemy) {
     int coinsareceber = 0;
     if (player->pvjogador <= 0) {
         printf("\n%s morreu\n", player->name);
-        printf("#########################\n");
-        printf("#Voce perdeu o jogo!#\n");
-        
-        printf("\n#########################");
-        
-        printf("3");
-        
-        printf("2");
-        
-        printf("1");
+        DialogocomClear("#########################\nVoce perdeu o jogo!\n#########################", 0);
+        Dialogo("3 2 1", 100);
         
         system("cls");
         carregarjogo(&player, &inimigo);
     }
     if (enemy->pv <= 0) {
-        printf("\n%s morreu\n", enemy->name);
-        printf("\n#########################");
+        printf("\n%s", enemy->name); Dialogo(" Morreu!", 0);
+        Dialogo("\n1", 1);
+        Dialogo("\n2", 1);
+        Dialogo("\n3", 1);
         coinsareceber = (rand()%10) + 10;
         
-        printf("#Voce recebeu %d de coins#\n", coinsareceber);
+        Dialogo("\nVoce recebeu ", 0); printf("%d ",coinsareceber); Dialogo ("de coins\n", 0);
+
         player->gold = player->gold + coinsareceber;
         system("pause");
         system("cls");
@@ -90,7 +76,7 @@ verificacaodemorte(struct personagem *player, struct enemy *enemy) {
 regeneracao(struct personagem *player){
     if (player->pocao <= 0)
     {
-        printf("Voce nao tem pocao de vida\n");
+        Dialogo("Voce nao tem pocao de vida",0);
     }
     else
     {
@@ -162,34 +148,95 @@ atacar(struct personagem *player, struct enemy *enemy) {
     player->ataque = 5+(rand()%10);
     dano = (player->espada + player->ataque) - enemy->defesa;
     enemy->pv = enemy->pv - dano;
-    printf("\n%s atacou %s e causou %d de dano\n", player->name, enemy->name, dano);
+    printf("\n%s", player->name); Dialogo("atacou", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);
+    delay(5000);
+} //FUNÇÃO DE ATAQUE (PERSONAGEM X INIMIGO)
+
+ataquemagico(struct personagem *player, struct enemy *enemy) {
+    int dano = 0;
+    player->ataquemagico = 10 + (rand()%10);
+    dano = (player->ataquemagico) - enemy->defesa;
+    enemy->pv = enemy->pv - dano;
+    printf("\n%s", player->name); Dialogo("atacou", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano\n", 0);
     
-} //função de ataque ao inimigo
+    player->ataquemagico--;
+} //ATAQUE MAGICO
+
+receberataque(struct personagem *player, struct enemy *enemy) {
+    int dano = 0;
+    dano = enemy->ataque - player->defesa;
+    if (dano <= 0) {
+        dano = 0;
+        printf("\n%s nao conseguiu atacar %s\n", enemy->name, player->name);
+
+        delay(5000);
+    }
+    else
+    {
+        player->pvjogador = player->pvjogador - dano;
+        
+        printf("\n%s recebeu um ataque de %s e causou %d de dano\n", player->name, enemy->name, dano);
+        delay(5000);
+    }
+} //FUNÇÃO DE RECEBER ATAQUE
+
+void localdaseta2(int realPosition, int posicaoDaTecla2)
+{
+    if (realPosition == posicaoDaTecla2) {
+        printf("\t\t\t=> ");
+    }
+    else {
+        printf("\t\t\t   ");
+    }
+}
 
 batalha(struct personagem *player, struct enemy *inimigo){
 
-    int escolha = 0;
+    int posicaodatecla2 = 1, KeyDown2 = 0;
+
+    #define MAX 4
+    #define MIN 1
 
     for (inimigo->pv >= 0 ; player->pvjogador >= 0;)
     {
-    escolha = 0;
+        posicaodatecla2 = 1; KeyDown2 = 0;
     if (inimigo->pv >= 0 && player->pvjogador >= 0)
     {
-    printf("#########################\n");
-    printf("# Voce tem %d pv #\n", player->pvjogador);
-    printf("# O inimigo tem %d pv #\n", inimigo->pv);
-    printf("#########################\n");
-    printf("# Opcoes\n");
-    printf("# 1 - Ataque corporal #\n");
-    printf("# 2 - Ataque magico #\n");
-    printf("# 3 - Beber pocao de vida #\n");
-    printf("#########################\n\n");
-    scanf("%d", &escolha);
-    switch (escolha)
+    while (KeyDown2 != 13)
+      {
+        system("cls");
+            printf("\n\n");
+            printf("                         ==================\n");
+            printf("                         Voce tem %d pv\n", player->pvjogador);
+            printf("                         O inimigo tem %d pv\n", inimigo->pv);
+            printf("                         ==================\n");
+            printf("\t\t\t-[MENU DE BATALHA]-\n");
+            localdaseta2(1, posicaodatecla2); printf("* - Ataque corporal\n"); 
+            localdaseta2(2, posicaodatecla2); printf("* - Ataque magico\n");
+            localdaseta2(3, posicaodatecla2); printf("* - Beber pocao de vida\n");
+            localdaseta2(4, posicaodatecla2); printf("-AINDAPORVIR-\n");
+            printf("\t\t\t------------------\n");
+
+            KeyDown2 = getch(); //RECEBER ENTER
+            
+            if (KeyDown2 == 80 && posicaodatecla2 != MAX) {
+            posicaodatecla2++;
+            } else if (KeyDown2 == 72 && posicaodatecla2 != MIN) {
+            posicaodatecla2--;
+            } else {
+            posicaodatecla2 = posicaodatecla2;
+            }
+      }
+
+    switch (posicaodatecla2)
     {
     case 1:
+        printf("                   O                              O\n");
+        printf("              {o)xxx|===========-  *  -===========|xxx(o}\n");
+        printf("                   O                              O\n\n\n");
         atacar(player, inimigo);
         verificacaodemorte(player, inimigo);
+
         break;
     case 2:
 
@@ -331,7 +378,8 @@ void menu(struct personagem *player, struct enemy *inimigo)
             DialogocomClear("Um novo jogo esta sendo criado!\n", 0);
             resetvida(player);
             resetenemy(inimigo);
-            nivel(player, inimigo);
+            // nivel(player, inimigo);
+            batalha(player, inimigo);
             break;
         case 2:
             system("cls");
@@ -412,7 +460,7 @@ case 2:
     resetvida(&player);
     resetenemy(&enemy);
 
-    batalha(player, enemy);
+    // batalha(player, enemy);
 
     player->nivel = 6;
     resetvida(&player);
