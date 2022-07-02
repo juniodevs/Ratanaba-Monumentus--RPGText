@@ -183,7 +183,7 @@ receberataque(struct personagem *player, struct enemy *enemy) {
 void localdaseta2(int realPosition, int posicaoDaTecla2)
 {
     if (realPosition == posicaoDaTecla2) {
-        printf("\t\t\t=> ");
+        printf("\t\t\t => ");
     }
     else {
         printf("\t\t\t   ");
@@ -341,6 +341,8 @@ void localdaseta(int realPosition, int posicaoDaTecla)
         printf("\t\t\t   ");
     }
 }
+
+
 
 void menu(struct personagem *player, struct enemy *inimigo)
 {
