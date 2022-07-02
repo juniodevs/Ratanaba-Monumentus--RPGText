@@ -25,14 +25,14 @@ struct classesdebatalha{
     int machado; //BARBARO
     int arco; //ARQUEIRO
     int stand; //USUARIO DE STAND
-}classesdebatalha;
+
+}classesdebatalha; //STRUCT PARA CLASSES DE BATALHA
 
 escolhadeclasse(struct personagem *player)
 {
-    
+    printf("teste");
+
 }
-
-
 struct enemy {
     char name[18];
     int pv;
@@ -48,13 +48,12 @@ struct enemy {
 //     printf("#1 - Aprimorar espada - 10c - o Aprimoramento aumenta sua espada em 1 de dano\n");
 // } //LOJA DE APRIMORAMENTO DE ITENS
 
-
 verificacaodemorte(struct personagem *player, struct enemy *enemy) {
     int coinsareceber = 0;
     if (player->pvjogador <= 0) {
         printf("\n%s morreu\n", player->name);
         DialogocomClear("#########################\nVoce perdeu o jogo!\n#########################", 0);
-        Dialogo("3 2 1", 100);
+        Dialogo("3 2 1", 1);
         
         system("cls");
         carregarjogo(&player, &inimigo);
