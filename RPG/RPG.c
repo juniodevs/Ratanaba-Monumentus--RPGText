@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
-
+#include <locale.h>
 
 struct personagem {
     char name[18];
@@ -224,37 +224,95 @@ batalha(struct personagem *player, struct enemy *inimigo){
     }
 }
 
-menu(struct personagem *player, struct enemy *inimigo) {
-    int escolha = 0;
-    printf("#########################\n");
-    printf("# 1 - Iniciar jogo      #\n");
-    printf("# 2 - Carregar jogo     #\n");
-    printf("# 3 - Sair              #\n");
-    printf("#########################\n\n");
-    scanf("%d", &escolha);
-    switch (escolha)
+void Dialogue(char text[], int seconds)
+{   
+    system("cls");
+    int x; double y;
+    // Adicionar delay de x segundos
+    sleep(seconds);
+    
+        // Mostrar o texto
+        for(x=0; text[x]!=NULL; x++)
+        {
+        printf("%c",text[x]);
+        for(y=0; y<=8888888; y++)
+        {
+        }
+        }
+    
+    // SÃ³ continuar quando Enter for pressionado
+    printf("\n\n[Enter para continuar...]");
+    char enter = 0;
+    while (enter != '\r' && enter != '\n')
     {
-    case 1:
-        resetvida(player);
-        resetenemy(inimigo);
-        nivel(player, inimigo);
-        break;
-    case 2:
-        carregarjogo(player, inimigo);
-        nivel(player, inimigo);
-        break;
-    case 3:
-        printf("#########################\n");
-        printf("#  Obrigado por jogar   #\n");
-        printf("#########################\n");
-        system("pause");
+        enter = getchar();
+    }
+    
+    // Limpar console
+    system("cls");
+}
+
+void arrowHere(int realPosition, int arrowPosition)
+{
+    if (realPosition == arrowPosition) {
+        printf("\t\t\t-> ");
+    }
+    else {
+        printf("\t\t\t   ");
+    }
+}
+
+void Menu(struct personagem *player, struct enemy *inimigo)
+{
+    system("cls");
+      int position = 1, keyPressed = 0;
+    
+      #define MAX 4
+      #define MIN 1
+    
+      while (keyPressed != 13)
+      {
         system("cls");
-        break;
-    default:
-        printf("Opcao Invalida\n");
-        delay(2000);
-        system("cls");
-        menu(player, inimigo);
+            // Mostrando menu
+            printf("\t\t\t======[MENU]======\n");
+            arrowHere(1, position); printf("NOVO JOGO\n");
+            arrowHere(2, position); printf("CARREGAR JOGO\n");
+            arrowHere(3, position); printf("CRÉDITOS\n");
+            arrowHere(4, position); printf("SAIR\n");
+            printf("\t\t\t==================\n");
+
+            keyPressed = getch();
+            
+            if (keyPressed == 80 && position != MAX) {
+            position++;
+            } else if (keyPressed == 72 && position != MIN) {
+            position--;
+            } else {
+            position = position;
+            }
+    }
+    
+    switch (position) {
+        case 1:
+            system("cls");
+            Dialogue("Será criado um novo jogo.", 0);
+            resetvida(player);
+            resetenemy(inimigo);
+            nivel(player, inimigo);
+            break;
+        case 2:
+            system("cls");
+            Dialogue("Será carregado o jogo salvo.", 0);
+            carregarjogo(player, inimigo);
+            nivel(player, inimigo);
+            break;
+        case 3:
+            system("cls");
+            printf("Serão mostrados os créditos.");
+            break;
+        case 4:
+            system("cls");
+            break;
     }
 }
 
@@ -471,7 +529,8 @@ case 2:
 }
 
 int main()
-{
+{   
+    setlocale(LC_ALL, "Portuguese");
     srand(time(NULL));
     strcpy(inimigo.name, "Inimigo");
     inimigo.pv = 10;
@@ -483,7 +542,7 @@ int main()
     player.nivel = 1;
     player.pocao = 1;
 
-    menu(&player, &inimigo);
+    Menu(&player, &inimigo);
 
   return 0;
 }

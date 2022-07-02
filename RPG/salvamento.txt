@@ -1,12 +1,12 @@
-Saitama
-22
-6
-13
-22
-13
-1
-49
-Guerreiro
--2
-2
-2
+nome: Kratos
+vida: 20
+nivel: 2
+ataque: 8
+coins: 0
+defesa: 5
+espada: 1
+pocoes: 1
+nomeinimigo: Inimigo
+vidainimigo: 15
+ataqueinimigo: 6
+defesainimigo: 2
