@@ -4,7 +4,7 @@
 #include <time.h>
 #include <ctype.h>
 #include <locale.h>
-
+//Personagem
 struct personagem {
     char name[18];
     int pvjogador;
