@@ -13,11 +13,12 @@
 
 void ASCIIinimigo() //TEMPLATE PARA ASCII
 {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
- printf("                         ~O               o~\n"); //LEMBRAR DO \N PARA QUEBRAR LINHAS
- printf("                       /~()-{---     ---}-()~/\n");
- printf("                        /~)               (~.\n");
- printf("                        ~ ~               ~ ~\n");
+    
+ SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); printf("                         ~O");SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);printf("               o~\n"); //LEMBRAR DO \N PARA QUEBRAR LINHAS
+ SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); printf("                       /~()-{---");SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);printf("     ---}-()~/\n");
+ SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); printf("                        /~)");SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);printf("               (~.\n");
+ SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12); printf("                        ~ ~");SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);printf("               ~ ~\n");
+ SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 } //FIM ASCII INIMIGO
 
 

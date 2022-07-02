@@ -484,6 +484,7 @@ case 2:
 
 int main()
 {   
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     setlocale(LC_ALL, "Portuguese");
     srand(time(NULL));
     strcpy(inimigo.name, "Inimigo");
