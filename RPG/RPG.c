@@ -224,11 +224,11 @@ batalha(struct personagem *player, struct enemy *inimigo){
     }
 }
 
-void Dialogue(char text[], int seconds)
+void Dialogo(char text[], int seconds)
 {   
     system("cls");
     int x; double y;
-    // Adicionar delay de x segundos
+    // Delay precisa ser em milisegundos
     sleep(seconds);
     
         // Mostrar o texto
@@ -241,9 +241,9 @@ void Dialogue(char text[], int seconds)
         }
     
     // SÃ³ continuar quando Enter for pressionado
-    printf("\n\n[Enter para continuar...]");
+    printf("\n\n[Pressione Enter para continuar]");
     char enter = 0;
-    while (enter != '\r' && enter != '\n')
+    while (enter != '\r' && enter != '\n') //verificação de ENTER
     {
         enter = getchar();
     }
@@ -255,61 +255,65 @@ void Dialogue(char text[], int seconds)
 void arrowHere(int realPosition, int arrowPosition)
 {
     if (realPosition == arrowPosition) {
-        printf("\t\t\t-> ");
+        printf("\t\t\t=> ");
     }
     else {
         printf("\t\t\t   ");
     }
 }
 
-void Menu(struct personagem *player, struct enemy *inimigo)
+void menu(struct personagem *player, struct enemy *inimigo)
 {
     system("cls");
-      int position = 1, keyPressed = 0;
+      int posicaodatecla = 1, keyPressed = 0;
     
       #define MAX 4
       #define MIN 1
     
       while (keyPressed != 13)
       {
-        system("cls");
-            // Mostrando menu
-            printf("\t\t\t======[MENU]====== ^     ________\n");
-            arrowHere(1, position); printf("NOVO JOGO      | |   |        |\n"); 
-            arrowHere(2, position); printf("CARREGAR JOGO  | |   |        | \n");
-            arrowHere(3, position); printf("CRÉDITOS      | |   |        |\n");
-            arrowHere(4, position); printf("SAIR           | |    \\      /\n");
-            arrowHere(5, position); printf("             `--8--'   \\_  _/\n");
-            printf("\t\t\t================== 0        vv\n");
 
-            keyPressed = getch();
+        system("cls");
+
+            // Mostrando menu
+            printf("\t\t\t------[MENU]------     ^     ________\n");
+            arrowHere(1, posicaodatecla); printf("NOVO JOGO          | |   |        |\n"); 
+            arrowHere(2, posicaodatecla); printf("CARREGAR JOGO      | |   |        | \n");
+            arrowHere(3, posicaodatecla); printf("CRÉDITOS          | |   |        |\n");
+            arrowHere(4, posicaodatecla); printf("SAIR               | |    \\      /\n");
+            arrowHere(5, posicaodatecla); printf("                 `--8--'   \\_  _/\n");
+            printf("\t\t\t------------------     0        vv\n");
+
+            keyPressed = getch(); //RECEBER ENTER
             
-            if (keyPressed == 80 && position != MAX) {
-            position++;
-            } else if (keyPressed == 72 && position != MIN) {
-            position--;
+            if (keyPressed == 80 && posicaodatecla != MAX) {
+            posicaodatecla++;
+            } else if (keyPressed == 72 && posicaodatecla != MIN) {
+            posicaodatecla--;
             } else {
-            position = position;
+            posicaodatecla = posicaodatecla;
             }
     }
     
-    switch (position) {
+    switch (posicaodatecla) {
         case 1:
             system("cls");
-            Dialogue("Será criado um novo jogo.", 0);
+            Dialogo("Um novo jogo esta sendo criado!", 0);
             resetvida(player);
             resetenemy(inimigo);
             nivel(player, inimigo);
             break;
         case 2:
             system("cls");
-            Dialogue("Será carregado o jogo salvo.", 0);
+            Dialogo("O seu jogo salvo esta sendo carregado!", 0);
             carregarjogo(player, inimigo);
             nivel(player, inimigo);
             break;
         case 3:
             system("cls");
-            printf("Serão mostrados os créditos.");
+            Dialogo("Obrigado por jogar!", 0);
+            Dialogo("Historia por: Julio Cesar \nVisual: Sergio Mota \nProgramacao: Junior Veras", 0);
+            menu(player, inimigo);
             break;
         case 4:
             system("cls");
@@ -543,7 +547,7 @@ int main()
     player.nivel = 1;
     player.pocao = 1;
 
-    Menu(&player, &inimigo);
+    menu(&player, &inimigo);
 
   return 0;
 }
