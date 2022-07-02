@@ -1,4 +1,4 @@
-nome: Kratos
+nome: Sergio
 vida: 20
 nivel: 2
 ataque: 8
@@ -7,6 +7,6 @@ defesa: 5
 espada: 1
 pocoes: 1
 nomeinimigo: Inimigo
-vidainimigo: 15
-ataqueinimigo: 6
-defesainimigo: 2
+vidainimigo: 8
+ataqueinimigo: 5
+defesainimigo: 3

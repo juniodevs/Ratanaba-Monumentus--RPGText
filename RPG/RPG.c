@@ -274,12 +274,13 @@ void Menu(struct personagem *player, struct enemy *inimigo)
       {
         system("cls");
             // Mostrando menu
-            printf("\t\t\t======[MENU]======\n");
-            arrowHere(1, position); printf("NOVO JOGO\n");
-            arrowHere(2, position); printf("CARREGAR JOGO\n");
-            arrowHere(3, position); printf("CRÉDITOS\n");
-            arrowHere(4, position); printf("SAIR\n");
-            printf("\t\t\t==================\n");
+            printf("\t\t\t======[MENU]====== ^     ________\n");
+            arrowHere(1, position); printf("NOVO JOGO      | |   |        |\n"); 
+            arrowHere(2, position); printf("CARREGAR JOGO  | |   |        | \n");
+            arrowHere(3, position); printf("CRÉDITOS      | |   |        |\n");
+            arrowHere(4, position); printf("SAIR           | |    \\      /\n");
+            arrowHere(5, position); printf("             `--8--'   \\_  _/\n");
+            printf("\t\t\t================== 0        vv\n");
 
             keyPressed = getch();
             
