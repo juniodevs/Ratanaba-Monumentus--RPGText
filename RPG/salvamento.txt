@@ -1,4 +1,4 @@
-nome: Sergio
+nome: Saitama
 vida: 20
 nivel: 2
 ataque: 8
@@ -7,6 +7,6 @@ defesa: 5
 espada: 1
 pocoes: 1
 nomeinimigo: Inimigo
-vidainimigo: 8
-ataqueinimigo: 5
-defesainimigo: 3
+vidainimigo: 12
+ataqueinimigo: 7
+defesainimigo: 2
