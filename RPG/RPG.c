@@ -11,29 +11,13 @@ struct personagem {
     int pvjogador;
     int ataque;
     int ataquemagico;
+    int adagas;
     int defesa;
     int nivel;
     int espada;
     int gold;
     int pocao;
 }player; //STRUCT PARA CRIAÇÃO DE PERSONAGEM
-
-
-struct classesdebatalha{
-
-    int espada; //GUERREIRO
-    int magia; //MAGO
-    int machado; //BARBARO
-    int arco; //ARQUEIRO
-    int stand; //USUARIO DE STAND
-
-}classesdebatalha; //STRUCT PARA CLASSES DE BATALHA
-
-escolhadeclasse(struct personagem *player)
-{
-    printf("teste");
-
-}
 struct enemy {
     char name[18];
     int pv;
@@ -135,6 +119,8 @@ resetvida(struct personagem *player) {
     player->pvjogador = 20;
     player->ataque = 8;
     player->espada = 1;
+    player->defesa = 1;
+    player->pocao = 3;
 } //FUNÇÃO DE RESET DE VIDA/ATAQUE DE PERSONAGEM DEPOIS DE BATALHAS
 
 delay(int ms) {
@@ -272,7 +258,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
 void Dialogo(char text[], int seconds)
 {   
     int x; double y;
-    // DELAY EM MILISSEGUNDOS
+    // DELAY EM SEGUNDOS
     sleep(seconds);
     
         // PRINTAR O TEXTO DE FORMA LENTA
@@ -285,6 +271,11 @@ void Dialogo(char text[], int seconds)
         }
     
     // LIMPAR A TELA APOS O TEXTO UTILIZANDO O ENTER
+}
+
+novojogo(struct personagem *player, struct enemy *inimigo)
+{
+    nivel(player, inimigo);
 }
 
 void clear()
@@ -342,8 +333,6 @@ void localdaseta(int realPosition, int posicaoDaTecla)
     }
 }
 
-
-
 void menu(struct personagem *player, struct enemy *inimigo)
 {
     system("cls");
@@ -381,10 +370,8 @@ void menu(struct personagem *player, struct enemy *inimigo)
         case 1:
             system("cls");
             DialogocomClear("Um novo jogo esta sendo criado!\n", 0);
-            resetvida(player);
-            resetenemy(inimigo);
-            // nivel(player, inimigo);
-            batalha(player, inimigo);
+
+            novojogo(player, inimigo);
             break;
         case 2:
             system("cls");
@@ -487,16 +474,6 @@ int main()
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     setlocale(LC_ALL, "Portuguese");
     srand(time(NULL));
-    strcpy(inimigo.name, "Inimigo");
-    inimigo.pv = 10;
-    inimigo.ataque = 2;
-    inimigo.defesa = 2;
-    player.pvjogador = 20;
-    player.ataquemagico = 3;
-    player.defesa = 5;
-    player.nivel = 1;
-    player.pocao = 1;
-
     menu(&player, &inimigo);
 
   return 0;

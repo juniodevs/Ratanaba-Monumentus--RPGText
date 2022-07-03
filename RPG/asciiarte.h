@@ -11,10 +11,9 @@
 #include <windows.h>
 
 
-void cor(num)
+void cor(nums)
 {
-    int numero = num;
-
+    int numero = nums;
 
     switch (numero)
     {
@@ -48,8 +47,5 @@ cor(1); printf("                        /~)");cor(2);printf("               (~.\
 cor(1); printf("                        ~ ~");cor(2);printf("               ~ ~\n");
 cor(3);
 } //FIM ASCII INIMIGO
-
-
-
 
 #endif //SEMPRE NO FINAL DO ARQUIVO
