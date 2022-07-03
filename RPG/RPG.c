@@ -25,14 +25,6 @@ struct enemy {
     int defesa;
 }inimigo; //PRE DEFINIÇÃO DE INIMIGO
 
-// loja(struct personagem *player){
-//     printf("#########################");
-//     printf("Seja bem vindo a loja!#\n");
-//     printf("Voce tem %d gold#\n", player->gold);
-//     printf("Opcoes\n");
-//     printf("#1 - Aprimorar espada - 10c - o Aprimoramento aumenta sua espada em 1 de dano\n");
-// } //LOJA DE APRIMORAMENTO DE ITENS
-
 verificacaodemorte(struct personagem *player, struct enemy *enemy) {
     int coinsareceber = 0;
     if (player->pvjogador <= 0) {
@@ -343,7 +335,6 @@ void menu(struct personagem *player, struct enemy *inimigo)
     
       while (KeyDown != 13)
       {
-
         system("cls");
 
             // MOSTRAR O MENU
@@ -371,7 +362,7 @@ void menu(struct personagem *player, struct enemy *inimigo)
             system("cls");
             DialogocomClear("Um novo jogo esta sendo criado!\n", 0);
 
-            novojogo(player, inimigo);
+            menudeloja(player);
             break;
         case 2:
             system("cls");
@@ -390,6 +381,60 @@ void menu(struct personagem *player, struct enemy *inimigo)
             break;
     }
 }
+
+
+menudeloja(struct personagem *player){
+    system("cls");
+      int posicaodatecla = 1, KeyDown = 0;
+    
+      #define MAX 4
+      #define MIN 1
+
+      Dialogo("Seja Bem-vindo a loja!\n", 0);
+      Dialogo("Aqui voce pode aprimorar e comprar itens!\n", 0);
+      system("pause");
+      while (KeyDown != 13)
+      { 
+        system("cls");
+
+            // MOSTRAR O MENU DE LOJA
+            printf("\t\t\t      --------[LOJA]--------\n");
+            localdaseta(1, posicaodatecla); printf("APRIMORAR SUA ESPADA\n"); 
+            localdaseta(2, posicaodatecla); printf("COMPRAR CAPSULAS DE MAGIA\n");
+            localdaseta(3, posicaodatecla); printf("COMPRAR POCAO DE VIDA\n");
+            localdaseta(4, posicaodatecla); printf("SAIR\n");
+            localdaseta(5, posicaodatecla); printf("VOCE POSSUI %d CAPSULAS E %d POCOES\n", player->ataquemagico, player->pocao);
+            localdaseta(6, posicaodatecla); printf("VOCE TEM: %d COINS\n", player->gold);
+            printf("\t\t\t      ----------------------\n");
+
+            KeyDown = getch(); //RECEBER ENTER
+            
+            if (KeyDown == 80 && posicaodatecla != MAX) {
+            posicaodatecla++;
+            } else if (KeyDown == 72 && posicaodatecla != MIN) {
+            posicaodatecla--;
+            } else {
+            posicaodatecla = posicaodatecla;
+            }
+    }
+    
+    switch (posicaodatecla) {
+        case 1:
+            system("cls");
+            break;
+        case 2:
+            system("cls");
+            break;
+        case 3:
+            system("cls");
+            break;
+        case 4:
+            system("cls");
+            break;
+    }
+} //LOJA DE APRIMORAMENTO DE ITENS
+
+
 
 nivel(struct personagem *player, struct enemy *enemy) {
 switch (player->nivel)
