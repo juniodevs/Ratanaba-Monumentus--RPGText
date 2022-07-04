@@ -338,7 +338,7 @@ void menu(struct personagem *player, struct enemy *inimigo)
             printf("\t\t\t------[MENU]------     ^     ________\n");
             localdaseta(1, posicaodatecla); printf("NOVO JOGO          | |   |        |\n"); 
             localdaseta(2, posicaodatecla); printf("CARREGAR JOGO      | |   |        | \n");
-            localdaseta(3, posicaodatecla); printf("CRÉDITOS          | |   |        |\n");
+            localdaseta(3, posicaodatecla); printf("CRÉDITOS           | |   |        |\n");
             localdaseta(4, posicaodatecla); printf("SAIR               | |    \\      /\n");
             localdaseta(5, posicaodatecla); printf("                 `--8--'   \\_  _/\n");
             printf("\t\t\t------------------     0        vv\n");
@@ -465,7 +465,7 @@ case 2:
     delay(500);
     cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Não sejam tolos! Não acham que eu não os teria convocado a essa sala se nao\ntivesse um motivo plausível?\n", 0);
     delay(500);
-    cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("É como o Rei disse seus idiotas, vocês insistem nessa arrogância desnecessária!", 0);
+    cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("É como o Rei disse seus idiotas, vocês insistem nessa arrogância desnecessária!\n", 0);
     delay(500);
     cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Calado Speed! Todos sabem que você só tem toda essa cortesia ao Rei por ter\nsegundas intenções. \n", 0);
     cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Como ousa seu insolente? Quer arranjar briga comigo?\n",0);
@@ -543,9 +543,7 @@ case 2:
     delay(500);
     cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Deixe-me acompanhar o garoto majestade. Ele me chamou atenção, acredito\nque deve ser um ótimo guerreiro em batalha.\n",0);
     delay(500);
-    cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("O que acha dessa decisão\n",0); printf("%s?", player->name);
-    delay(500);
-    printf("%s\n\n", player->name);
+    cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("O que acha dessa decisão\n",0); printf("%s?\n", player->name);
     delay(500);
     Dialogo("1 - Por mim tudo bem majestade, ele me parece um bom guerreiro.\n",0);
     Dialogo("2 - Se ele não me atrapalhar tudo bem.\n", 0);
@@ -576,8 +574,113 @@ case 2:
     system("pause");
     system("cls");
 
+    cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Então que fique decidido dessa forma.",0);
+    cor(2);Dialogo("Gyro ", 0); cor(3); printf("e ");cor(9);Dialogo("Brando ", 0); cor(3); Dialogo("vocês irão juntos.\n Assim sobrando",0);
+    cor(1);Dialogo("Howard ", 0); cor(3); printf("e ");cor(4);Dialogo("Sheldon ", 0);cor(3); Dialogo("como sendo a outra dupla\n",0);
+    delay(500);
+    cor(4);Dialogo("Sheldon ", 0); cor(3);Dialogo("Aceitamos de bom grado sua decisão, mas por qual motivo devemos sair nessa\nmissão majestade?\n", 0);
+    delay(500);
+    cor(2);Dialogo("Gyro ", 0); cor(3);Dialogo("Também gostaria de saber o motivo de tanta pressa nessa jornada.\n", 0);
+    delay(500);
+    cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Eu já iria chegar nesse assunto. Vejam, como todos sabem, nosso reino tem passado\npor momentos complicados referente às condições básicas de nossos cidadãos, como a\nfome e a falta de moradia. Além de estarmos constantemente entrando em guerra\ncom outros reinos. Com o passar dos anos, a falta de recursos acabou sendo o principal motivo\ndesses acontecimentos.\n",0);
+    delay(2000);
 
-    
+    printf("\n%s\n\n", player->name);
+    delay(500);
+    Dialogo("1 - Nossa, quem poderia imaginar que essa lenda é real no final de contas\n",0);
+    Dialogo("2 - Espero que esses caras não me atrapalhem nessa jornada\n", 0);
+    Dialogo("3 - Estou ansioso para me aventurar nesse lugar desconhecido\n",0);
+    Dialogo("4 - Contando que não entrem no meu caminho, ajudarei de bom grado o reino.\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+
+    if (escolhas == 1 || escolhas == 3)
+    {
+        cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Admiro sua empolgação meu guerreiro!\n",0);
+        delay(500);
+        player->amizade++;
+    }
+    else if (escolhas == 2 || escolhas == 4)
+    {
+        cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Deixe seu orgulho de lado e foque no objetivo meu jovem\n",0);
+        delay(500);
+        player->amizade--;
+    }
+    else
+    {
+        cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Admiro sua empolgação meu guerreiro!\n",0);
+        delay(500);
+        player->amizade++;
+    }
+
+    cor(9);Dialogo("Brando ", 0); cor(3);Dialogo("Acho que uma aventura desse nível está à altura de um herói como eu!\n",0);
+    delay(500);
+
+    cor(1);Dialogo("Howard ", 0); cor(3);Dialogo("Farei o que tiver ao meu alcance meu Rei.\n",0);
+    delay(500);
+
+    cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Então estão todos de acordo em partir em viagem rumo ao leste?\n",0);
+
+    cor(2);Dialogo("Gyro ", 0); cor(3);Dialogo("Sim meu Rei!\n",0);
+    delay(20);
+    cor(1);Dialogo("Howard ", 0); cor(3);Dialogo("Sim, meu Rei!\n",0);
+    delay(20);
+    cor(4);Dialogo("Sheldon ", 0); cor(3);Dialogo("Sim, meu Rei!\n",0);
+    delay(20);
+    cor(9);Dialogo("Brando ", 0); cor(3);Dialogo("Sim, meu Rei!\n",0);
+    delay(20);
+    cor(5);Dialogo("Speed ", 0); cor(3);Dialogo("Sim, meu Rei!\n",0);
+    delay(20);
+    printf("%s ", player->name);Dialogo("Sim, meu Rei!\n",0);
+    delay(2000);
+
+    cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Antes gostaria de orientá-los quanto aos inimigos que encontrarão nessas terras\n",0);
+    Dialogo("inexploradas do leste. Acredita-se que lá habitam criaturas mágicas de outro mundo, e que\n\n",0);
+    Dialogo("para derrotá-las será preciso imbuir suas armas com encantamentos rúnicos de um ferreiro\n",0);
+    Dialogo("mágico. Por sorte, temos o ancião",0); cor(10); Dialogo(" Cultrapali, ", 0); cor(3); Dialogo("conhecedor das artes\n",0);
+    Dialogo("mágicas da forja de armas. Então vocês deverão primeiramente se dirigir aos\n",0);
+    Dialogo("seus aposentos às minhas ordens e adquirir um encantamento mágico em suas armas. Eu\n",0);
+    Dialogo("pessoalmente deixei o senhor",0); cor(10); Dialogo(" Cultrapali, ", 0); cor(3); Dialogo("encarregado de passar as informações do mapa de\n",0);
+    Dialogo("rotas até o palácio translúcido.\n",0);
+    delay(7000);
+
+    system("pause");
+    delay(20);
+    system("cls");
+
+    Dialogo("Narrador: ", 0); cor(3); Dialogo("Então, os 6 guerreiros se dirigiram ao local onde vivia o ancião que o Rei\nhavia mencionado. Ao baterem na porta do casebre de madeira rústico do senhor,\npara a surpresa de todos, o velho foi bem hospitaleiro com os empolgados\naventureiros. Lá foram realizadas as melhorias nas armas de todos lá presentes.\n",0);cor(10); Dialogo(" Cultrapali ", 0); cor(3); Dialogo("foi direto ao prover todo o suporte para as rotas até o tão almejado\nobjetivo, porém, alertou a todos sobre os perigos que viriam a seguir.\n\n", 0);
+    delay(500);
+    cor(10); Dialogo("Cultrapali: ", 0); cor(3); Dialogo("Meus jovens, é preciso muita coragem para adentrar tanto aquelas terras do leste.\nDevo avisá-los que diversos perigos esperam vocês, e que precisam ir dispostos a\ndarem suas vidas em nome do reino.\n", 0);
+    delay(500);
+    cor(9); Dialogo("Brando ", 0); cor(3); Dialogo("Tá de brincadeira né cara? Será preciso só força bruta para pegarmos o tesouro\ne sairmos vivos de lá.\n",0);
+    delay(500);
+    cor(4); Dialogo("Sheldon ", 0); cor(3); Dialogo("Não seja tão arrogante",0);cor(9); Dialogo("Brando ", 0); cor(3); Dialogo("não vai ser com perigos comuns que\nvamos lidar nessa jornada.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Verdade, devemos ir com cautela nessa viagem para preservar a segurança da\nnossa equipe.\n",0);
+    Dialogo("2 - ",0); cor(9); Dialogo("Brando ",0); cor(3);Dialogo("tem razão, se formos com tudo iremos conseguir\n",0);  
+    Dialogo("3 - Todo cuidado é pouco quando se está lidando com o desconhecido, nenhum de nós\npode colocar a vida em risco atoa.\n",0);
+    Dialogo("4 - Só precisamos colocar nossas forças individuais nisso tudo para conseguir o objetivo.\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    if (escolhas == 1 || escolhas == 3)
+    {
+        cor(5);Dialogo("Speed ", 0); cor(3);Dialogo("Admiro sua preocupação com nossa equipe\n",0);
+        delay(500);
+        player->amizade++;
+    }
+    else if (escolhas == 2 || escolhas == 4)
+    {
+        cor(5);Dialogo("Speed ", 0); cor(3);Dialogo("Sua falta de preocupação pode nos colocar em risco nisso tudo\n",0);
+        delay(500);
+        player->amizade--;
+    }
+    else
+    {
+        cor(5);Dialogo("Speed ", 0); cor(3);Dialogo("Admiro sua preocupação com nossa equipe\n",0);
+        delay(500);
+        player->amizade++;
+    }
+    cor(1);Dialogo("Howard: ", 0); cor(3); Dialogo("Espero que tudo ocorra bem, e nada aconteça com nenhum de nós.\n",0);
     player->nivel = 3;
     salvarjogo(player, enemy);
     resetenemy(enemy);

@@ -7,6 +7,6 @@ defesa: 1
 espada: 1
 pocoes: 3
 nomeinimigo: 
-vidainimigo: 10
-ataqueinimigo: 6
-defesainimigo: 2
+vidainimigo: 8
+ataqueinimigo: 7
+defesainimigo: 3
