@@ -15,3 +15,9 @@ BATALHA | 80% DESENVOLVIMENTO
 ## Imagens do Projeto
 
 EM BREVE
+
+## Quem já contribuiu:
+
+<a href="https://github.com/juniodevs/Ratanaba-Monumentus--RPGText/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=juniodevs/Ratanaba-Monumentus--RPGText" />
+</a>
