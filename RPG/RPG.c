@@ -8,6 +8,7 @@
 
 struct personagem {
     char name[18];
+    int amizade;
     int pvjogador;
     int ataque;
     int ataquemagico;
@@ -113,6 +114,7 @@ resetvida(struct personagem *player) {
     player->espada = 1;
     player->defesa = 1;
     player->pocao = 3;
+    player->amizade = 0;
 } //FUNÇÃO DE RESET DE VIDA/ATAQUE DE PERSONAGEM DEPOIS DE BATALHAS
 
 delay(int ms) {
@@ -265,11 +267,6 @@ void Dialogo(char text[], int seconds)
     // LIMPAR A TELA APOS O TEXTO UTILIZANDO O ENTER
 }
 
-novojogo(struct personagem *player, struct enemy *inimigo)
-{
-    nivel(player, inimigo);
-}
-
 void clear()
 {
     printf("\n\n[Pressione Enter para continuar]");
@@ -361,8 +358,8 @@ void menu(struct personagem *player, struct enemy *inimigo)
         case 1:
             system("cls");
             DialogocomClear("Um novo jogo esta sendo criado!\n", 0);
-
-            menudeloja(player);
+            resetvida(player);
+            nivel(player, inimigo);
             break;
         case 2:
             system("cls");
@@ -437,6 +434,7 @@ menudeloja(struct personagem *player){
 
 
 nivel(struct personagem *player, struct enemy *enemy) {
+    int escolhas = 0;
 switch (player->nivel)
 {
 case 1:
@@ -447,9 +445,6 @@ case 1:
     
     system("cls");
     Dialogo("Bem-vindo", 0); printf(" %s\n", player->name);
-    delay(2000);
-    Dialogo("Antes e comecar irei lhe dar alguns itens\nVoce recebeu uma espada.\nVoce recebeu 20 pontos de vida e 9 pontos de ataque com espada e 5 pontos de defesa.", 0);
-    delay(2000);
     clear();
 
     player->nivel = 2;
@@ -461,6 +456,127 @@ case 1:
 
 case 2:
     resetvida(player);
+
+    Dialogo("Narrador: O Rei convoca a presenca de ", 0); printf("%s", player->name); Dialogo(" e mais 5 guerreiros para a\nsala central do palacio dourado de Ratanaba. Os guerreiros de imediato se\napresentam ao rei e buscam entender para o que haviam sido chamados.\n", 0);
+    delay(1000);
+    cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Majestade, se me permite a pergunta, por que é necessária a presença de tantos\nguerreiros para tal missão?\n", 0);
+    delay(500);
+    cor(9);Dialogo("Brando: ", 0); cor(3);Dialogo("Também acho desnecessário tantas pessoas aqui, eu mesmo poderia resolver\ntudo isso sozinho.\n", 0);
+    delay(500);
+    cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Não sejam tolos! Não acham que eu não os teria convocado a essa sala se nao\ntivesse um motivo plausível?\n", 0);
+    delay(500);
+    cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("É como o Rei disse seus idiotas, vocês insistem nessa arrogância desnecessária!", 0);
+    delay(500);
+    cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Calado Speed! Todos sabem que você só tem toda essa cortesia ao Rei por ter\nsegundas intenções. \n", 0);
+    cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Como ousa seu insolente? Quer arranjar briga comigo?\n",0);
+    delay(500);
+    cor(1);Dialogo("Howard: ", 0); cor(3);Dialogo("Cara, esses idiotas só dão problema.\n\n", 0);
+    delay(500);
+    system("pause");
+    system("cls");
+    cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("CALADOS!! Eu os convoquei hoje pois são os guerreiros mais competentes de todo o\nreino. Essa missão pode determinar o futuro de todos de nossa nação.\n",0);
+    delay(500);
+    cor(9);Dialogo("Brando: ", 0); cor(3);Dialogo("E quem é esse ", 0); printf("%s ", player->name); Dialogo("Nunca o vi e ele ainda não deu uma palavra\ndesde que chegamos ao salão do Rei. \n", 0);
+    delay(500); cor(3);
+    printf("%s\n\n", player->name);
+    delay(500);
+    Dialogo("1 - Não sou familiarizado com a presença de tantos outros guerreiros renomados, perdão.\n",0);
+    Dialogo("2 - Vim somente para ouvir as instruções do Rei, vocês não representam nada para mim.\n", 0);
+    Dialogo("3 - Me desculpe pela grosseria, sou um guerreiro novo nas terras do Rei\n",0);
+    Dialogo("4 - Não é da sua conta, Seu insolente!\n", 0);
+    Dialogo("Escolha: ", 0);
+    scanf("%d", &escolhas);
+    if (escolhas == 1 || escolhas==3)
+    {
+        cor(9);Dialogo("Brando: ", 0); cor(3);Dialogo("Me chamo Brando. Não o conheço mas acredito que você vá ser de grande ajuda nessa missão.\n",0);
+        delay(500);
+        player->amizade++;
+    }
+    else if (escolhas == 2 || escolhas == 4)
+    {
+        cor(9);Dialogo("Brando: ", 0); cor(3);Dialogo("Quanta arrogância! Não acredito que o Rei convocou um guerreiro tão petulante.\n",0);
+        delay(500);
+        player->amizade--;
+    }
+    else
+    {
+        cor(9);Dialogo("Brando: ", 0); cor(3);Dialogo("Me chamo Brando. Não o conheço mas acredito que você vá ser de grande ajuda nessa missão.\n",0);
+        delay(500);
+        player->amizade++;
+    }
+
+    Dialogo("Narrador: Gyro interrompe a conversa com uma pergunta a ", 0); printf("%s\n", player->name);
+    delay(1000);
+    cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Você ao menos será de ajuda nessa missão garoto?\n", 0);
+    delay(500);cor(3);
+    printf("%s\n\n", player->name);
+    delay(500);
+    Dialogo("1 - Darei o meu máximo para ajudar a todos.\n",0);
+    Dialogo("2 - Tá brincando? Eu sou o guerreiro mais forte das terras de Ratanabá!\n", 0);
+    Dialogo("3 - Se preciso for, darei a minha vida pelo reino!\n",0);
+    Dialogo("4 - Farei o que tiver ao meu alcance para ajudá-los.\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+
+
+    if (escolhas == 1 || escolhas == 3)
+    {
+        cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Vejo que é um guerreiro respeitoso, aprecio pessoas assim\n", 0);
+        delay(500);
+        player->amizade++;
+    }
+    else if (escolhas == 2)
+    {
+        cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Vejo que é um guerreiro respeitoso, aprecio pessoas assim\n", 0);
+        delay(500);
+        player->amizade--;
+    }
+    else
+    {
+        cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Vejo que é um guerreiro respeitoso, aprecio pessoas assim\n", 0);
+        delay(500);
+        player->amizade++;
+    }
+    delay(500);
+    cor(1);Dialogo("Howard: ", 0); cor(3);Dialogo("Bom, se foi escolha do Rei que ele estivesse aqui, então pra mim tudo bem.\n", 0);
+    delay(500);
+    cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Poupem essas apresentações, não temos tanto tempo. Primeiramente gostaria de\ndividi-los em duplas para que essa tarefa seja mais fácil de ser concluída.\n",0);
+    delay(500);
+    cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Deixe-me acompanhar o garoto majestade. Ele me chamou atenção, acredito\nque deve ser um ótimo guerreiro em batalha.\n",0);
+    delay(500);
+    cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("O que acha dessa decisão\n",0); printf("%s?", player->name);
+    delay(500);
+    printf("%s\n\n", player->name);
+    delay(500);
+    Dialogo("1 - Por mim tudo bem majestade, ele me parece um bom guerreiro.\n",0);
+    Dialogo("2 - Se ele não me atrapalhar tudo bem.\n", 0);
+    Dialogo("3 - Eu acho que ele vai ser de grande ajuda nessa missão!\n",0);
+    Dialogo("4 - Acho que esse cara não é tão forte, mas tudo bem ele ir comigo.\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+
+    if (escolhas == 1 || escolhas == 3)
+    {
+        cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Que bom que está de acordo em seguir viagem comigo\n", 0);
+        delay(500);
+        player->amizade++;
+    }
+    else if (escolhas == 2 || escolhas == 4)
+    {
+        cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Quanta prepotência garoto, vejo que será um tanto\ncomplicado trabalhar com você \n", 0);
+        delay(500);
+        player->amizade--;
+    }
+    else
+    {
+        cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Que bom que está de acordo em seguir viagem comigo\n", 0);
+        delay(500);
+        player->amizade++;
+    }
+    delay(500);
+
+    system("pause");
+    system("cls");
+
+
     
     player->nivel = 3;
     salvarjogo(player, enemy);
@@ -468,58 +584,27 @@ case 2:
     system("cls");
     nivel(player, enemy);
     break;
-
-    case 3:
-    resetvida(player);
-
-
-
-    system("pause");
-    player->nivel = 4;
-    salvarjogo(player, enemy);
-    resetenemy(enemy);
-    system("cls");
-    nivel(player, enemy);
-    break;
-
-    case 4:
-    resetvida(player);
-
-    player->nivel = 5;
-    salvarjogo(player, enemy);
-    resetenemy(enemy);
-    system("cls");
-    nivel(player, enemy);
-    break;
-
-    case 5:
-
-    resetvida(&player);
-    resetenemy(&enemy);
-
-    // batalha(player, enemy);
-
-    player->nivel = 6;
-    resetvida(&player);
-    resetenemy(enemy);
-    salvarjogo(player, enemy);
-    nivel(player, enemy);
-    break;
-
-    case 6:
-    printf("### CONTINUACAO ###\n\n");
-    
-    system("pause");
-    break;
 }
 }
 
 int main()
 {   
+    UINT CPAGE_UTF8 = 65001;
+    UINT CPAGE_DEFAULT = GetConsoleOutputCP();
+    SetConsoleOutputCP(CPAGE_UTF8);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-    setlocale(LC_ALL, "Portuguese");
     srand(time(NULL));
+    player.adagas = 5;
+    player.ataquemagico = 3;
+    player.ataque = 0;
+    player.defesa = 0;
+    player.gold = 0;
+    player.nivel = 1;
+    player.pocao = 0;
+    player.pvjogador = 0;
+
     menu(&player, &inimigo);
 
+    SetConsoleOutputCP(CPAGE_DEFAULT);
   return 0;
 }

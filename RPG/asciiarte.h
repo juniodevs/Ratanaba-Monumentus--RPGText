@@ -20,21 +20,52 @@ void cor(nums)
     case 1: //vermelho
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
         break;
-
     case 2: //azul
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
         break;
     case 3: //branco
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         break;
+    case 4: //verde
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
+        break;
+    case 5: //amarelo
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+        break;
+    case 6: //cinza
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+        break;
+    case 7: //preto
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0);
+        break;
+    case 8: //rosa
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 13);
+        break;
+    case 9: //ciano
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
+        break;
+    case 10: //roxo
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 5);
+        break;
+    case 11: //marrom
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
+        break;
     default: //default
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         break;
+
     }
 
     // cor(1); //vermelho
     // cor(2); //azul
     // cor(3); //branco
+}
+
+void piscartela()
+{
+    system("color 7");
+    delay(100);
+    system("color 0");
 }
 
 
