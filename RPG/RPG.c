@@ -370,7 +370,7 @@ void menu(struct personagem *player, struct enemy *inimigo)
         case 3:
             system("cls");
             DialogocomClear("Obrigado por jogar!", 0);
-            DialogocomClear("Historia por: Julio Cesar \nVisual: Sergio Mota \nProgramacao: Junior Veras", 0);
+            DialogocomClear("História por: Julio Cesar \nVisual: Sergio Mota \nProgramacao: Junior Veras", 0);
             menu(player, inimigo);
             break;
         case 4:
@@ -388,7 +388,7 @@ menudeloja(struct personagem *player){
       #define MIN 1
 
       Dialogo("Seja Bem-vindo a loja!\n", 0);
-      Dialogo("Aqui voce pode aprimorar e comprar itens!\n", 0);
+      Dialogo("Aqui você pode aprimorar e comprar itens!\n", 0);
       system("pause");
       while (KeyDown != 13)
       { 
@@ -439,7 +439,7 @@ switch (player->nivel)
 {
 case 1:
     resetvida(player);
-    Dialogo("Provavelmente e a primeira vez que voce coloca seus pes nessas terras distantes.\n\n", 0);
+    Dialogo("Provavelmente é a primeira vez que você coloca seus pés nessas terras distantes.\n\n", 0);
     Dialogo("Como podemos lhe chamar?\n", 0);
     scanf("%s", player->name);
     
@@ -457,7 +457,7 @@ case 1:
 case 2:
     resetvida(player);
 
-    Dialogo("Narrador: O Rei convoca a presenca de ", 0); printf("%s", player->name); Dialogo(" e mais 5 guerreiros para a\nsala central do palacio dourado de Ratanaba. Os guerreiros de imediato se\napresentam ao rei e buscam entender para o que haviam sido chamados.\n", 0);
+    Dialogo("Narrador: O Rei convoca a presença de ", 0); printf("%s", player->name); Dialogo(" e mais 5 guerreiros para a\nsala central do palacio dourado de Ratanabá. Os guerreiros de imediato se\napresentam ao rei e buscam entender para o que haviam sido chamados.\n", 0);
     delay(1000);
     cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Majestade, se me permite a pergunta, por que é necessária a presença de tantos\nguerreiros para tal missão?\n", 0);
     delay(500);
