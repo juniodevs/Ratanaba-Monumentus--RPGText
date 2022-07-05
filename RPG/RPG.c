@@ -267,6 +267,7 @@ void clear()
     {
         enter = getchar();
     }
+    delay(500);
     system("cls");
 }
 
@@ -465,12 +466,27 @@ menudeloja(struct personagem *player){
     switch (posicaodatecla) {
         case 1:
             system("cls");
+            Dialogo("Aprimorando sua espada!\n", 0);
+            DialogocomClear("Sua espada ganhou 1 ponto de bônus!\n", 0);
+            player->ataque += 1;
+            delay(1000);
+            menudeloja(player);
             break;
         case 2:
             system("cls");
+            Dialogo("Comprando capsulas de magia!\n", 0);
+            DialogocomClear("Você comprou uma capsula de magia!\n", 0);
+            player->ataquemagico += 1;
+            delay(1000);
+            menudeloja(player);
             break;
         case 3:
             system("cls");
+            Dialogo("Comprando pocao de vida!\n", 0);
+            DialogocomClear("Você comprou uma pocao de vida!\n", 0);
+            player->pocao += 1;
+            delay(1000);
+            menudeloja(player);
             break;
         case 4:
             system("cls");
@@ -490,6 +506,7 @@ case 1:
     Dialogo("Provavelmente é a primeira vez que você coloca seus pés nessas terras distantes.\n\n", 0);
     Dialogo("Como podemos lhe chamar?\n", 0);
     scanf("%s", player->name);
+    delay(500);
     
     system("cls");
     Dialogo("Bem-vindo", 0); printf(" %s\n", player->name);
@@ -520,8 +537,7 @@ case 2:
     delay(500);
     cor(1);Dialogo("Howard: ", 0); cor(3);Dialogo("Cara, esses idiotas só dão problema.\n\n", 0);
     delay(500);
-    system("pause");
-    system("cls");
+    clear();
     cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("CALADOS!! Eu os convoquei hoje pois são os guerreiros mais competentes de todo o\nreino. Essa missão pode determinar o futuro de todos de nossa nação.\n",0);
     delay(500);
     cor(9);Dialogo("Brando: ", 0); cor(3);Dialogo("E quem é esse ", 0); printf("%s ", player->name); Dialogo("Nunca o vi e ele ainda não deu uma palavra\ndesde que chegamos ao salão do Rei. \n", 0);
@@ -619,8 +635,7 @@ case 2:
     }
     delay(500);
 
-    system("pause");
-    system("cls");
+    clear();
 
     cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Então que fique decidido dessa forma.",0);
     cor(2);Dialogo("Gyro ", 0); cor(3); printf("e ");cor(9);Dialogo("Brando ", 0); cor(3); Dialogo("vocês irão juntos.\n Assim sobrando",0);
@@ -691,9 +706,7 @@ case 2:
     Dialogo("rotas até o palácio translúcido.\n",0);
     delay(7000);
 
-    system("pause");
-    delay(20);
-    system("cls");
+    clear();
 
     Dialogo("Narrador: ", 0); cor(3); Dialogo("Então, os 6 guerreiros se dirigiram ao local onde vivia o ancião que o Rei\nhavia mencionado. Ao baterem na porta do casebre de madeira rústico do senhor,\npara a surpresa de todos, o velho foi bem hospitaleiro com os empolgados\naventureiros. Lá foram realizadas as melhorias nas armas de todos lá presentes.\n",0);cor(10); Dialogo(" Cultrapali ", 0); cor(3); Dialogo("foi direto ao prover todo o suporte para as rotas até o tão almejado\nobjetivo, porém, alertou a todos sobre os perigos que viriam a seguir.\n\n", 0);
     delay(500);
