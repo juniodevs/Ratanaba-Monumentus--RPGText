@@ -259,7 +259,7 @@ void Dialogo(char text[], int seconds)
         for(x=0; text[x]!=NULL; x++)
         {
         printf("%c",text[x]);
-        for(y=0; y<=8888888; y++)
+        for(y=0; y<=4; y++)
         {
         }
         }
