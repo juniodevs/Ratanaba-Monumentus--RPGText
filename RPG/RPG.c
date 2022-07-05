@@ -58,9 +58,8 @@ regeneracao(struct personagem *player){
     else
     {
         player->pvjogador = 20;
-        printf("#########################\n");
-        printf("#Voce regenerou seu pv#\n");
-        printf("#########################");
+        pocao();
+        printf("\n");
         player->pocao--;
     }
 } //FUNÇÃO DE REGENERAÇÃO DE PV (PERSONAGEM)
@@ -160,16 +159,6 @@ receberataque(struct personagem *player, struct enemy *enemy) {
     }
 } //FUNÇÃO DE RECEBER ATAQUE
 
-void localdaseta2(int realPosition, int posicaoDaTecla2)
-{
-    if (realPosition == posicaoDaTecla2) {
-        printf("\t\t\t => ");
-    }
-    else {
-        printf("\t\t\t   ");
-    }
-}
-
 batalha(struct personagem *player, struct enemy *inimigo){
 
     int posicaodatecla2 = 1, KeyDown2 = 0;
@@ -192,10 +181,10 @@ batalha(struct personagem *player, struct enemy *inimigo){
             printf("                         O inimigo tem %d pv\n", inimigo->pv);
             printf("                         ==================\n");
             printf("\t\t\t-[MENU DE BATALHA]-\n");
-            localdaseta2(1, posicaodatecla2); printf(" * - Ataque corporal\n"); 
-            localdaseta2(2, posicaodatecla2); printf(" * - Ataque magico\n");
-            localdaseta2(3, posicaodatecla2); printf(" * - Beber pocao de vida\n");
-            localdaseta2(4, posicaodatecla2); printf("-AINDAPORVIR-\n");
+            localdaseta(1, posicaodatecla2); printf("* - Ataque corporal\n"); 
+            localdaseta(2, posicaodatecla2); printf("* - Ataque magico\n");
+            localdaseta(3, posicaodatecla2); printf("* - Beber pocao de vida\n");
+            localdaseta(4, posicaodatecla2); printf("-AINDAPORVIR-\n");
             printf("\t\t\t------------------\n");
 
             ASCIIinimigo();

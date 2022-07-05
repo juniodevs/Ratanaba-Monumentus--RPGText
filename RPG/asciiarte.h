@@ -81,12 +81,14 @@ cor(3);
 
 void pocao() //TEMPLATE PARA POÇÃO
 {
-        printf("     |-|");
-        printf("     | |   ");
-        printf("   __| |__  Você regenerou");
-        printf("  :       :    sua vida!");
-cor(1); printf("  :#######:");    
-cor(1); printf("  ;#######;");
+cor(1);
+printf("     |-|\n");
+printf("     | |   \n");
+printf("   __| |__  Você regenerou\n");
+printf("  :       :    sua vida!\n");
+printf("  :#######:\n");    
+printf("  ;#######;\n");
+cor(3);
 
 } //FIM ASCII INIMIGO
 

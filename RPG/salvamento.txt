@@ -1,12 +1,12 @@
-nome: sejux
-vida: 20
-nivel: 3
-ataque: 8
-coins: 0
+nome: 
+vida: 14
+nivel: 2
+ataque: 12
+coins: 18
 defesa: 1
-espada: 1
+espada: 2
 pocoes: 3
 nomeinimigo: 
-vidainimigo: 12
-ataqueinimigo: 4
+vidainimigo: -8
+ataqueinimigo: 7
 defesainimigo: 3
