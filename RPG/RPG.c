@@ -192,9 +192,9 @@ batalha(struct personagem *player, struct enemy *inimigo){
             printf("                         O inimigo tem %d pv\n", inimigo->pv);
             printf("                         ==================\n");
             printf("\t\t\t-[MENU DE BATALHA]-\n");
-            localdaseta2(1, posicaodatecla2); printf("* - Ataque corporal\n"); 
-            localdaseta2(2, posicaodatecla2); printf("* - Ataque magico\n");
-            localdaseta2(3, posicaodatecla2); printf("* - Beber pocao de vida\n");
+            localdaseta2(1, posicaodatecla2); printf(" * - Ataque corporal\n"); 
+            localdaseta2(2, posicaodatecla2); printf(" * - Ataque magico\n");
+            localdaseta2(3, posicaodatecla2); printf(" * - Beber pocao de vida\n");
             localdaseta2(4, posicaodatecla2); printf("-AINDAPORVIR-\n");
             printf("\t\t\t------------------\n");
 
@@ -322,12 +322,65 @@ void localdaseta(int realPosition, int posicaoDaTecla)
     }
 }
 
+void debugmode(struct personagem *player, struct enemy *inimigo)
+{
+    system("cls");
+      int posicaodatecla4 = 1, KeyDown4 = 0;
+    
+      #define MAX 4
+      #define MIN 1
+    
+      while (KeyDown4 != 13)
+      {
+        system("cls");
+
+            // MOSTRAR O MENU
+            printf("\t\t\t-----[DEBUG]-----\n");
+            localdaseta(1, posicaodatecla4); printf("TESTAR BATALHA\n"); 
+            localdaseta(2, posicaodatecla4); printf("TESTAR LOJA\n");
+            localdaseta(3, posicaodatecla4); printf("RECEBER 100 COINS\n");
+            localdaseta(4, posicaodatecla4); printf("SAIR\n");
+            printf("\t\t\t------------------\n");
+
+            KeyDown4 = getch(); //RECEBER ENTER
+            
+            if (KeyDown4 == 80 && posicaodatecla4 != MAX) {
+            posicaodatecla4++;
+            } else if (KeyDown4 == 72 && posicaodatecla4 != MIN) {
+            posicaodatecla4--;
+            } else {
+            posicaodatecla4 = posicaodatecla4;
+            }
+    }
+    
+    switch (posicaodatecla4) {
+        case 1:
+            system("cls");
+            resetenemy(inimigo);
+            resetvida(player);
+            batalha(player, inimigo);
+            break;
+        case 2:
+            system("cls");
+            menudeloja(player);
+            break;
+        case 3:
+            system("cls");
+            player->gold += 100;
+            debugmode(player, inimigo);
+            break;
+        case 4:
+            system("cls");
+            break;
+    }
+}
+
 void menu(struct personagem *player, struct enemy *inimigo)
 {
     system("cls");
       int posicaodatecla = 1, KeyDown = 0;
     
-      #define MAX 4
+      #define MAX 5
       #define MIN 1
     
       while (KeyDown != 13)
@@ -340,7 +393,7 @@ void menu(struct personagem *player, struct enemy *inimigo)
             localdaseta(2, posicaodatecla); printf("CARREGAR JOGO      | |   |        | \n");
             localdaseta(3, posicaodatecla); printf("CRÉDITOS           | |   |        |\n");
             localdaseta(4, posicaodatecla); printf("SAIR               | |    \\      /\n");
-            localdaseta(5, posicaodatecla); printf("                 `--8--'   \\_  _/\n");
+            localdaseta(5, posicaodatecla); printf("DEBUG            `--8--'   \\_  _/\n");
             printf("\t\t\t------------------     0        vv\n");
 
             KeyDown = getch(); //RECEBER ENTER
@@ -370,11 +423,16 @@ void menu(struct personagem *player, struct enemy *inimigo)
         case 3:
             system("cls");
             DialogocomClear("Obrigado por jogar!", 0);
-            DialogocomClear("História por: Julio Cesar \nVisual: Sergio Mota \nProgramacao: Junior Veras", 0);
+            DialogocomClear("História por: Julio Cesar \nVisual: Sergio Mota \nProgramacao: Júnior Veras", 0);
             menu(player, inimigo);
             break;
         case 4:
             system("cls");
+            break;
+        case 5:
+            system("cls");
+            DialogocomClear("Debug Mode", 0);
+            debugmode(player, inimigo);
             break;
     }
 }
@@ -430,6 +488,7 @@ menudeloja(struct personagem *player){
             break;
     }
 } //LOJA DE APRIMORAMENTO DE ITENS
+
 
 
 
