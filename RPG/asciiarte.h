@@ -79,4 +79,15 @@ cor(1); printf("                        ~ ~");cor(2);printf("               ~ ~\
 cor(3);
 } //FIM ASCII INIMIGO
 
+void pocao() //TEMPLATE PARA POÇÃO
+{
+        printf("     |-|");
+        printf("     | |   ");
+        printf("   __| |__  Você regenerou");
+        printf("  :       :    sua vida!");
+cor(1); printf("  :#######:");    
+cor(1); printf("  ;#######;");
+
+} //FIM ASCII INIMIGO
+
 #endif //SEMPRE NO FINAL DO ARQUIVO

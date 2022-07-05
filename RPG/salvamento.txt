@@ -1,12 +1,12 @@
-nome: Kratos
+nome: sejux
 vida: 20
-nivel: 2
+nivel: 3
 ataque: 8
 coins: 0
 defesa: 1
 espada: 1
 pocoes: 3
 nomeinimigo: 
-vidainimigo: 0
-ataqueinimigo: 0
-defesainimigo: 0
+vidainimigo: 12
+ataqueinimigo: 4
+defesainimigo: 3
