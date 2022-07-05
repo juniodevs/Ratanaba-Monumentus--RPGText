@@ -123,21 +123,39 @@ delay(int ms) {
 
 atacar(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
-    player->espada = 1 + (rand()%2);
-    player->ataque = 5+(rand()%10);
+    player->ataque = 6 + (rand()%5);
     dano = (player->espada + player->ataque) - enemy->defesa;
     enemy->pv = enemy->pv - dano;
-    printf("\n%s", player->name); Dialogo("atacou", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);
-    delay(5000);
+
+    if(dano > 0)
+    {
+        dano = 0;
+        printf("\n%s ", enemy->name); Dialogo(" defendeu", 0); printf(" %d ", dano); Dialogo("de dano", 0);
+    }
+    else
+    {
+        printf("\n%s ", player->name); Dialogo("atacou", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);
+        enemy->pv = enemy->pv - dano;
+    }
+
 } //FUNÇÃO DE ATAQUE (PERSONAGEM X INIMIGO)
 
 ataquemagico(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
-    player->ataquemagico = 10 + (rand()%10);
-    dano = (player->ataquemagico) - enemy->defesa;
-    enemy->pv = enemy->pv - dano;
-    printf("\n%s", player->name); Dialogo("atacou", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano\n", 0);
-    
+    player->ataque = 6 + (rand()%10);
+    dano = player->ataque - enemy->defesa;
+    if(dano < 0)
+    {
+        dano = 0;
+        print("\n%s ", player->name); Dialogo("não conseguiu atacar o ", 0); printf(" %s", enemy->name); Dialogo(" com sua magia", 0);
+        delay(500);
+    }
+    else
+    {
+        enemy->pv = enemy->pv - dano;
+        printf("\n%s", player->name); Dialogo("usou uma capsula de magia ", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);
+        delay(500);
+    }
     player->ataquemagico--;
 } //ATAQUE MAGICO
 
@@ -148,14 +166,14 @@ receberataque(struct personagem *player, struct enemy *enemy) {
         dano = 0;
         printf("\n%s nao conseguiu atacar %s\n", enemy->name, player->name);
 
-        delay(5000);
+        delay(500);
     }
     else
     {
         player->pvjogador = player->pvjogador - dano;
         
         printf("\n%s recebeu um ataque de %s e causou %d de dano\n", player->name, enemy->name, dano);
-        delay(5000);
+        delay(500);
     }
 } //FUNÇÃO DE RECEBER ATAQUE
 
