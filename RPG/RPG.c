@@ -57,7 +57,7 @@ regeneracao(struct personagem *player){
     }
     else
     {
-        player->pvjogador = 20;
+        player->pvjogador = 100;
         pocao();
         printf("\n");
         player->pocao--;
@@ -102,18 +102,14 @@ carregarjogo(struct personagem *player, struct enemy *enemy) {
 } //FUNÇÃO DE CARREGAR JOGO
 
 resetenemy(struct enemy *enemy) {
-    enemy->pv = 7 + rand()%10;
-    enemy->ataque = 3 + rand()%5;
-    enemy->defesa = 2 + rand()%2;
-} //FUNÇÃO DE RESET DE INIMIGO VIDA/ATAQUE/DEFESA
+    enemy->pv = 40 + rand()%30;
+    enemy->ataque = 10 + rand()%20;
+    enemy->defesa = 2 + rand()%20;
+} //FUNÇÃO DE RESET DE INIMIGO VIDA/ATAQUE
 
 resetvida(struct personagem *player) {
-    player->pvjogador = 20;
-    player->ataque = 8;
-    player->espada = 1;
-    player->defesa = 1;
-    player->pocao = 3;
-    player->amizade = 0;
+    player->pvjogador = 100;
+    player->ataque = 20 + rand()%20;
 } //FUNÇÃO DE RESET DE VIDA/ATAQUE DE PERSONAGEM DEPOIS DE BATALHAS
 
 delay(int ms) {
@@ -123,28 +119,58 @@ delay(int ms) {
 
 atacar(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
-    player->ataque = 6 + (rand()%5);
+    player->ataque = 20 + rand()%20;
     dano = (player->espada + player->ataque) - enemy->defesa;
-    enemy->pv = enemy->pv - dano;
 
-    if(dano > 0)
+    if(dano < 0)
     {
         dano = 0;
         printf("\n%s ", enemy->name); Dialogo(" defendeu", 0); printf(" %d ", dano); Dialogo("de dano", 0);
+        delay(1000);
     }
     else
     {
         printf("\n%s ", player->name); Dialogo("atacou", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);
         enemy->pv = enemy->pv - dano;
+        delay(1000);
     }
 
 } //FUNÇÃO DE ATAQUE (PERSONAGEM X INIMIGO)
 
+presaveforDEBUG()
+{
+    player.adagas = 999;
+    player.ataquemagico = 999;
+    player.ataque = 999;
+    player.defesa = 0;
+    player.gold = 999;
+    player.nivel = 1;
+    player.pocao = 999;
+    player.pvjogador = 100;
+}
+
+jogaradaga(struct personagem *player, struct enemy *enemy) {
+    int dano = 0;
+    player->ataque = 20 + rand()%20;
+    dano = (player->ataque) - enemy->defesa;
+    if(dano <= 0)
+    {
+        dano = 0;
+        printf("\n%s ", enemy->name); Dialogo(" defendeu a adaga", 0); printf(" %d ", dano); Dialogo("de dano", 0);
+    }
+    else
+    {
+        enemy->pv = enemy->pv - dano;
+        printf("\n%s ", player->name); Dialogo("jogou adaga em ", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);   
+    }
+
+} //FUNÇÃO DE JOGAR ADAGA (PERSONAGEM X INIMIGO)
+
 ataquemagico(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
-    player->ataque = 6 + (rand()%10);
+    player->ataque = 25 + rand()%20;
     dano = player->ataque - enemy->defesa;
-    if(dano < 0)
+    if(dano <= 0)
     {
         dano = 0;
         printf("\n%s ", player->name); Dialogo("não conseguiu atacar o ", 0); printf(" %s", enemy->name); Dialogo(" com sua magia", 0);
@@ -161,19 +187,20 @@ ataquemagico(struct personagem *player, struct enemy *enemy) {
 
 receberataque(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
+    enemy->ataque = 10 + rand()%20;
+    player->defesa = 10 + rand()%10;
     dano = enemy->ataque - player->defesa;
-    if (dano <= 0) {
+    if (dano <= 0)
+    {
         dano = 0;
         printf("\n%s nao conseguiu atacar %s\n", enemy->name, player->name);
-
         delay(500);
     }
-    else
+    else if (dano > 0)
     {
         player->pvjogador = player->pvjogador - dano;
-        
         printf("\n%s recebeu um ataque de %s e causou %d de dano\n", player->name, enemy->name, dano);
-        delay(500);
+        delay(1000);
     }
 } //FUNÇÃO DE RECEBER ATAQUE
 
@@ -202,7 +229,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
             localdaseta(1, posicaodatecla2); printf("* - Ataque corporal\n"); 
             localdaseta(2, posicaodatecla2); printf("* - Ataque magico\n");
             localdaseta(3, posicaodatecla2); printf("* - Beber pocao de vida\n");
-            localdaseta(4, posicaodatecla2); printf("-AINDAPORVIR-\n");
+            localdaseta(4, posicaodatecla2); printf("* - Jogar Adaga\n");
             printf("\t\t\t------------------\n");
 
             ASCIIinimigo();
@@ -235,6 +262,9 @@ batalha(struct personagem *player, struct enemy *inimigo){
     break;
     case 3:
         regeneracao(player);
+        break;
+    case 4:
+        jogaradaga(player, inimigo);
         break;
     default:
         printf("Opcao Invalida\n");
@@ -332,7 +362,9 @@ void localdaseta(int realPosition, int posicaoDaTecla)
 
 void debugmode(struct personagem *player, struct enemy *inimigo)
 {
+    presaveforDEBUG(player, inimigo);
     system("cls");
+    presaveforDEBUG();
       int posicaodatecla4 = 1, KeyDown4 = 0;
     
       #define MAX 4
@@ -485,8 +517,9 @@ menudeloja(struct personagem *player){
         case 1:
             system("cls");
             Dialogo("Aprimorando sua espada!\n", 0);
-            DialogocomClear("Sua espada ganhou 1 ponto de bônus!\n", 0);
-            player->ataque += 1;
+            int bonusdeespada = rand() % 10;
+            player->espada + bonusdeespada;
+            Dialogo("Sua espada ganhou", 0); printf(" %d ", bonusdeespada); Dialogo("ponto de bônus!\n", 0);
             delay(1000);
             menudeloja(player);
             break;
@@ -783,7 +816,7 @@ int main()
     player.gold = 0;
     player.nivel = 1;
     player.pocao = 0;
-    player.pvjogador = 0;
+    player.pvjogador = 100;
 
     menu(&player, &inimigo);
 
