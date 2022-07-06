@@ -147,7 +147,7 @@ ataquemagico(struct personagem *player, struct enemy *enemy) {
     if(dano < 0)
     {
         dano = 0;
-        print("\n%s ", player->name); Dialogo("não conseguiu atacar o ", 0); printf(" %s", enemy->name); Dialogo(" com sua magia", 0);
+        printf("\n%s ", player->name); Dialogo("não conseguiu atacar o ", 0); printf(" %s", enemy->name); Dialogo(" com sua magia", 0);
         delay(500);
     }
     else
@@ -266,7 +266,7 @@ void Dialogo(char text[], int seconds)
         for(x=0; text[x]!=NULL; x++)
         {
         printf("%c",text[x]);
-        for(y=0; y<=4; y++)
+        for(y=0; y<=8888888; y++)
         {
         }
         }
@@ -276,7 +276,7 @@ void Dialogo(char text[], int seconds)
 
 void clear()
 {
-    printf("\n\n[Pressione Enter para continuar]");
+    printf("\n[Pressione Enter para continuar]");
     char enter = 0;
     while (enter != '\r' && enter != '\n') // VERIFICAÇÃO DO ENTER
     {
@@ -542,7 +542,7 @@ case 2:
 
     Dialogo("Narrador: O Rei convoca a presença de ", 0); printf("%s", player->name); Dialogo(" e mais 5 guerreiros para a\nsala central do palacio dourado de Ratanabá. Os guerreiros de imediato se\napresentam ao rei e buscam entender para o que haviam sido chamados.\n", 0);
     delay(1000);
-    cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Majestade, se me permite a pergunta, por que é necessária a presença de tantos\nguerreiros para tal missão?\n", 0);
+    cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Majestade, se me permite a pergunta, por que é necessária a presença de tantos guerreiros para tal missão?\n", 0);
     delay(500);
     cor(9);Dialogo("Brando: ", 0); cor(3);Dialogo("Também acho desnecessário tantas pessoas aqui, eu mesmo poderia resolver\ntudo isso sozinho.\n", 0);
     delay(500);
@@ -566,8 +566,8 @@ case 2:
     Dialogo("2 - Vim somente para ouvir as instruções do Rei, vocês não representam nada para mim.\n", 0);
     Dialogo("3 - Me desculpe pela grosseria, sou um guerreiro novo nas terras do Rei\n",0);
     Dialogo("4 - Não é da sua conta, Seu insolente!\n", 0);
-    Dialogo("Escolha: ", 0);
-    scanf("%d", &escolhas);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    
     if (escolhas == 1 || escolhas==3)
     {
         cor(9);Dialogo("Brando: ", 0); cor(3);Dialogo("Me chamo Brando. Não o conheço mas acredito que você vá ser de grande ajuda nessa missão.\n",0);

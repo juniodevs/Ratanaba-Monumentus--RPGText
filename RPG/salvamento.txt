@@ -1,12 +1,12 @@
-nome: 
-vida: 14
+nome: Kratos
+vida: 20
 nivel: 2
-ataque: 12
-coins: 18
+ataque: 8
+coins: 0
 defesa: 1
-espada: 2
+espada: 1
 pocoes: 3
 nomeinimigo: 
-vidainimigo: -8
-ataqueinimigo: 7
-defesainimigo: 3
+vidainimigo: 0
+ataqueinimigo: 0
+defesainimigo: 0
