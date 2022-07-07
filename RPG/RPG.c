@@ -105,6 +105,7 @@ resetenemy(struct enemy *enemy) {
     enemy->pv = 40 + rand()%30;
     enemy->ataque = 10 + rand()%20;
     enemy->defesa = 2 + rand()%20;
+    strcpy(enemy->name, "Inimigo");
 } //FUNÇÃO DE RESET DE INIMIGO VIDA/ATAQUE
 
 resetvida(struct personagem *player) {
@@ -147,6 +148,7 @@ presaveforDEBUG()
     player.nivel = 1;
     player.pocao = 999;
     player.pvjogador = 100;
+    strcpy(player.name, "DEBUGGER");
 }
 
 jogaradaga(struct personagem *player, struct enemy *enemy) {

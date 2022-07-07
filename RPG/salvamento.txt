@@ -1,12 +1,12 @@
 nome: 
-vida: 82
+vida: 83
 nivel: 2
-ataque: 32
-coins: 1017
-defesa: 16
+ataque: 34
+coins: 1016
+defesa: 13
 espada: 0
 pocoes: 999
 nomeinimigo: 
-vidainimigo: -18
-ataqueinimigo: 16
-defesainimigo: 10
+vidainimigo: -1
+ataqueinimigo: 20
+defesainimigo: 19
