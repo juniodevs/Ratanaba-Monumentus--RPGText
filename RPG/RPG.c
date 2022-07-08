@@ -51,7 +51,13 @@ verificacaodemorte(struct personagem *player, struct enemy *enemy) {
     }
 }//FUNÇÃO DE VERIFICAÇÃO DE MORTE (PERSONAGEM E INIMIGO)
 regeneracao(struct personagem *player){
-    if (player->pocao <= 0)
+    if (player->pvjogador >= 100)
+    {
+        Dialogo("\nSua vida está cheia\n", 0);
+    }
+    else
+    {
+            if (player->pocao <= 0)
     {
         Dialogo("Voce nao tem pocao de vida",0);
     }
@@ -62,6 +68,9 @@ regeneracao(struct personagem *player){
         printf("\n");
         player->pocao--;
     }
+    }
+    
+
 } //FUNÇÃO DE REGENERAÇÃO DE PV (PERSONAGEM)
 
 salvarjogo(struct personagem *player, struct enemy *enemy) {

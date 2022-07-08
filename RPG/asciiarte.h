@@ -90,6 +90,7 @@ printf("  :#######:\n");
 printf("  ;#######;\n");
 cor(3);
 
-} //FIM ASCII INIMIGO
+Dialogo("Você regenerou sua vida!", 0);
+} //FIM ASCCI POÇÃO
 
 #endif //SEMPRE NO FINAL DO ARQUIVO
