@@ -26,6 +26,12 @@ struct enemy {
     int defesa;
 }inimigo; //PRE DEFINIÇÃO DE INIMIGO
 
+struct finalboss {
+    char name[18];
+    int pv;
+    int ataque;
+    int defesa;
+}boss; //PRE DEFINIÇÃO DE BOSS
 verificacaodemorte(struct personagem *player, struct enemy *enemy) {
     int coinsareceber = 0;
     if (player->pvjogador <= 0) {
