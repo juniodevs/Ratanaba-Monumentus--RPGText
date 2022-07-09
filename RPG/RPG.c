@@ -499,7 +499,7 @@ menudeloja(struct personagem *player){
     system("cls");
       int posicaodatecla = 1, KeyDown = 0;
     
-      #define MAX 4
+      #define MAX 5
       #define MIN 1
 
       Dialogo("Seja Bem-vindo a loja!\n", 0);
@@ -511,12 +511,13 @@ menudeloja(struct personagem *player){
 
             // MOSTRAR O MENU DE LOJA
             printf("\t\t\t      --------[LOJA]--------\n");
-            localdaseta(1, posicaodatecla); printf("APRIMORAR SUA ESPADA\n"); 
-            localdaseta(2, posicaodatecla); printf("COMPRAR CAPSULAS DE MAGIA\n");
-            localdaseta(3, posicaodatecla); printf("COMPRAR POCAO DE VIDA\n");
-            localdaseta(4, posicaodatecla); printf("SAIR\n");
-            localdaseta(5, posicaodatecla); printf("VOCE POSSUI %d CAPSULAS E %d POCOES\n", player->ataquemagico, player->pocao);
-            localdaseta(6, posicaodatecla); printf("VOCE TEM: %d COINS\n", player->gold);
+            localdaseta(1, posicaodatecla); printf("50c - APRIMORAR SUA ESPADA\n"); 
+            localdaseta(2, posicaodatecla); printf("10c - COMPRAR CAPSULAS DE MAGIA\n");
+            localdaseta(3, posicaodatecla); printf("50c - COMPRAR POCAO DE VIDA\n");
+            localdaseta(4, posicaodatecla); printf("20c - COMPRAR ADAGA\n");
+            localdaseta(5, posicaodatecla); printf("SAIR\n");
+            localdaseta(6, posicaodatecla); printf("VOCE POSSUI %d CAPSULAS, %d POCOES E %d ADAGAS\n", player->ataquemagico, player->pocao, player->adagas);
+            localdaseta(7, posicaodatecla); printf("VOCE TEM: %d COINS\n", player->gold);
             printf("\t\t\t      ----------------------\n");
 
             KeyDown = getch(); //RECEBER ENTER
@@ -531,34 +532,81 @@ menudeloja(struct personagem *player){
     }
     
     switch (posicaodatecla) {
-        case 1:
+        case 1: //APRIMORAR ESPADA
             system("cls");
+
+            if(player->gold >= 50) //PREÇO DO APRIMORAMENTO DA ESPADA
+            {
             Dialogo("Aprimorando sua espada!\n", 0);
             int bonusdeespada = rand() % 10;
             player->espada + bonusdeespada;
             Dialogo("Sua espada ganhou", 0); printf(" %d ", bonusdeespada); Dialogo("ponto de bônus!\n", 0);
             delay(1000);
+            player->gold -= 50;
+            }
+
+            else
+            {
+            Dialogo("Você não tem coins suficientes para comprar este update!", 0);
+            }
             menudeloja(player);
             break;
-        case 2:
+        case 2: //COMPRAR CAPSULAS DE MAGIA
             system("cls");
+            if(player->gold >= 10) //PREÇO DA CAPSULA
+            {
             Dialogo("Comprando capsulas de magia!\n", 0);
             DialogocomClear("Você comprou uma capsula de magia!\n", 0);
             player->ataquemagico += 1;
+            player->gold -= 10;
             delay(1000);
+            }
+
+            else
+            {
+             Dialogo("Você não tem coins suficientes para comprar ecapsula de magia", 0);
+            }
             menudeloja(player);
             break;
-        case 3:
+        case 3: //COMPRA POCAO DE VIDA
             system("cls");
+            if (player->gold >= 50) //PREÇO DA POCAO DE VIDA
+            {
             Dialogo("Comprando pocao de vida!\n", 0);
             DialogocomClear("Você comprou uma pocao de vida!\n", 0);
             player->pocao += 1;
+            player->gold -= 50;
             delay(1000);
+            }
+            else
+            {
+             Dialogo("Você não tem coins suficientes para comprar uma pocao de vida", 0);
+            }
             menudeloja(player);
             break;
         case 4:
             system("cls");
+            if (player->gold >= 20) //PREÇO DA ADAGA
+            {
+            Dialogo("Comprando adaga!\n", 0);
+            DialogocomClear("Você comprou uma adaga!\n", 0);
+            player->adagas += 1;
+            player->gold -= 20;
+            delay(1000);
+            }
+            else
+            {
+             Dialogo("Você não tem coins suficientes para comprar uma adaga", 0);
+            }
+            menudeloja(player);
             break;
+
+        case 5: //SAIR DA LOJA
+        Dialogo("Espero te ver novamente em breve!\n", 0);
+        delay(1000);
+        system("cls");
+        break;
+
     }
 } //LOJA DE APRIMORAMENTO DE ITENS
 
