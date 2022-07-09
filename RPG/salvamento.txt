@@ -1,0 +1,12 @@
+nome: DEBUGGER
+vida: 94
+nivel: 2
+ataque: 39
+coins: 1014
+defesa: 17
+espada: 0
+pocoes: 999
+nomeinimigo: Inimigo
+vidainimigo: -5
+ataqueinimigo: 23
+defesainimigo: 8

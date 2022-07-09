@@ -223,17 +223,18 @@ receberataque(struct personagem *player, struct enemy *enemy) {
 
 batalha(struct personagem *player, struct enemy *inimigo){
 
-    int posicaodatecla2 = 1, KeyDown2 = 0;
+    int posicaodatecla2 = 1, KeyDown2 = 0; //VARIAVEIS DE CONTROLE DE TECLAS
+    int contadordeturno = 0; //contador de turnos
 
-    #define MAX 4
+    #define MAX 4 
     #define MIN 1
 
-    for (inimigo->pv >= 0 ; player->pvjogador >= 0;)
-    {
+    for (inimigo->pv >= 0 ; player->pvjogador >= 0;) 
+    { 
         posicaodatecla2 = 1; KeyDown2 = 0;
     if (inimigo->pv >= 0 && player->pvjogador >= 0)
-    {
-    while (KeyDown2 != 13)
+    { 
+    while (KeyDown2 != 13) 
       {
         system("cls");
         
@@ -243,6 +244,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
             printf("                         O inimigo tem %d pv\n", inimigo->pv);
             printf("                         ==================\n");
             printf("\t\t\t-[MENU DE BATALHA]-\n");
+            printf("\t\t\tTurno\t [%d]\n", contadordeturno);
             localdaseta(1, posicaodatecla2); printf("* - Ataque corporal\n"); 
             localdaseta(2, posicaodatecla2); printf("* - Ataque magico\n");
             localdaseta(3, posicaodatecla2); printf("* - Beber pocao de vida\n");
@@ -261,10 +263,10 @@ batalha(struct personagem *player, struct enemy *inimigo){
             posicaodatecla2 = posicaodatecla2;
             }
       }
-
+    contadordeturno++;
     switch (posicaodatecla2)
     {
-    case 1:
+    case 1: //ATAQUE CORPORAL
         printf("                   O                              O\n");
         printf("              {o)xxx|===========-  *  -===========|xxx(o}\n");
         printf("                   O                              O\n\n\n");
@@ -272,15 +274,15 @@ batalha(struct personagem *player, struct enemy *inimigo){
         verificacaodemorte(player, inimigo);
 
         break;
-    case 2:
+    case 2: //ATAQUE MAGICO
 
         ataquemagico(player, inimigo);
         verificacaodemorte(player, inimigo);
     break;
-    case 3:
+    case 3: //BEBER POCAO DE VIDA
         regeneracao(player);
         break;
-    case 4:
+    case 4: //JOGAR ADAGA
         jogaradaga(player, inimigo);
         break;
     default:
@@ -295,6 +297,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
     }
     else
     {
+        int contadordeturno = 0;
         player->nivel++;
         salvarjogo(player, inimigo);
         system("cls");
