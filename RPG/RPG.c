@@ -313,7 +313,7 @@ void Dialogo(char text[], int seconds)
         for(x=0; text[x]!=NULL; x++)
         {
         printf("%c",text[x]);
-        for(y=0; y<=8888888; y++)
+        for(y=0; y<=4; y++)
         {
         }
         }
@@ -566,7 +566,8 @@ menudeloja(struct personagem *player){
 
 
 nivel(struct personagem *player, struct enemy *enemy) {
-    int escolhas = 0;
+    int escolhas = 0; //ESCOLHA DO JOGADOR
+    int caminhos = 0; //COMINHOS A SEGUIR
 switch (player->nivel)
 {
 case 1:
@@ -706,8 +707,8 @@ case 2:
     clear();
 
     cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Então que fique decidido dessa forma.",0);
-    cor(2);Dialogo("Gyro ", 0); cor(3); printf("e ");cor(9);Dialogo("Brando ", 0); cor(3); Dialogo("vocês irão juntos.\n Assim sobrando",0);
-    cor(1);Dialogo("Howard ", 0); cor(3); printf("e ");cor(4);Dialogo("Sheldon ", 0);cor(3); Dialogo("como sendo a outra dupla\n",0);
+    cor(2);Dialogo(" Gyro ", 0); cor(3); printf("e ");cor(9);Dialogo("Brando ", 0); cor(3); Dialogo("vocês irão juntos.\n Assim sobrando",0);
+    cor(1);Dialogo(" Howard ", 0); cor(3); printf("e ");cor(4);Dialogo(" Sheldon ", 0);cor(3); Dialogo("como sendo a outra dupla\n",0);
     delay(500);
     cor(4);Dialogo("Sheldon ", 0); cor(3);Dialogo("Aceitamos de bom grado sua decisão, mas por qual motivo devemos sair nessa\nmissão majestade?\n", 0);
     delay(500);
@@ -765,7 +766,7 @@ case 2:
     delay(2000);
 
     cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Antes gostaria de orientá-los quanto aos inimigos que encontrarão nessas terras\n",0);
-    Dialogo("inexploradas do leste. Acredita-se que lá habitam criaturas mágicas de outro mundo, e que\n\n",0);
+    Dialogo("inexploradas do leste. Acredita-se que lá habitam criaturas mágicas de outro mundo, e que\n",0);
     Dialogo("para derrotá-las será preciso imbuir suas armas com encantamentos rúnicos de um ferreiro\n",0);
     Dialogo("mágico. Por sorte, temos o ancião",0); cor(10); Dialogo(" Cultrapali, ", 0); cor(3); Dialogo("conhecedor das artes\n",0);
     Dialogo("mágicas da forja de armas. Então vocês deverão primeiramente se dirigir aos\n",0);
@@ -810,11 +811,90 @@ case 2:
         player->amizade++;
     }
     cor(1);Dialogo("Howard: ", 0); cor(3); Dialogo("Espero que tudo ocorra bem, e nada aconteça com nenhum de nós.\n",0);
-    player->nivel = 3;
+    delay(500);
+    cor(10); Dialogo("Cultrapali: ", 0); cor(3); Dialogo("Que os Deuses guardem vossos caminhos!\n", 0);
+    delay(500);
+    cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Um momento, eu gostaria de esclarecer uma dúvida senhor Cultrapali.\n", 0);
+    delay(500);
+    cor(10); Dialogo("Cultrapali: ", 0); cor(3); Dialogo("Diga-me meu jovem.\n", 0);
+    delay(500);
+    cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Você mencionou que até o caminho do palácio existem diversos caminhos\nalternativos, o que exatamente quis dizer quando mencionou isso?\n", 0);
+    delay(500);
+    cor(10); Dialogo("Cultrapali: ", 0); cor(3); Dialogo("Deixe-me ser mais claro. Como todos sabem, nenhum guerreiro nunca foi tão\nlonge naquelas terras obscuras. Tudo o que tínhamos até pouco tempo eram só rumores de como\nera aquele lugar. Mas os estudiosos do Rei obtiveram mapas antigos que informam a\nlocalização exata do lugar que estamos procurando. Porém, como já era de se esperar,\nexistem algumas formas de se chegar lá. No mapa que eu vos entreguei estão todos esses\ncaminhos. Como o Rei os dividiu em duplas seria melhor que ficasse a escolha de cada\numa escolher o caminho que quiser tomar.\n", 0);
+    delay(7000);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Então vamos nessa \n",0);
+    Dialogo("2 - Que os Deuses nos guardem nessa jornada.\n",0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    if (escolhas == 1)
+    {
+        printf("\n%s ", player->name); Dialogo("Então vamos nessa\n",0);
+    }
+    else if (escolhas == 2)
+    {
+        printf("\n%s ", player->name); Dialogo("Que os Deuses nos guardem nessa jornada\n",0);
+    }
+    else
+    {
+        printf("\n%s ", player->name); Dialogo("Então vamos nessa\n",0);
+    }
+    delay(7000);
+
+    clear();
+
+    Dialogo("Narrador: Então as demais duplas de aventureiros tomam seus caminhos, restando\nsomente Speed e ", 0); printf("%s ", player->name); Dialogo("escolherem. Eles observam o mapa e se\ndeparam com a imagens de dois possíveis caminhos junto de escritos que\nrespectivamente dizem “(imagem de uma caverna na montanha carmesim) Essa\nantiga caverna atravessa a colossal montanha do dragão carmesim” e “(imagem da\nfloresta das bruxas) Essa floresta está cheia de segredos obscuros e maldições\n”.",0);
+    delay(7000);
+
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("Qual caminho você deseja seguir?\n", 0);
+    cor(1);Dialogo("1 - Caverna da montanha carmesim \n",0);
+    cor(4);Dialogo("2 - Floresta das bruxas.\n",0); cor(3);
+    Dialogo("Escolha: ", 0); scanf("%d", &caminhos);
+    delay(7000);
+
+    if (caminhos == 1)
+    {
+        player->nivel = 3;
+    }
+    else if (caminhos == 2)
+    {
+        player->nivel = 4;
+    }
+    else
+    {
+        player->nivel = 3;
+    }
     salvarjogo(player, enemy);
     resetenemy(enemy);
     system("cls");
     nivel(player, enemy);
+    break;
+
+
+    case 3: //CAMINHO CAVERNA DA MONTANHA CARMESIM
+
+    break;
+
+    case 4: //CAMINHO FLORESTA DAS BRUXAS
+
+    break;
+
+    case 5: //AINDA POR DECIDIR
+
+    break;
+
+    case 6: //AINDA POR DECIDIR
+
+    break;
+
+    case 7: //AINDA POR DECIDIR
+
+    break;
+
+    case 8: //FINAL (PALÁCIO FANTASMA)
+
     break;
 }
 }
