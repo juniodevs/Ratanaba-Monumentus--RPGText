@@ -69,15 +69,6 @@ void piscartela()
 }
 
 
-void ASCIIinimigo() //TEMPLATE PARA ASCII
-{
-    
-cor(1); printf("                         ~O");cor(2);printf("               o~\n"); //LEMBRAR DO \N PARA QUEBRAR LINHAS
-cor(1); printf("                       /~()-{---");cor(2);printf("     ---}-()~/\n");
-cor(1); printf("                        /~)");cor(2);printf("               (~.\n");
-cor(1); printf("                        ~ ~");cor(2);printf("               ~ ~\n");
-cor(3);
-} //FIM ASCII INIMIGO
 
 void pocao() //TEMPLATE PARA POÇÃO
 {
@@ -92,11 +83,5 @@ cor(3);
 
 Dialogo("Você regenerou sua vida!", 0);
 } //FIM ASCCI POÇÃO
-
-
-    //        O>         _
-    //       ,/)          )_
-    //   -----<---<<<   )   )
-    //        ``      ` _)
 
 #endif //SEMPRE NO FINAL DO ARQUIVO

@@ -22,6 +22,7 @@ struct personagem {
 struct enemy {
     char name[18];
     int pv;
+    int asciienemy;
     int ataque;
     int defesa;
 }inimigo; //PRE DEFINIÇÃO DE INIMIGO
@@ -84,6 +85,55 @@ regeneracao(struct personagem *player){
 
 } //FUNÇÃO DE REGENERAÇÃO DE PV (PERSONAGEM)
 
+void ASCIIinimigo(struct enemy *enemy) //TEMPLATE PARA ASCII
+{
+    if(enemy->asciienemy == 1) //Guerreiro
+    {   
+cor(1); printf("                         ~O");cor(2);printf("               o~\n"); //LEMBRAR DO \N PARA QUEBRAR LINHAS
+cor(1); printf("                       /~()-{---");cor(2);printf("     ---}-()~/\n");
+cor(1); printf("                        /~)");cor(2);printf("               (~.\n");
+cor(1); printf("                        ~ ~");cor(2);printf("               ~ ~\n");
+cor(3);
+    }
+    else if(enemy->asciienemy == 2)// Zumbie
+    {
+cor(1); printf("                         ~O");cor(2);printf("               o~\n"); //LEMBRAR DO \N PARA QUEBRAR LINHAS
+cor(1); printf("                       /~()-{---");cor(2);printf("        --|~\ \n");
+cor(1); printf("                        /~)");cor(2);printf("               |~.\n");
+cor(1); printf("                        ~ ~");cor(2);printf("               ~ ~\n");
+cor(3);
+    }
+    else if(enemy->asciienemy == 3)// Bruxa
+    {
+cor(1); printf("                         ~O");cor(2);printf("               O>\n"); //LEMBRAR DO \N PARA QUEBRAR LINHAS
+cor(1); printf("                       /~()-{---");cor(2);printf("         ,/)\\n");
+cor(1); printf("                        /~)");cor(2);printf("          -----<---<<<.\n");
+cor(1); printf("                        ~ ~");cor(2);printf("               ``\n");
+cor(3);
+    }
+    else if(enemy->asciienemy == 4)// Dragao
+    {
+cor(1); printf("                         ~O");cor(2);printf("  \t\t _a' /(     ,>\n"); //LEMBRAR DO \N PARA QUEBRAR LINHAS
+cor(1); printf("                       /~()-{---");cor(2);printf("\t~~_}\ \(    (\n");
+cor(1); printf("                        /~)");cor(2);printf("     \t\(,_(,)'\n");
+cor(1); printf("                        ~ ~");cor(2);printf("       \t_>, _>\n");
+cor(3);
+
+
+
+
+
+    }
+    else
+    {
+cor(1); printf("                         ~O");cor(2);printf("               o~\n"); //LEMBRAR DO \N PARA QUEBRAR LINHAS
+cor(1); printf("                       /~()-{---");cor(2);printf("     ---}-()~/\n");
+cor(1); printf("                        /~)");cor(2);printf("               (~.\n");
+cor(1); printf("                        ~ ~");cor(2);printf("               ~ ~\n");
+cor(3);
+    }
+} //FIM ASCII INIMIGO
+
 salvarjogo(struct personagem *player, struct enemy *enemy) {
     FILE *save;
     save = fopen("salvamento.txt", "w");
@@ -96,6 +146,7 @@ salvarjogo(struct personagem *player, struct enemy *enemy) {
     fprintf(save, "espada: %d\n", player->espada);
     fprintf(save, "pocoes: %d\n", player->pocao);
     fprintf(save, "nomeinimigo: %s\n", enemy->name);
+    fprintf(save, "asciienemy: %d\n", enemy->asciienemy);
     fprintf(save, "vidainimigo: %d\n", enemy->pv);
     fprintf(save, "ataqueinimigo: %d\n", enemy->ataque);
     fprintf(save, "defesainimigo: %d\n", enemy->defesa);
@@ -114,6 +165,7 @@ carregarjogo(struct personagem *player, struct enemy *enemy) {
     fscanf(save, "espada: %d\n", &player->espada);
     fscanf(save, "pocoes: %s\n", &player->pocao);
     fscanf(save, "nomeinimigo: %s\n", enemy->name);
+    fscanf(save,"asciiinimigo: %d\n", &enemy->asciienemy);
     fscanf(save, "vidainimigo: %d\n", &enemy->pv);
     fscanf(save, "ataqueinimigo: %d\n", &enemy->ataque);
     fscanf(save, "defesainimigo: %d\n", &enemy->defesa);
@@ -256,7 +308,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
             localdaseta(4, posicaodatecla2); printf("* - Jogar Adaga\n");
             printf("\t\t\t------------------\n");
 
-            ASCIIinimigo();
+            ASCIIinimigo(inimigo);
 
             KeyDown2 = getch(); //RECEBER ENTER
             
@@ -617,9 +669,6 @@ menudeloja(struct personagem *player){
     }
 } //LOJA DE APRIMORAMENTO DE ITENS
 
-
-
-
 nivel(struct personagem *player, struct enemy *enemy) {
     int escolhas = 0; //ESCOLHA DO JOGADOR
     int caminhos = 0; //COMINHOS A SEGUIR
@@ -840,7 +889,7 @@ case 2:
     delay(500);
     cor(9); Dialogo("Brando ", 0); cor(3); Dialogo("Tá de brincadeira né cara? Será preciso só força bruta para pegarmos o tesouro\ne sairmos vivos de lá.\n",0);
     delay(500);
-    cor(4); Dialogo("Sheldon ", 0); cor(3); Dialogo("Não seja tão arrogante",0);cor(9); Dialogo("Brando ", 0); cor(3); Dialogo("não vai ser com perigos comuns que\nvamos lidar nessa jornada.\n",0);
+    cor(4); Dialogo("Sheldon ", 0); cor(3); Dialogo("Não seja tão arrogante ",0);cor(9); Dialogo("Brando ", 0); cor(3); Dialogo("não vai ser com perigos comuns que\nvamos lidar nessa jornada.\n",0);
     delay(500);
     printf("\n%s\n", player->name);
     delay(500);
@@ -917,7 +966,7 @@ case 2:
     }
     else if (caminhos == 2) // CAMINHO PARA IR PELA FLORESTA
     {
-        // AINDA POR DECIDIR
+        player->nivel = 4;
     }
     else
     {
@@ -930,7 +979,7 @@ case 2:
     break;
 
 
-    case 3: //CAMINHO CAVERNA DA MONTANHA CARMESIM
+    case 3: //CAMINHO CAVERNA DA MONTANHA CARMESIM (PRIMEIRA ESCOLHA)
     cor(1); Dialogo("Caverna da montanha marmesim",0); cor(3);
     delay(500);
     clear();
@@ -1075,6 +1124,7 @@ case 2:
     delay(5000);
     clear();
     resetenemy(enemy);
+    enemy->asciienemy = 2;
     strcpy(enemy->name, "Zumbilesca");
     enemy->pv = 30;
     cor(1);
@@ -1179,6 +1229,7 @@ case 2:
 
     if (escolhas == 3)
     {
+        Dialogo("Acertou!\n",0);
         acerto = 1;
     }
     else
@@ -1193,22 +1244,94 @@ case 2:
     }
     delay(500);
     cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Você é bom com essas coisas hein cara\n",0);
-    system("pause");
-
     delay(500);
-
-
+    clear();
+    player->nivel = 4;
+    salvarjogo(player, enemy);
+    delay(500);
+    nivel(player, enemy);
     break;
 
     case 4: // BOSS CAVER DA MONTANHA CARMESIM
-
+    delay(500);
+    Dialogo("Narrador: A grande porta se abre, e atrás dela, para a surpresa dos guerreiros, está o\ngigantesco dragão carmesim. Todos se preparam para a luta que virá a seguir.", 0);
+    delay(500);
+    resetenemy(enemy);
+    enemy->asciienemy = 4;
+    strcpy(enemy->name, "Dragão Carmesim");
+    enemy->pv = 40;
+    cor(1);
+    Dialogo("\nBATALHA INICIADA:\n", 0);
+    Dialogo("“Você se depara com um ser asqueroso de aparência zumbilesca, enfrente-o e vença\ncom sua determinação!”\n", 0);
+    cor(3);
+    delay(500);
+    system("pause");
+    batalha(player, enemy);
+    delay(500);
+    cor(1);
+    Dialogo("\nFIM DA BATALHA:\n", 0);
+    Dialogo("“A criatura derrotada começa a se desfazer e aos poucos vai desaparecendo”\n", 0);
+    Dialogo("Narrador: O Dragão Carmesin acabou dropando 50 moedas",0);
+    player->gold += 50;
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Esse dragão foi duro na queda, ainda bem que estamos juntos nessa batalha.\n",0);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Vocês se provaram fortes guerreiros. Sintam-se a vontade de comprar algo caso queiram: \n",0);
+    delay(500);
+    menudeloja(player);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Vocês ajudaram muito na luta\n",0);
+    Dialogo("2 - Com nossas forças derrotamos aquela criatura horrenda \n",0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    Dialogo("Narrador: Antes que pudessem perceber, atrás do que antes era o dragão, surge uma\nsaída para aquela montanha vermelha. Os guerreiros se despedem de Lewers e\nseguem viagem para o próximo lugar no mapa, a cidade das criaturas mágicas\nValladolid", 0);
+    delay(500);
+    clear();
+    player->nivel = 6;
+    salvarjogo(player, enemy);
+    delay(500);
+    nivel(player, enemy);
     break;
 
-    case 5: //AINDA POR DECIDIR
+    case 5: //FLORESTA DAS BRUXAS (SEGUNDA ESCOLHA)
 
+    Dialogo("Narrador: ",0);print("%s", player->name);Dialogo(" e Speed chegam até o caminho marcado no mapa e\ndecidem analisar o local para coletar informações. Logo de cara se deparam com uma\nárvore de forma humanoide. E para surpresa dos ambos, o ser desconhecido foi bem\nreceptivo com os guerreiros.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Olá, somos Guerreiros do Reino de Ratanaba. Estamos buscando informações sobre o\nlocal.\n",0);
+    Dialogo("2 - Que tipo de criatura é essa? Identifique-se!\n",0);
+    Dialogo("3 - Com licença senhor, sou\n",0);printf("%s ", player->name);Dialogo("Eu e meu companheiro estamos em busca\nde informações sobre esse lugar.",0);
+    Dialogo("4 - Afaste-se de nós e se identifique. Somos Guerreiros orgulhosos de Ratanaba!\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+        if (escolhas == 1 || escolhas == 3)
+    {
+        cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Me chamo George, ssou o guia dessa floresta, sem mim aqui\nninguém conseguiria atravessar essa floresta.\n",0);
+    }
+    else if (escolhas == 2 || escolhas == 4)
+    {
+         cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Quanta hostilidade! Não represento perigo algum, me chamo -George, sou o guia deste local.\n",0);
+    }
+    else
+    {
+        cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Me chamo George, ssou o guia dessa floresta, sem mim aqui\nninguém conseguiria atravessar essa floresta.\n",0);
+    }
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Espera, você é um guia? Essas terras do leste não eram inexploradas?\n", 0);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Não confunda as coisas cara, essa região só não é habitada por humanos. Por\nessas bandas existem somente criaturas mágicas.",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo(" Não é surpresa que isso seja um mistério para humanos, tantos perigos assim, se\nfossem do conhecimento dos humanos causariam certa comoção. Aliás, perdoe minha\nindelicadeza, me chamo Speed, sou um guerreiro de Ratanaba.\n", 0);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Não achei que fosse de Ratanaba, sua energia vital exala uma origem diferente.",0);
+    delay(500);
+    
     break;
 
-    case 6: //AINDA POR DECIDIR
+    case 6: //CIDADE DE VALLADOID
 
     break;
 
@@ -1237,6 +1360,7 @@ int main()
     player.nivel = 1;
     player.pocao = 0;
     player.pvjogador = 100;
+    inimigo.asciienemy = 1;
 
     menu(&player, &inimigo);
 
