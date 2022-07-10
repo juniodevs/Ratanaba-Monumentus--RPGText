@@ -32,15 +32,18 @@ struct finalboss {
     int ataque;
     int defesa;
 }boss; //PRE DEFINIÇÃO DE BOSS
+
+
 verificacaodemorte(struct personagem *player, struct enemy *enemy) {
     int coinsareceber = 0;
     if (player->pvjogador <= 0) {
         printf("\n%s morreu\n", player->name);
         DialogocomClear("#########################\nVoce perdeu o jogo!\n#########################", 0);
         Dialogo("3 2 1", 1);
+        carregarjogo(player, enemy);
+        nivel(player, enemy);
         
         system("cls");
-        carregarjogo(&player, &inimigo);
     }
     if (enemy->pv <= 0) {
         printf("\n%s", enemy->name); Dialogo(" Morreu!", 0);
@@ -56,6 +59,8 @@ verificacaodemorte(struct personagem *player, struct enemy *enemy) {
         system("cls");
     }
 }//FUNÇÃO DE VERIFICAÇÃO DE MORTE (PERSONAGEM E INIMIGO)
+
+
 regeneracao(struct personagem *player){
     if (player->pvjogador >= 100)
     {
@@ -284,6 +289,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
         break;
     case 4: //JOGAR ADAGA
         jogaradaga(player, inimigo);
+        verificacaodemorte(player, inimigo);
         break;
     default:
         printf("Opcao Invalida\n");
@@ -298,10 +304,8 @@ batalha(struct personagem *player, struct enemy *inimigo){
     else
     {
         int contadordeturno = 0;
-        player->nivel++;
-        salvarjogo(player, inimigo);
         system("cls");
-        return nivel(player, inimigo);
+        break;
     }
     }
 }
@@ -514,7 +518,7 @@ menudeloja(struct personagem *player){
 
             // MOSTRAR O MENU DE LOJA
             printf("\t\t\t      --------[LOJA]--------\n");
-            localdaseta(1, posicaodatecla); printf("50c - APRIMORAR SUA ESPADA\n"); 
+            localdaseta(1, posicaodatecla); printf("80c - APRIMORAR SUA ESPADA\n"); 
             localdaseta(2, posicaodatecla); printf("10c - COMPRAR CAPSULAS DE MAGIA\n");
             localdaseta(3, posicaodatecla); printf("50c - COMPRAR POCAO DE VIDA\n");
             localdaseta(4, posicaodatecla); printf("20c - COMPRAR ADAGA\n");
@@ -538,14 +542,14 @@ menudeloja(struct personagem *player){
         case 1: //APRIMORAR ESPADA
             system("cls");
 
-            if(player->gold >= 50) //PREÇO DO APRIMORAMENTO DA ESPADA
+            if(player->gold >= 80) //PREÇO DO APRIMORAMENTO DA ESPADA
             {
             Dialogo("Aprimorando sua espada!\n", 0);
-            int bonusdeespada = rand() % 10;
+            int bonusdeespada = 2 + rand() % 2; //BONUS DA ESPADA
             player->espada + bonusdeespada;
             Dialogo("Sua espada ganhou", 0); printf(" %d ", bonusdeespada); Dialogo("ponto de bônus!\n", 0);
             delay(1000);
-            player->gold -= 50;
+            player->gold -= 80; //CUSTO DO APRIMORAMENTO DA ESPADA
             }
 
             else
@@ -619,6 +623,7 @@ menudeloja(struct personagem *player){
 nivel(struct personagem *player, struct enemy *enemy) {
     int escolhas = 0; //ESCOLHA DO JOGADOR
     int caminhos = 0; //COMINHOS A SEGUIR
+    int speed = 0; //SPEED SEU AMIGO CONFIANÇA
 switch (player->nivel)
 {
 case 1:
@@ -811,7 +816,7 @@ case 2:
     delay(20);
     cor(9);Dialogo("Brando ", 0); cor(3);Dialogo("Sim, meu Rei!\n",0);
     delay(20);
-    cor(5);Dialogo("Speed ", 0); cor(3);Dialogo("Sim, meu Rei!\n",0);
+    cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Sim, meu Rei!\n",0);
     delay(20);
     printf("%s ", player->name);Dialogo("Sim, meu Rei!\n",0);
     delay(2000);
@@ -845,19 +850,19 @@ case 2:
     Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
     if (escolhas == 1 || escolhas == 3)
     {
-        cor(5);Dialogo("Speed ", 0); cor(3);Dialogo("Admiro sua preocupação com nossa equipe\n",0);
+        cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Admiro sua preocupação com nossa equipe\n",0);
         delay(500);
         player->amizade++;
     }
     else if (escolhas == 2 || escolhas == 4)
     {
-        cor(5);Dialogo("Speed ", 0); cor(3);Dialogo("Sua falta de preocupação pode nos colocar em risco nisso tudo\n",0);
+        cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Sua falta de preocupação pode nos colocar em risco nisso tudo\n",0);
         delay(500);
         player->amizade--;
     }
     else
     {
-        cor(5);Dialogo("Speed ", 0); cor(3);Dialogo("Admiro sua preocupação com nossa equipe\n",0);
+        cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Admiro sua preocupação com nossa equipe\n",0);
         delay(500);
         player->amizade++;
     }
@@ -905,13 +910,13 @@ case 2:
     Dialogo("Escolha: ", 0); scanf("%d", &caminhos);
     delay(7000);
 
-    if (caminhos == 1)
+    if (caminhos == 1) //CAMINHO PARA IR PELA CAVERNA
     {
         player->nivel = 3;
     }
-    else if (caminhos == 2)
+    else if (caminhos == 2) // CAMINHO PARA IR PELA FLORESTA
     {
-        player->nivel = 4;
+        // AINDA POR DECIDIR
     }
     else
     {
@@ -925,10 +930,241 @@ case 2:
 
 
     case 3: //CAMINHO CAVERNA DA MONTANHA CARMESIM
+    cor(1); Dialogo("Caverna da montanha marmesim",0); cor(3);
+    delay(500);
+    clear();
+    Dialogo("Narrador:", 0); printf("%s ", player->name); Dialogo("e Speed chegam até o caminho marcado no mapa e\ndecidem analisar o local para coletar informações. Logo de cara se deparam com uma\ntoupeira de formato humanoide vestida com roupas de minerador. E para surpresa\ndos ambos, o ser desconhecido foi bem receptivo com os guerreiros. \n",0);
+    delay(2000);
+
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Olá, somos Guerreiros do Reino de Ratanaba. Estamos buscando informações sobre o\nlocal. \n",0);
+    Dialogo("2 - Que tipo de criatura é essa? Identifique-se!\n",0);
+    Dialogo("3 - Com licença senhor, sou ",0); printf("%s. ", player->name); Dialogo("Eu e meu companheiro estamos em busca\nde informações sobre esse lugar. \n",0);
+    Dialogo("4 - Afaste-se de nós e se identifique. Somos Guerreiros orgulhosos de Ratanaba!\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+
+    if (escolhas == 1 || escolhas == 3)
+    {
+        cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Me chamo Lewers, sou meio que o cara designado a ser guia de possíveis mineiros que\nresolvem se aventurar por essas bandas.\n",0);
+    }
+    else if (escolhas == 2 || escolhas == 4)
+    {
+         cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Quanta hostilidade! Não represento perigo algum, me chamo -Lewers, sou o guia deste local.\n",0);
+    }
+    else
+    {
+        cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Me chamo Lewers, sou meio que o cara designado a ser guia de possíveis mineiros que\nresolvem se aventurar por essas bandas.\n",0);
+    }
+    delay(500);
+
+    cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Espera, você é um guia? Essas terras do leste não eram inexploradas?\n",0);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Não confunda as coisas cara, essa região só não é habitada por humanos. Por\nessas bandas existem somente criaturas mágicas.\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Não é surpresa que isso seja um mistério para humanos, tantos perigos assim, se\nfossem do conhecimento dos humanos causariam certa comoção. Aliás, perdoe minha\nindelicadeza, me chamo Speed, sou um guerreiro de Ratanaba.\n",0);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Não achei que fosse de Ratanaba, sua energia vital exala uma origem diferente.\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("c... como assim? É claro que sou do reino de Ratanba! E que história é essa\nde energia vital?\n",0);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Calma cara, não precisa de tanto alarde assim. Nós criaturas mágica\nconseguimos ver a procedência da sua energia vital, ou seja, o local no qual você nasceu.\nSó fiz um comentário, não quis ser invasivo.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Calma, então você não nasceu no Reino de Ratanaba Speed?\n",0);
+    Dialogo("2 - Esse cara deve estar louco, Speed é claramente de Ratanaba.\n",0);
+    Dialogo("3 - Que curioso, então você era de outra terra originalmente.\n",0);
+    Dialogo("4 - É óbvio que temos um equívoco aqui, sei que Speed é de Ratanaba.\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    if (escolhas == 1 || escolhas == 3)
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Claro que não cara, ele com certeza se enganou quanto a isso (fala isso em um tom mais alto).\n",0);
+        speed = 1;
+    }
+    else if (escolhas == 2 || escolhas == 4)
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Exatamente!! Esse cara se enganou (fala isso em um tom mais alto)\n",0);
+        speed = 2;
+    }
+    else
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Claro que não cara, ele com certeza se enganou quanto a isso (fala isso em um tom mais alto).\n",0);
+        speed = 1;
+    }
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Tudo bem, realmente não importa de onde você é. O que vocês desejam com\nessas cavernas antigas?\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Buscamos um jeito de atravessar essas cavernas até o outro lado da montanha.\n",0);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Acredito que vá ser bem difícil, mas como são guerreiros acredito que vocês\npossam conseguir.\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("E o que exatamente deixaria tudo isso difícil?\n",0);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Cara, essa montanha não se chama montanha do dragão carmesim atoa. Como\nera de esperar, em uma das salas de escavação daqui vive um grande dragão de sangue e\nentranhas carmesim. Sem contar os mortos vivos de sangue amaldiçoado.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Então esses são os perigos que o senhor Cultrapali mencionou.\n",0);
+    Dialogo("2 - Vamos pessoalmente acabar com todos esses monstros!\n",0);
+    Dialogo("3 - Devemos ter o máximo de cautela daqui pra frente.\n",0);
+    Dialogo("4 - Nós cuidaremos de exterminar essas criaturas, pode ter certeza!\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    if (escolhas == 1 || escolhas == 3)
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Devemos ter muito cuidado nessa área.\n",0);
+    }
+    else if (escolhas == 2 || escolhas == 4)
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Devemos enfrentar as criaturas, mas com cautela.\n",0);
+    }
+    else
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Devemos ter muito cuidado nessa área.\n",0);
+    }
+
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Então estão dispostos mesmo a seguir caminho?\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Claro que estamos!!\n",0);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Então vamos. Mas antes, como eu havia mencionado, sou apenas um guia,\nentão os perigos daqui ficarão para vocês. Outra coisa, não cheguei a mencionar, mas sou\num vendedor de itens, deixe-me mostrar o que tenho pra vocês:\n",0);
+    delay(500);
+    system("pause");
+    menudeloja(player);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Se já escolheram o que queriam, me acompanhem.\n",0);
+    delay(500);
+    Dialogo("Narrador: ", 0); cor(2); Dialogo("Lewers ", 0); cor(3); Dialogo("adentra a caverna na frente enquanto os guerreiros o acompanham.\nLogo no início é possível perceber que aquela estranha caverna aparenta estar viva, com\ntodo aquela aparência sangrenta, com estalactites que se assemelham a dentes, e diversos\ncristais vermelhos. É possível ver escrituras nas paredes que dizem “Tudo nesse lugar está\nvivo, mais vivo até mesmo do que os que aqui pisam, porque para eles, está reservada uma\nmorte sangrenta.”Depois de entrarem na caverna, instantes antes de chegarem ao lugar\n",0);
+    Dialogo("que",0); cor(2);Dialogo(" Lewers ", 0); cor(3); Dialogo("está, ",0); cor(5); Dialogo("Speed ", 0); cor(3); Dialogo("fala com ",0); printf("%s\n\n", player->name);
+    delay(7000);
+    if (speed == 1)
+    {
+        Dialogo("Speed: ", 0); cor(3); Dialogo("Obrigado por ter ficado do meu lado lá atrás,\nadmiro sua confiança em mim\n",0);
+    
+
+        printf("\n%s\n", player->name);
+        delay(500);
+        Dialogo("1 - Sem problemas, apenas tenho confiança em meu companheiro.\n",0);
+        Dialogo("2 - Sempre vou estar do lado de um amigo.\n",0);
+        Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+        delay(500);
+    }
+    else if (speed == 2)
+    {
+        Dialogo("Speed: ", 0); cor(3); Dialogo("Cara, lá atrás, não leva em consideração o que\naquele maluco falou, sou sim do Reino de Ratanaba.\n",0);
+        printf("\n%s\n", player->name);
+        delay(500);
+        Dialogo("1 - Só achei meio estranho o que ele falou, não precisa ficar tão preocupado assim cara.\n",0);
+        Dialogo("2 - Se você diz né. Não vou me preocupar com isso, fica de boa cara.\n",0);
+        Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+        delay(500);
+    }
+
+
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Me preocupo com isso porque não quero que tenham nenhuma visão errada\nde mim.\n",0);
+    delay(500);
+    cor(2); Dialogo("*Lewers interrompe*\n", 0); cor(3);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Chegamos. Vejam, naquela próxima sala já podemos ver um do mortos vivos de\nsangue amaldiçoado. Vocês devem derrotar ele se quiserem seguir em frente.\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Então vamos!!!",0);
+    delay(5000);
+    clear();
+    resetenemy(enemy);
+    strcpy(enemy->name, "Zumbilesca");
+    enemy->pv = 30;
+    cor(1);
+    Dialogo("BATALHA INICIADA:\n", 0);
+    Dialogo("“Você se depara com um ser asqueroso de aparência zumbilesca, enfrente-o e vença\ncom sua determinação!”\n", 0);
+    cor(3);
+    delay(500);
+    system("pause");
+    batalha(player, enemy);
+    delay(500);
+    cor(1);
+    Dialogo("FIM DA BATALHA:\n", 0);
+    Dialogo("“A criatura derrotada começa a se desfazer e aos poucos vai desaparecendo”\n", 0);
+    cor(3);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Vocês são bons caras. Se quiserem comprar algo agora que terminaram\na batalha, fiquem a vontade:\n",0);
+    delay(500);
+    system("pause");
+    menudeloja(player);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Você se saiu bem",0); printf(" %s\n", player->name);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Valeu cara, você também se saiu bem na batalha.\n",0);
+    Dialogo("2 - Você ajudou um pouco, eu acho.\n",0);
+    Dialogo("3 - Sem você eu não conseguiria.\n",0);
+    Dialogo("4 - Sou bem forte, coisas assim não me abalam.\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    cor(2); Dialogo("*Lewers interrompe*\n", 0); cor(3);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Prestem atenção!! Outro morto vivo está saindo da sala logo a frente,\ntomem cuidado.\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Essas coisas devem estar por todo o lugar. Vamos pôr um fim nisso!!\n",0);
+    delay(500);
+    cor(1);
+
+    Dialogo("BATALHA INICIADA:\n", 0);
+    Dialogo("“Você se depara com um ser asqueroso de aparência zumbilesca, enfrente-o e vença\ncom sua determinação!”\n", 0);
+    cor(3);
+    resetenemy(enemy);
+    strcpy(enemy->name, "Zumbilesca");
+    enemy->pv = 30;
+    delay(500);
+    system("pause");
+    batalha(player, enemy);
+    delay(500);
+    cor(1);
+    Dialogo("FIM DA BATALHA:\n", 0);
+    Dialogo("“A criatura derrotada começa a se desfazer e aos poucos vai desaparecendo”\n", 0);
+    cor(3);
+    delay(1000);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Não achei que fossem guerreiros tão habilidosos. O morto vivo não teve a\nmenor chance.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Somos grandes guerreiros de Ratanaba.\n",0);
+    Dialogo("2 - Foi meio complicado mas conseguimos\n",0);
+    Dialogo("3 - Temos a força para passar por todos os perigos desse lugar.\n",0);
+    Dialogo("4 - Ainda bem que estamos em dois nessa missão.\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Vocês estão se saindo melhor que os outros guerreiros que estão logo a frente.\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Outros guerreiros?\n",0);
+    delay(500);
+    cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Sim, são outros caras do mesmo lugar que vocês são.\n",0);
+    delay(500);
+    Dialogo("Narrador: Logo a frente", 0); printf(" %s ", player->name); printf("e "); cor(5); Dialogo("Speed ", 0); cor(3); Dialogo("encontram",0); cor(1);Dialogo(" Howard ", 0); cor(3); printf("e "); cor(4); Dialogo(" Sheldon\n",0);
+    cor(3); Dialogo("parados em frente a uma grande porta com alguns escritos\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Então vocês vieram por esse caminho também.\n",0);
+    delay(500);
+    cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Sim. Passamos por todos os monstros mas não conseguimos resolver esse\nmaldito enigma para abrir essa porta.\n",0);
+    delay(500);
+    cor(1);Dialogo("Howard: ", 0); cor(3);Dialogo("Tentem e vejam se conseguem passar por isso.\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Você é bom com enigmas ",0); printf("%s ", player->name); Dialogo("Veja se consegue passar por isso.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Verei o que posso fazer.\n",0);
+    Dialogo("2 - Algo assim não é nada pra mim!\n",0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+
 
     break;
 
-    case 4: //CAMINHO FLORESTA DAS BRUXAS
+    case 4: // BOSS CAVER DA MONTANHA CARMESIM
 
     break;
 
@@ -961,7 +1197,7 @@ int main()
     player.ataquemagico = 3;
     player.ataque = 0;
     player.defesa = 0;
-    player.gold = 0;
+    player.gold = 100;
     player.nivel = 1;
     player.pocao = 0;
     player.pvjogador = 100;

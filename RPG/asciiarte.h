@@ -93,4 +93,10 @@ cor(3);
 Dialogo("Você regenerou sua vida!", 0);
 } //FIM ASCCI POÇÃO
 
+
+    //        O>         _
+    //       ,/)          )_
+    //   -----<---<<<   )   )
+    //        ``      ` _)
+
 #endif //SEMPRE NO FINAL DO ARQUIVO
