@@ -1,13 +1,13 @@
 nome: Kratos
-vida: 85
-nivel: 5
-ataque: 20
-coins: 29
-defesa: 10
+vida: 74
+nivel: 7
+ataque: 32
+coins: 106
+defesa: 15
 espada: 0
 pocoes: 0
-nomeinimigo: Zumbilesca
-asciienemy: 2
-vidainimigo: -16
-ataqueinimigo: 25
-defesainimigo: 2
+nomeinimigo: Bruxa Rainha
+asciienemy: 3
+vidainimigo: -8
+ataqueinimigo: 26
+defesainimigo: 14

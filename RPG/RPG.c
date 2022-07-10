@@ -44,7 +44,7 @@ verificacaodemorte(struct personagem *player, struct enemy *enemy) {
         carregarjogo(player, enemy);
         nivel(player, enemy);
         
-        system("cls");
+        clear();
     }
     if (enemy->pv <= 0) {
         printf("\n%s", enemy->name); Dialogo(" Morreu!", 0);
@@ -56,8 +56,8 @@ verificacaodemorte(struct personagem *player, struct enemy *enemy) {
         Dialogo("\nVoce recebeu ", 0); printf("%d ",coinsareceber); Dialogo ("de coins\n", 0);
 
         player->gold = player->gold + coinsareceber;
-        system("pause");
-        system("cls");
+        clear();
+        return;
     }
 }//FUNÇÃO DE VERIFICAÇÃO DE MORTE (PERSONAGEM E INIMIGO)
 
@@ -372,7 +372,7 @@ void Dialogo(char text[], int seconds)
         for(x=0; text[x]!=NULL; x++)
         {
         printf("%c",text[x]);
-        for(y=0; y<=4; y++)
+        for(y=0; y<=8888888; y++)
         {
         }
         }
@@ -474,6 +474,7 @@ void debugmode(struct personagem *player, struct enemy *inimigo)
             system("cls");
             resetenemy(inimigo);
             resetvida(player);
+            inimigo->asciienemy = 3;
             batalha(player, inimigo);
             break;
         case 2:
@@ -966,7 +967,7 @@ case 2:
     }
     else if (caminhos == 2) // CAMINHO PARA IR PELA FLORESTA
     {
-        player->nivel = 4;
+        player->nivel = 5;
     }
     else
     {
@@ -1306,7 +1307,7 @@ case 2:
     Dialogo("Narrador: Antes que pudessem perceber, atrás do que antes era o dragão, surge uma\nsaída para aquela montanha vermelha. Os guerreiros se despedem de Lewers e\nseguem viagem para o próximo lugar no mapa, a cidade das criaturas mágicas\nValladolid", 0);
     delay(500);
     clear();
-    player->nivel = 6;
+    player->nivel = 7;
     salvarjogo(player, enemy);
     delay(500);
     nivel(player, enemy);
@@ -1424,7 +1425,7 @@ case 2:
     Dialogo("Narrador: ", 0); cor(2); Dialogo("George ", 0); cor(3); Dialogo("entra floresta adentro. No início do caminho é possível perceber que\ntodas aquelas árvores não possuem um tamanho comum, e quanto mais andam, percebem\nque elas tomam uma forma colossal e assustadora. É possível ler certos escritos em uma\ndas gigantescas árvores: “Esse lugar é lar de bruxas, não ouse chegar em nossos\ndomínios, lembre-se, se olhar nos olhos da escuridão ela te olhará de volta.” Depois de\nentrarem na floresta, instantes antes de chegarem ao lugar que ",0); cor(2); Dialogo("George ", 0); cor(3); Dialogo("está, Speed fala com \n",0); printf("%s", player->name);
         if (speed == 1)
     {
-        Dialogo("Speed: ", 0); cor(3); Dialogo("Obrigado por ter ficado do meu lado lá atrás,\nadmiro sua confiança em mim\n",0);
+        cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("Obrigado por ter ficado do meu lado lá atrás,\nadmiro sua confiança em mim\n",0);
     
 
         printf("\n%s\n", player->name);
@@ -1436,7 +1437,7 @@ case 2:
     }
     else if (speed == 2)
     {
-        Dialogo("Speed: ", 0); cor(3); Dialogo("Cara, lá atrás, não leva em consideração o que\naquele maluco falou, sou sim do Reino de Ratanaba.\n",0);
+        cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("Cara, lá atrás, não leva em consideração o que\naquele maluco falou, sou sim do Reino de Ratanaba.\n",0);
         printf("\n%s\n", player->name);
         delay(500);
         Dialogo("1 - Só achei meio estranho o que ele falou, não precisa ficar tão preocupado assim cara.\n",0);
@@ -1446,7 +1447,7 @@ case 2:
     }
     else
     {
-        Dialogo("Speed: ", 0); cor(3); Dialogo("Obrigado por ter ficado do meu lado lá atrás,\nadmiro sua confiança em mim\n",0);
+        cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("Obrigado por ter ficado do meu lado lá atrás,\nadmiro sua confiança em mim\n",0);
     
 
         printf("\n%s\n", player->name);
@@ -1522,18 +1523,117 @@ case 2:
     clear();
     menudeloja(player);
     delay(500);
+    printf("\n%s\n\n", player->name);
+    delay(500);
+    Dialogo("1 - Bruxa rainha? O que ela quis dizer com isso?\n",0);
+    Dialogo("2 - Essa bruxa mencionou sobre essa tal bruxa rainha, devemos nos preocupar com ela?\n",0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("A bruxa rainha habita essa floresta desde o início dos tempos. Nem eu sei onde\nela pode entrar. Se tiverem sorte poderão sair desse lugar sem vê-la.\n", 0);
+    delay(500);
+    cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("Espero que ela não apareça, todo cuidado é pouco nesse lugar.\n", 0);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Não se preocupem,  vocês estão se saindo melhor que os outros guerreiros que.\nestão logo a frente.\n", 0);
+    delay(500);
+    cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("Outros guerreiros?\n", 0);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Sim, são outros caras do mesmo lugar que vocês são.\n", 0);
+    delay(7000);
+    clear();
+    Dialogo("Narrador: Logo a frente",0); printf(" %s ", player->name); Dialogo("e Speed encontram ", 0); cor(2);Dialogo("Gyro ", 0); cor(3); printf("e "); cor(9);Dialogo("Brando\n", 0); cor(3);
+    Dialogo("parados em frente a uma grande porta com alguns escritos.\n", 0);
+    delay(500);
+    cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("Então vocês vieram por esse caminho também.\n", 0);
+    delay(500);
+    cor(9);Dialogo("Brando: ", 0); cor(3); Dialogo("Sim. Passamos por todos os monstros mas não conseguimos resolver esse\nmaldito enigma para abrir essa porta.", 0);
+    delay(500);
+    cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Tentem e vejam se conseguem passar por isso.\n", 0);
+    delay(500);
+    cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("Você é bom com enigmas ", 0); printf("%s", player->name); Dialogo(", Veja se consegue passar por isso.\n", 0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Verei o que posso fazer.\n",0);
+    Dialogo("2 - Algo assim não é nada pra mim!\n",0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
     
+    while (acerto == 0)
+    {
+    Dialogo("Enigma\n",0);
+    delay(500);
+    Dialogo("“Qual o ser que mesmo ao atravessar um rio não se molha?”\n",0);
+    delay(500);
+    printf("1 - Môvel\n");
+    delay(500);
+    printf("2 - Vaca\n");
+    delay(500);
+    printf("3 - Ponte\n");
+    delay(500);
+    printf("4 - Fênix\n");
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
 
-
-
-
+    if (escolhas == 3)
+    {
+        Dialogo("Acertou!\n",0);
+        acerto = 1;
+    }
+    else
+    {
+        Dialogo("Você Errou!\n",0);
+        delay(500);
+        acerto = 0;
+        Dialogo("Narrador: Um Raio vermelho sai da parede e acerta sua mão.\n",0);
+        Dialogo("Você recebeu 5 de dano.\n",0);
+        player->pvjogador -= 5;
+    }
+    }
+    delay(500);
+    cor(9);Dialogo("Brando: ",0); cor(3);Dialogo("Você é bom com essas coisas hein cara\n",0);
+    delay(2000);
+    clear();
+    player->nivel = 6;
+    salvarjogo(player, enemy);
+    delay(500);
+    nivel(player, enemy);
     break;
 
-    case 6: //CIDADE DE VALLADOID
-
+    case 6: //BOSS DA FLORESTA DAS BRUXAS
+    Dialogo("Narrador: A grande porta se abre, e atrás dela, para a surpresa dos guerreiros, está a\nbruxa rainha em busca de eliminar os invasores de sua floresta Todos se preparam\npara a luta que virá a seguir.\n",0);
+    delay(500);
+    resetenemy(enemy);
+    enemy->asciienemy = 3;
+    strcpy(enemy->name, "Bruxa Rainha");
+    enemy->pv = 40;
+    cor(1);
+    Dialogo("\nBATALHA INICIADA:\n", 0);
+    Dialogo("A bruxa exala uma aura macabra, seu rosto mostra nada além do que uma escuridão\nprofunda que mostra o seu ódio, ela jura os guerreiros de morte e parte para oencontro deles.\n", 0);
+    delay(500);
+    cor(3);
+    delay(500);
+    system("pause");
+    batalha(player, enemy);
+    delay(500);
+    cor(1);
+    Dialogo("\nFIM DA BATALHA:\n", 0);
+    cor(3);
+    Dialogo("A bruxa derrotada começa a se desfazer e aos poucos vai desaparecendo\n", 0);
+    Dialogo("Narrador: A Bruxa rainha acabou dropando 50 moedas\n",0);
+    player->gold += 50;
+    cor(3);
+    Dialogo("Narrador: Antes que pudessem perceber, atrás do que antes era a bruxa rainha, surge\numa saída daquele lugar em meio às árvores. Os guerreiros se despedem de George\ne seguem viagem para o próximo lugar no mapa, a cidade das criaturas mágicas Valladolid \n",0);
+    delay(500); //MANDAR PARA VALLALOID
+    clear();
+    player->nivel = 7;
+    salvarjogo(player, enemy);
+    delay(500);
+    nivel(player, enemy);
     break;
 
-    case 7: //AINDA POR DECIDIR
+    case 7: //CIDADE DE VALLADOID
+    cor(5); Dialogo("Cidade das criaturas mágicas Valladolid",0); cor(3);
+    delay(500);
+    clear();
 
     break;
 
