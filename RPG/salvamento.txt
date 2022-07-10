@@ -1,6 +1,6 @@
 nome: Kratos
 vida: 85
-nivel: 4
+nivel: 5
 ataque: 20
 coins: 29
 defesa: 10

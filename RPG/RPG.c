@@ -106,7 +106,7 @@ cor(3);
     else if(enemy->asciienemy == 3)// Bruxa
     {
 cor(1); printf("                         ~O");cor(2);printf("               O>\n"); //LEMBRAR DO \N PARA QUEBRAR LINHAS
-cor(1); printf("                       /~()-{---");cor(2);printf("         ,/)\\n");
+cor(1); printf("                       /~()-{---");cor(2);printf("         ,/)\ \n");
 cor(1); printf("                        /~)");cor(2);printf("          -----<---<<<.\n");
 cor(1); printf("                        ~ ~");cor(2);printf("               ``\n");
 cor(3);
@@ -1032,16 +1032,20 @@ case 2:
     {
         cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Claro que não cara, ele com certeza se enganou quanto a isso (fala isso em um tom mais alto).\n",0);
         speed = 1;
+        player->amizade++;
     }
     else if (escolhas == 2 || escolhas == 4)
     {
         cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Exatamente!! Esse cara se enganou (fala isso em um tom mais alto)\n",0);
         speed = 2;
+        player->amizade--;
+
     }
     else
     {
         cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Claro que não cara, ele com certeza se enganou quanto a isso (fala isso em um tom mais alto).\n",0);
         speed = 1;
+        player->amizade++;
     }
     delay(500);
     cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Tudo bem, realmente não importa de onde você é. O que vocês desejam com\nessas cavernas antigas?\n",0);
@@ -1109,6 +1113,18 @@ case 2:
         delay(500);
         Dialogo("1 - Só achei meio estranho o que ele falou, não precisa ficar tão preocupado assim cara.\n",0);
         Dialogo("2 - Se você diz né. Não vou me preocupar com isso, fica de boa cara.\n",0);
+        Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+        delay(500);
+    }
+    else
+    {
+        Dialogo("Speed: ", 0); cor(3); Dialogo("Obrigado por ter ficado do meu lado lá atrás,\nadmiro sua confiança em mim\n",0);
+    
+
+        printf("\n%s\n", player->name);
+        delay(500);
+        Dialogo("1 - Sem problemas, apenas tenho confiança em meu companheiro.\n",0);
+        Dialogo("2 - Sempre vou estar do lado de um amigo.\n",0);
         Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
         delay(500);
     }
@@ -1262,7 +1278,8 @@ case 2:
     enemy->pv = 40;
     cor(1);
     Dialogo("\nBATALHA INICIADA:\n", 0);
-    Dialogo("“Você se depara com um ser asqueroso de aparência zumbilesca, enfrente-o e vença\ncom sua determinação!”\n", 0);
+    Dialogo("“O gigante dragão exala uma aura macabra, seus dentes são afiados como lâminas, e\ntodo seu corpo parece estar banhado com um sangue mágico escarlate”\n", 0);
+    delay(500);
     cor(3);
     delay(500);
     system("pause");
@@ -1296,14 +1313,16 @@ case 2:
     break;
 
     case 5: //FLORESTA DAS BRUXAS (SEGUNDA ESCOLHA)
-
-    Dialogo("Narrador: ",0);print("%s", player->name);Dialogo(" e Speed chegam até o caminho marcado no mapa e\ndecidem analisar o local para coletar informações. Logo de cara se deparam com uma\nárvore de forma humanoide. E para surpresa dos ambos, o ser desconhecido foi bem\nreceptivo com os guerreiros.\n",0);
+    cor(4); Dialogo("Floresta das Bruxas",0); cor(3);
+    delay(500);
+    clear();
+    Dialogo("Narrador: ",0);printf("%s", player->name);Dialogo(" e Speed chegam até o caminho marcado no mapa e\ndecidem analisar o local para coletar informações. Logo de cara se deparam com uma\nárvore de forma humanoide. E para surpresa dos ambos, o ser desconhecido foi bem\nreceptivo com os guerreiros.\n",0);
     delay(500);
     printf("\n%s\n", player->name);
     delay(500);
-    Dialogo("1 - Olá, somos Guerreiros do Reino de Ratanaba. Estamos buscando informações sobre o\nlocal.\n",0);
+    Dialogo("1 - Olá, somos Guerreiros do Reino de Ratanaba. Estamos buscando informações sobre o local.\n",0);
     Dialogo("2 - Que tipo de criatura é essa? Identifique-se!\n",0);
-    Dialogo("3 - Com licença senhor, sou\n",0);printf("%s ", player->name);Dialogo("Eu e meu companheiro estamos em busca\nde informações sobre esse lugar.",0);
+    Dialogo("3 - Com licença senhor, sou",0);printf("%s ", player->name);Dialogo("Eu e meu companheiro estamos em busca\nde informações sobre esse lugar.\n",0);
     Dialogo("4 - Afaste-se de nós e se identifique. Somos Guerreiros orgulhosos de Ratanaba!\n", 0);
     Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
     delay(500);
@@ -1322,13 +1341,192 @@ case 2:
     delay(500);
     cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Espera, você é um guia? Essas terras do leste não eram inexploradas?\n", 0);
     delay(500);
-    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Não confunda as coisas cara, essa região só não é habitada por humanos. Por\nessas bandas existem somente criaturas mágicas.",0);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Não confunda as coisas cara, essa região só não é habitada por humanos. Por\nessas bandas existem somente criaturas mágicas.\n",0);
     delay(500);
     cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo(" Não é surpresa que isso seja um mistério para humanos, tantos perigos assim, se\nfossem do conhecimento dos humanos causariam certa comoção. Aliás, perdoe minha\nindelicadeza, me chamo Speed, sou um guerreiro de Ratanaba.\n", 0);
     delay(500);
-    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Não achei que fosse de Ratanaba, sua energia vital exala uma origem diferente.",0);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Não achei que fosse de Ratanaba, sua energia vital exala uma origem diferente.\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("c... como assim? É claro que sou do reino de Ratanba! E que história é essa de\nenergia vital?\n", 0);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Calma cara, não precisa de tanto alarde assim. Nós criaturas mágicas\nconseguimos ver a procedência da sua energia vital, ou seja, o local no qual você nasceu.\nSó fiz um comentário, não quis ser invasivo.\n",0);
+        delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Calma, então você não nasceu no Reino de Ratanaba Speed?\n",0);
+    Dialogo("2 - Esse cara deve estar louco, Speed é claramente de Ratanaba.\n",0);
+    Dialogo("3 - Que curioso, então você era de outra terra originalmente.\n",0);
+    Dialogo("4 - É óbvio que temos um equívoco aqui, sei que Speed é de Ratanaba.\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    if (escolhas == 1 || escolhas == 3)
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Claro que não cara, ele com certeza se enganou quanto a isso (fala isso em um tom mais alto).\n",0);
+        speed = 1;
+        player->amizade++;
+    }
+    else if (escolhas == 2 || escolhas == 4)
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Exatamente!! Esse cara se enganou (fala isso em um tom mais alto)\n",0);
+        speed = 2;
+        player->amizade--;
+
+    }
+    else
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Claro que não cara, ele com certeza se enganou quanto a isso (fala isso em um tom mais alto).\n",0);
+        speed = 1;
+        player->amizade++;
+    }
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Tudo bem, realmente não importa de onde você é. O que vocês desejam com\nessas cavernas antigas?\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Buscamos um jeito de atravessar essa floresta.\n",0);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Acredito que vá ser bem difícil, mas como são guerreiros acredito que vocês\npossam conseguir.\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("E o que exatamente deixaria tudo isso difícil?\n", 0);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Cara, essa floresta não se chama floresta das bruxas atoa. Como era de esperar,\nesse lugar está cheio de bruxas capazes de usar magias antigas e lançar maldições.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Então esses são os perigos que o senhor Cultrapali mencionou.\n",0);
+    Dialogo("2 - Vamos pessoalmente acabar com todos esses monstros!\n",0);
+    Dialogo("3 - Devemos ter o máximo de cautela daqui pra frente.\n",0);
+    Dialogo("4 - Nós cuidaremos de exterminar essas criaturas, pode ter certeza!\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    if (escolhas == 1 || escolhas == 3)
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Devemos ter muito cuidado nessa área.\n",0);
+    }
+    else if (escolhas == 2 || escolhas == 4)
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Devemos enfrentar as criaturas, mas com cautela.\n",0);
+    }
+    else
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Devemos ter muito cuidado nessa área.\n",0);
+    }
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Então estão dispostos mesmo a seguir caminho?\n",0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Claro que estamos!!\n",0);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Então vamos. Mas antes, como eu havia mencionado, sou apenas um guia,\nentão os perigos daqui ficarão para vocês. Outra coisa, não cheguei a mencionar, mas\ncarrego comigo alguns itens, deixe-me mostrar o que tenho pra vocês caso queiram\ncomprar:\n",0);
+    delay(500);
+    clear();
+    menudeloja(player);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Se já escolheram o que queriam, me acompanhem.\n",0);
+    delay(500);
+    Dialogo("Narrador: ", 0); cor(2); Dialogo("George ", 0); cor(3); Dialogo("entra floresta adentro. No início do caminho é possível perceber que\ntodas aquelas árvores não possuem um tamanho comum, e quanto mais andam, percebem\nque elas tomam uma forma colossal e assustadora. É possível ler certos escritos em uma\ndas gigantescas árvores: “Esse lugar é lar de bruxas, não ouse chegar em nossos\ndomínios, lembre-se, se olhar nos olhos da escuridão ela te olhará de volta.” Depois de\nentrarem na floresta, instantes antes de chegarem ao lugar que ",0); cor(2); Dialogo("George ", 0); cor(3); Dialogo("está, Speed fala com \n",0); printf("%s", player->name);
+        if (speed == 1)
+    {
+        Dialogo("Speed: ", 0); cor(3); Dialogo("Obrigado por ter ficado do meu lado lá atrás,\nadmiro sua confiança em mim\n",0);
+    
+
+        printf("\n%s\n", player->name);
+        delay(500);
+        Dialogo("1 - Sem problemas, apenas tenho confiança em meu companheiro.\n",0);
+        Dialogo("2 - Sempre vou estar do lado de um amigo.\n",0);
+        Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+        delay(500);
+    }
+    else if (speed == 2)
+    {
+        Dialogo("Speed: ", 0); cor(3); Dialogo("Cara, lá atrás, não leva em consideração o que\naquele maluco falou, sou sim do Reino de Ratanaba.\n",0);
+        printf("\n%s\n", player->name);
+        delay(500);
+        Dialogo("1 - Só achei meio estranho o que ele falou, não precisa ficar tão preocupado assim cara.\n",0);
+        Dialogo("2 - Se você diz né. Não vou me preocupar com isso, fica de boa cara.\n",0);
+        Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+        delay(500);
+    }
+    else
+    {
+        Dialogo("Speed: ", 0); cor(3); Dialogo("Obrigado por ter ficado do meu lado lá atrás,\nadmiro sua confiança em mim\n",0);
+    
+
+        printf("\n%s\n", player->name);
+        delay(500);
+        Dialogo("1 - Sem problemas, apenas tenho confiança em meu companheiro.\n",0);
+        Dialogo("2 - Sempre vou estar do lado de um amigo.\n",0);
+        Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+        delay(500);
+    }
+    cor(2);Dialogo("*George interrompe*\n", 0); cor(3);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Estão vendo aquela casa de madeira no meio do caminho? Nela vive uma bruxa\nque mata todos que queiram passar. Se quiserem seguir, vocês devem eliminá-la.\n",0);
+    delay(500);
+    Dialogo("Narrador: No momento em que George termina de falar, a dita bruxa sai de sua casa e\ndesafia ambos os guerreiros para uma batalha.", 0); 
+    delay(500);
+    cor(1); Dialogo("\nBruxa da Floresta: ",0); cor(3); Dialogo("hahahaha venham para que eu possa matá-los!! \n",0);  
+    delay(500);
+    resetenemy(enemy);
+    enemy->asciienemy = 3;
+    strcpy(enemy->name, "Bruxa da Floresta");
+    enemy->pv = 30;
+    cor(1);
+    Dialogo("\nBATALHA INICIADA:\n", 0);
+    Dialogo("“A bruxa montada em uma vassoura puxa sua varinha de um saco mágico e parte\npara cima dos guerreiros”\n", 0);
+    cor(3);
+    delay(500);
+    system("pause");
+    batalha(player, enemy);
+    delay(500);
+    cor(1);
+    Dialogo("\nFIM DA BATALHA:\n", 0);
+    Dialogo("“A bruxa derrotada começa a se desfazer e aos poucos vai desaparecendo”\n", 0);
+    delay(500);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Essas magias são bem complicadas de lidar. Você se saiu bem", 0); printf("%s\n ",player->name);
+    delay(500);
+        printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Valeu cara, você também se saiu bem na batalha.\n",0);
+    Dialogo("2 - Você ajudou um pouco, eu acho.\n",0);
+    Dialogo("3 - Sem você eu não conseguiria.\n",0);
+    Dialogo("4 - Sou bem forte, coisas assim não me abalam.\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Vocês deram uma lição naquela bruxa. Se precisarem de suprimentos podem\ncomprar comigo:", 0);
+    delay(500);
+    clear();
+    menudeloja(player);
+    delay(500);
+    Dialogo("Após a vitória é possível escutar o grito de uma mulher pedindo ajuda logo\ndepois da casa da bruxa derrotada. Os guerreiros preocupados vão ao encontro da\nvoz e se deparam com a mulher amarrada. Quando se aproximam, a mulher se revela\ncomo sendo uma bruxa disfarçada. Os guerreiros se preparam para a luta que virá a\nseguir.\n", 0);
+    delay(500);
+    cor(1); Dialogo("\nBruxa da Floresta: ",0); cor(3); Dialogo("HAHAHAHA como podem cair em uma armadilha tão boba? Tratarei eu\nmesma de matá-los!!\n",0);
+    delay(500);
+    resetenemy(enemy);
+    enemy->asciienemy = 3;
+    strcpy(enemy->name, "Bruxa da Floresta");
+    enemy->pv = 30;
+    cor(1);
+    Dialogo("\nBATALHA INICIADA:\n", 0);
+    Dialogo("“A bruxa montada em uma vassoura puxa sua varinha de um saco mágico e parte\npara cima dos guerreiros”\n", 0);
+    cor(3);
+    delay(500);
+    system("pause");
+    batalha(player, enemy);
+    delay(500);
+    cor(1);
+    Dialogo("\nFIM DA BATALHA:\n", 0);
+    Dialogo("“A bruxa derrotada começa a se desfazer e aos poucos vai desaparecendo, mas antes disso ela diz:”\n", 0);
+    delay(500);
+    cor(1); Dialogo("\nBruxa da Floresta: ",0); cor(3); Dialogo("Você vão ser eliminados pela bruxa rainha seus malditos\n",0);
+    delay(500);
+    cor(2);Dialogo("George: ", 0); cor(3); Dialogo("Não achei que fossem guerreiros tão habilidosos. O bruxa não teve a menor\nchance. Vocês são bons caras. Se quiserem comprar algo agora que terminaram a batalha,\niquem a vontade:", 0);
+    delay(1000);
+    clear();
+    menudeloja(player);
     delay(500);
     
+
+
+
+
     break;
 
     case 6: //CIDADE DE VALLADOID
