@@ -347,7 +347,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
         printf("Opcao Invalida\n");
         break;
     }
-    if (inimigo->pv>=0)
+    if (inimigo->pv > 0)
     {
         receberataque(player, inimigo); //RECEBER ATAQUE DO INIMIGO
         verificacaodemorte(player, inimigo);
@@ -1629,7 +1629,7 @@ case 2:
     delay(500);
     nivel(player, enemy);
     break;
-
+    
     case 7: //CIDADE DE VALLADOID
     cor(5); Dialogo("Cidade das criaturas mágicas Valladolid",0); cor(3);
     delay(500);
