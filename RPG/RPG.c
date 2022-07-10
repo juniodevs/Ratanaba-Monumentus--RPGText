@@ -190,7 +190,7 @@ jogaradaga(struct personagem *player, struct enemy *enemy) {
 
 ataquemagico(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
-    player->ataque = 25 + rand()%20;
+    player->ataque = 20 + rand()%20;
     dano = player->ataque - enemy->defesa;
     if(dano <= 0)
     {
@@ -624,6 +624,7 @@ nivel(struct personagem *player, struct enemy *enemy) {
     int escolhas = 0; //ESCOLHA DO JOGADOR
     int caminhos = 0; //COMINHOS A SEGUIR
     int speed = 0; //SPEED SEU AMIGO CONFIANÇA
+    int acerto = 0; //CASO ACERTE O ENIGMA
 switch (player->nivel)
 {
 case 1:
@@ -1159,6 +1160,41 @@ case 2:
     Dialogo("1 - Verei o que posso fazer.\n",0);
     Dialogo("2 - Algo assim não é nada pra mim!\n",0);
     Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    
+    while (acerto == 0)
+    {
+    Dialogo("Enigma\n",0);
+    delay(500);
+    Dialogo("“O que é que de manhã tem quatro patas, de tarde tem duas e de noite tem três?”\n",0);
+    delay(500);
+    printf("1 - Cachorro\n");
+    delay(500);
+    printf("2 - Gato\n");
+    delay(500);
+    printf("3 - Homem\n");
+    delay(500);
+    printf("4 - Fênix\n");
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+
+    if (escolhas == 3)
+    {
+        acerto = 1;
+    }
+    else
+    {
+        Dialogo("Você Errou!\n",0);
+        delay(500);
+        acerto = 0;
+        Dialogo("Narrador: Um Raio vermelho sai da parede e acerta sua mão.\n",0);
+        Dialogo("Você recebeu 5 de dano.\n",0);
+        player->pvjogador -= 5;
+    }
+    }
+    delay(500);
+    cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Você é bom com essas coisas hein cara\n",0);
+    system("pause");
+
     delay(500);
 
 
