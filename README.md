@@ -14,7 +14,7 @@ BATALHA | COMPLETO
 ## Imagens do Projeto
 
 ### LOGO
-<img src="IMAGES/RATANABALOGO.PNG" width="250"/>
+<img src="IMAGES/RATANABALOGO.png" width="250"/>
 
 ### BANNER
 <img src="IMAGES/BANNERZINHA.png"/>
