@@ -188,7 +188,7 @@ delay(int ms) {
 
 atacar(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
-    player->ataque = 20 + rand()%20;
+    player->ataque = 15 + rand()%20;
     dano = (player->espada + player->ataque) - enemy->defesa;
 
     if(dano < 0)
@@ -203,7 +203,6 @@ atacar(struct personagem *player, struct enemy *enemy) {
         enemy->pv = enemy->pv - dano;
         delay(1000);
     }
-
 } //FUNÇÃO DE ATAQUE (PERSONAGEM X INIMIGO)
 
 presaveforDEBUG()
@@ -294,8 +293,8 @@ receberataque(struct personagem *player, struct enemy *enemy) {
     }
 } //FUNÇÃO DE RECEBER ATAQUE
 
-batalha(struct personagem *player, struct enemy *inimigo){
-
+batalha(struct personagem *player, struct enemy *inimigo)
+{
     int posicaodatecla2 = 1, KeyDown2 = 0; //VARIAVEIS DE CONTROLE DE TECLAS
     int contadordeturno = 0; //contador de turnos
 
@@ -364,13 +363,13 @@ batalha(struct personagem *player, struct enemy *inimigo){
         printf("Opcao Invalida\n");
         break;
     }
-    if (inimigo->pv > 0)
+    if (inimigo->pv > 0) //IF PARA RECEBER ATAQUE CASO O INIMIGO ESTEJA VIVO
     {
         receberataque(player, inimigo); //RECEBER ATAQUE DO INIMIGO
         verificacaodemorte(player, inimigo);
     }
     }
-    else
+    else 
     {
         int contadordeturno = 0;
         system("cls");
@@ -379,7 +378,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
     }
 }
 
-void Dialogo(char text[], int seconds)
+void Dialogo(char text[], int seconds) //FUNÇÃO DE DIALOGO
 {   
     int x; double y;
     // DELAY EM SEGUNDOS
@@ -397,7 +396,7 @@ void Dialogo(char text[], int seconds)
     // LIMPAR A TELA APOS O TEXTO UTILIZANDO O ENTER
 }
 
-void clear()
+void clear() //FUNÇÃO PARA LIMPAR TELA
 {
     printf("\n[Pressione Enter para continuar]");
     char enter = 0;
@@ -412,8 +411,8 @@ void clear()
     system("cls");
 }
 
-void DialogocomClear(char text[], int seconds)
-{   
+void DialogocomClear(char text[], int seconds) //FUNÇÃO DIALOGO COM CLEAR
+{
     system("cls");
     int x; double y;
     // DELAY EM MILISSEGUNDOS
@@ -453,7 +452,7 @@ void localdaseta(int realPosition, int posicaoDaTecla)
     }
 }
 
-void debugmode(struct personagem *player, struct enemy *inimigo)
+void debugmode(struct personagem *player, struct enemy *inimigo) //MODO DEBUG PARA TESTAR O CÓDIGO
 {
     presaveforDEBUG(player, inimigo);
     system("cls");
@@ -469,7 +468,7 @@ void debugmode(struct personagem *player, struct enemy *inimigo)
 
             // MOSTRAR O MENU
             printf("\t\t\t-----[DEBUG]-----\n");
-            localdaseta(1, posicaodatecla4); printf("TESTAR BATALHA\n"); 
+            localdaseta(1, posicaodatecla4); printf("TESTAR BATALHA\n");  
             localdaseta(2, posicaodatecla4); printf("TESTAR LOJA\n");
             localdaseta(3, posicaodatecla4); printf("RECEBER 100 COINS\n");
             localdaseta(4, posicaodatecla4); printf("SAIR\n");
@@ -487,29 +486,29 @@ void debugmode(struct personagem *player, struct enemy *inimigo)
     }
     
     switch (posicaodatecla4) {
-        case 1:
+        case 1: //TESTAR BATALHA
             system("cls");
             resetenemy(inimigo);
             resetvida(player);
             inimigo->asciienemy = 3;
             batalha(player, inimigo);
             break;
-        case 2:
+        case 2: //TESTAR LOJA
             system("cls");
             menudeloja(player);
             break;
-        case 3:
+        case 3: //RECEBER 100 COINS
             system("cls");
             player->gold += 100;
             debugmode(player, inimigo);
             break;
-        case 4:
+        case 4: //SAIR
             system("cls");
             break;
     }
 }
 
-void menu(struct personagem *player, struct enemy *inimigo)
+void menu(struct personagem *player, struct enemy *inimigo) //MENU PRINCIPAL
 {
     system("cls");
       int posicaodatecla = 1, KeyDown = 0;
@@ -542,37 +541,36 @@ void menu(struct personagem *player, struct enemy *inimigo)
     }
     
     switch (posicaodatecla) {
-        case 1:
+        case 1: //NOVO JOGO
             system("cls");
             DialogocomClear("Um novo jogo esta sendo criado!\n", 0);
             resetvida(player);
             nivel(player, inimigo);
             break;
-        case 2:
+        case 2: //CARREGAR JOGO
             system("cls");
             DialogocomClear("Carregando jogo...", 0);
             carregarjogo(player, inimigo);
             nivel(player, inimigo);
             break;
-        case 3:
+        case 3: //CRÉDITOS
             system("cls");
             DialogocomClear("Obrigado por jogar!", 0);
             DialogocomClear("História por: Julio Cesar \nVisual: Sergio Mota \nProgramacao: Júnior Veras", 0);
             menu(player, inimigo);
             break;
-        case 4:
+        case 4: //SAIR
             system("cls");
             break;
-        case 5:
+        case 5: //DEBUG MODE
             system("cls");
             DialogocomClear("Debug Mode", 0);
             debugmode(player, inimigo);
             break;
     }
 }
-
-
-menudeloja(struct personagem *player){
+menudeloja(struct personagem *player)//MENU DA LOJA DE ITENS
+{ 
     system("cls");
       int posicaodatecla = 1, KeyDown = 0;
     
@@ -616,12 +614,11 @@ menudeloja(struct personagem *player){
             {
             Dialogo("Aprimorando sua espada!\n", 0);
             int bonusdeespada = 2 + rand() % 2; //BONUS DA ESPADA
-            player->espada + bonusdeespada;
+            player->espada = player->espada + bonusdeespada;
             Dialogo("Sua espada ganhou", 0); printf(" %d ", bonusdeespada); Dialogo("ponto de bônus!\n", 0);
             delay(1000);
             player->gold -= 80; //CUSTO DO APRIMORAMENTO DA ESPADA
             }
-
             else
             {
             Dialogo("Você não tem coins suficientes para comprar este update!", 0);
@@ -1942,8 +1939,6 @@ case 2:
     printf("1 - GitHub: https://github.com/juniodevs/Ratanaba-Monumentus--RPGText\n");
     clear();
     menu(player, enemy);
-
-
     break;
 }
 }
@@ -1955,21 +1950,21 @@ int main()
     SetConsoleOutputCP(CPAGE_UTF8);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     srand(time(NULL));
-    player.adagas = 5;
-    player.ataquemagico = 3;
-    player.ataque = 0;
-    player.defesa = 0;
-    player.gold = 100;
-    player.nivel = 1;
-    player.pocao = 0;
-    player.pvjogador = 100;
-    inimigo.asciienemy = 1;
-    boss *bossfinal = (boss*)malloc(sizeof(boss));
-    strcpy(bossfinal->name, "Boss Final");
-    bossfinal->pv = 100;
-    bossfinal->ataque = rand() % 20 + 20;
-    bossfinal->defesa = rand() % 20 + 20;
-    menu(&player, &inimigo);
+    player.adagas = 5; //ADAGAS INICIAL
+    player.ataquemagico = 3; //CAPCSULAR DE MAGIA INICIAL
+    player.ataque = 0; // SETAR ATAQUE PARA SALVAR O JOGO SEM BUGAR
+    player.defesa = 0; //Defesa do player
+    player.gold = 100; //GOLD INICIAL
+    player.nivel = 1; //CAMINHO INICIAL DO JOGO
+    player.pocao = 0; //POCAO DE VIDA
+    player.pvjogador = 100; //PV do jogador
+    inimigo.asciienemy = 1; 
+    boss *bossfinal = (boss*)malloc(sizeof(boss)); //Alocação de memória para o boss final
+    strcpy(bossfinal->name, "Boss Final"); //Nome do boss final
+    bossfinal->pv = 100; //Vida do boss final
+    bossfinal->ataque = rand() % 20 + 20; //Ataque do boss final
+    bossfinal->defesa = rand() % 20 + 20; //Defesa do boss final
+    menu(&player, &inimigo); //Chamada do menu inicial
 
     SetConsoleOutputCP(CPAGE_DEFAULT);
     free(bossfinal);
