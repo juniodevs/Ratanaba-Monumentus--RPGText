@@ -18,7 +18,7 @@ struct personagem {
     int espada;
     int gold;
     int pocao;
-}player; //STRUCT PARA CRIAÇÃO DE PERSONAGEM
+}player; //STRUCT DE CRIAÇÃO DE PERSONAGEM
 struct enemy {
     char name[18];
     int pv;
@@ -59,7 +59,7 @@ verificacaodemorte(struct personagem *player, struct enemy *enemy) {
         clear();
         return;
     }
-}//FUNÇÃO DE VERIFICAÇÃO DE MORTE (PERSONAGEM E INIMIGO)
+}//FUNÇÃO PARA VERIFICAÇÃO DE MORTE (PERSONAGEM E INIMIGO)
 
 
 regeneracao(struct personagem *player){
