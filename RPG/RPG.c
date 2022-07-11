@@ -1798,7 +1798,73 @@ case 2:
     delay(500);
     cor(2);Dialogo("Lincon: ", 0); cor(3); Dialogo("Então você se saiu bem, não é garoto. Dê uma olhada no que tenho para vender:", 0);
     delay(500);
+    clear();
+    menudeloja(player);
+    delay(500);
+    cor(2);Dialogo("Lincon: ", 0); cor(3); Dialogo("O príncipe Thomas realmente está ansioso por uma luta com você", 0); printf(" %s, ", player->name);Dialogo("ele vê potencial em você.\n", 0);
+    delay(500);
+    cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Esses caras loucos por luta são os piores.\n",0);
+    delay(500);
+    cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Por que?\n", 0);
+    delay(500);
+    cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Porque esse tipo de cara faz tudo que for possível pra vencer. Por isso você\ndeve tomar cuidado",0);printf(" %s, ", player->name);Dialogo("isso pode ser só um torneio, mas essa luta pode\ncustar a sua vida.\n", 0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Agradeço o seu aviso, tomarei cuidado.\n",0);
+    Dialogo("2 - Isso não importa! Eu o derrotarei de qualquer forma.\n",0);
+    Dialogo("3 - Tomarei todo cuidado possível.\n",0);
+    Dialogo("4 - Basta ir com tudo pra cima dele.\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    Dialogo("Narrador: Os guerreiros voltam para o coliseu para a próxima batalha. Lá encontram\nJhonny já preparado para a luta.",0); printf(" %s, ", player->name);Dialogo("entra na arena e o combate se inicia.\n", 0);
+    delay(500);
+    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("Temos agora o guerreiro",0); printf(" %s ", player->name);Dialogo("e o lutador Jhonny. Que essa batalha seja proveitosa.\n", 0);
+    delay(500);
+    cor(5);Dialogo("Jhonny: ",0);cor(3);Dialogo("Vou acabar com você cara! Essa luta está nas minhas mãos.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - É o que veremos.\n",0);
+    Dialogo("2 - Eu vou destruir você!\n",0);
+    Dialogo("3 - Farei você ver que não será dessa forma\n",0);
+    Dialogo("4 - Tome cuidado, posso acabar com você facilmente da forma que eu quiser\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("LUTEM!!!",0);
+    delay(500);
+    resetenemy(enemy);
+    enemy->asciienemy = 1;
+    strcpy(enemy->name, "Jhonny");
+    enemy->pv = 53;
+    cor(1);
+    Dialogo("\nBATALHA INICIADA:\n", 0);
+    Dialogo("“Jhonny é um lutador muito habilidoso com armas a distância.\nTenha determinação e vença-o”.\n", 0);
+    delay(500);
+    cor(3);
+    delay(500);
+    system("pause");
+    batalha(player, enemy);
+    delay(500);
+    cor(1);
+    Dialogo("\nFIM DA BATALHA:\n", 0);
+    cor(3);
+    Dialogo("Jhonny cai no chão derrotado inconsciente\nVocê ganha 50 ouro de apostas!", 0);
+    player->gold += 50;
+    delay(500);
+    cor(1);Dialogo("Plateia: ",0);cor(3);Dialogo("ACABEM COM ESSE CARA!!!\n",0);
+    delay(500);
+    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("Aparentemente a plateia não gostou da vitória do\nguerreiro estrangeiro.",0);
+    delay(500);
+    cor(1);Dialogo("Plateia: ",0);cor(3);Dialogo("O PRÍNCIPE VAI ACABAR COM A RAÇA DESSE CARA!\n",0);
+    delay(500);
     
+
+
+
+
+
+
 
     break;
 
