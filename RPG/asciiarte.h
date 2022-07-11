@@ -61,15 +61,6 @@ void cor(nums)
     // cor(3); //branco
 }
 
-void piscartela()
-{
-    system("color 7");
-    delay(100);
-    system("color 0");
-}
-
-
-
 void pocao() //TEMPLATE PARA POÇÃO
 {
 cor(1);

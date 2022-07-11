@@ -1,6 +1,6 @@
 nome: Krato
 vida: 100
-nivel: 2
+nivel: 7
 ataque: 32
 coins: 100
 defesa: 0
