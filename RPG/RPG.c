@@ -66,12 +66,14 @@ regeneracao(struct personagem *player){
     if (player->pvjogador >= 100)
     {
         Dialogo("\nSua vida está cheia\n", 0);
+        delay(1000);
     }
     else
     {
             if (player->pocao <= 0)
     {
         Dialogo("Voce nao tem pocao de vida",0);
+        delay(1000);
     }
     else
     {
@@ -79,6 +81,7 @@ regeneracao(struct personagem *player){
         pocao();
         printf("\n");
         player->pocao--;
+        delay(1000);
     }
     }
     
@@ -227,15 +230,26 @@ jogaradaga(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
     player->ataque = 20 + rand()%20;
     dano = (player->ataque) - enemy->defesa;
+    if (player->adagas >= 1)
+    {
     if(dano <= 0)
     {
         dano = 0;
         printf("\n%s ", enemy->name); Dialogo(" defendeu a adaga", 0); printf(" %d ", dano); Dialogo("de dano", 0);
+        delay(1000);
     }
     else
     {
         enemy->pv = enemy->pv - dano;
-        printf("\n%s ", player->name); Dialogo("jogou adaga em ", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);   
+        printf("\n%s ", player->name); Dialogo("jogou adaga em ", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);
+        delay(1000);
+    }
+    player->adagas = player->adagas - 1;
+    }
+    else
+    {
+        printf("\n%s ", player->name); Dialogo("não tem adagas", 0);
+        delay(1000);
     }
 
 } //FUNÇÃO DE JOGAR ADAGA (PERSONAGEM X INIMIGO)
@@ -244,19 +258,28 @@ ataquemagico(struct personagem *player, struct enemy *enemy) {
     int dano = 0;
     player->ataque = 20 + rand()%20;
     dano = player->ataque - enemy->defesa;
+    if (player->ataquemagico >= 1)
+    {
     if(dano <= 0)
     {
         dano = 0;
         printf("\n%s ", player->name); Dialogo("não conseguiu atacar o ", 0); printf(" %s", enemy->name); Dialogo(" com sua magia", 0);
-        delay(500);
+        delay(1000);
     }
     else
     {
         enemy->pv = enemy->pv - dano;
-        printf("\n%s", player->name); Dialogo("usou uma capsula de magia no(a)", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);
-        delay(500);
+        printf("\n%s ", player->name); Dialogo("usou uma capsula de magia no(a)", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);
+        delay(1000);
     }
     player->ataquemagico--;
+    }
+    else
+    {
+        printf("\n%s ", player->name); Dialogo("não tem mais magia", 0);
+        delay(1000);
+    }
+    
 } //ATAQUE MAGICO
 
 receberataque(struct personagem *player, struct enemy *enemy) {
@@ -268,7 +291,7 @@ receberataque(struct personagem *player, struct enemy *enemy) {
     {
         dano = 0;
         printf("\n%s nao conseguiu atacar %s\n", enemy->name, player->name);
-        delay(500);
+        delay(1000);
     }
     else if (dano > 0)
     {
@@ -475,6 +498,8 @@ void debugmode(struct personagem *player, struct enemy *inimigo)
             resetenemy(inimigo);
             resetvida(player);
             inimigo->asciienemy = 3;
+            player->adagas = 0;
+            player->ataquemagico = 0;
             batalha(player, inimigo);
             break;
         case 2:
@@ -766,7 +791,7 @@ case 2:
     }
     else if (escolhas == 2)
     {
-        cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Vejo que é um guerreiro respeitoso, aprecio pessoas assim\n", 0);
+        cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Um tanto arrogante você não é garoto\n", 0);
         delay(500);
         player->amizade--;
     }
@@ -814,7 +839,7 @@ case 2:
     clear();
 
     cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Então que fique decidido dessa forma.",0);
-    cor(2);Dialogo(" Gyro ", 0); cor(3); printf("e ");cor(9);Dialogo("Brando ", 0); cor(3); Dialogo("vocês irão juntos.\n Assim sobrando",0);
+    cor(2);Dialogo(" Gyro ", 0); cor(3); printf("e ");cor(9);Dialogo("Brando ", 0); cor(3); Dialogo("vocês irão juntos.\nAssim sobrando",0);
     cor(1);Dialogo(" Howard ", 0); cor(3); printf("e ");cor(4);Dialogo(" Sheldon ", 0);cor(3); Dialogo("como sendo a outra dupla\n",0);
     delay(500);
     cor(4);Dialogo("Sheldon ", 0); cor(3);Dialogo("Aceitamos de bom grado sua decisão, mas por qual motivo devemos sair nessa\nmissão majestade?\n", 0);
@@ -859,17 +884,12 @@ case 2:
 
     cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Então estão todos de acordo em partir em viagem rumo ao leste?\n",0);
 
-    cor(2);Dialogo("Gyro ", 0); cor(3);Dialogo("Sim meu Rei!\n",0);
-    delay(20);
-    cor(1);Dialogo("Howard ", 0); cor(3);Dialogo("Sim, meu Rei!\n",0);
-    delay(20);
-    cor(4);Dialogo("Sheldon ", 0); cor(3);Dialogo("Sim, meu Rei!\n",0);
-    delay(20);
-    cor(9);Dialogo("Brando ", 0); cor(3);Dialogo("Sim, meu Rei!\n",0);
-    delay(20);
-    cor(5);Dialogo("Speed: ", 0); cor(3);Dialogo("Sim, meu Rei!\n",0);
-    delay(20);
-    printf("%s ", player->name);Dialogo("Sim, meu Rei!\n",0);
+    cor(2);printf("Gyro: "); cor(3);printf("Sim meu Rei!\n");
+    cor(1);printf("Howard: "); cor(3);printf("Sim meu Rei!\n");
+    cor(4);printf("Sheldon: "); cor(3);printf("Sim meu Rei!\n");
+    cor(9);printf("Brando: "); cor(3);printf("Sim meu Rei!\n");
+    cor(5);printf("Speed: "); cor(3);printf("Sim meu Rei!\n");
+    printf("%s ", player->name);printf("Sim meu Rei!\n");
     delay(2000);
 
     cor(10);Dialogo("Rei: ",0);cor(3);Dialogo("Antes gostaria de orientá-los quanto aos inimigos que encontrarão nessas terras\n",0);
@@ -936,21 +956,21 @@ case 2:
     Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
     if (escolhas == 1)
     {
-        printf("\n%s ", player->name); Dialogo("Então vamos nessa\n",0);
+        printf("\n%s: ", player->name); Dialogo("Então vamos nessa\n",0);
     }
     else if (escolhas == 2)
     {
-        printf("\n%s ", player->name); Dialogo("Que os Deuses nos guardem nessa jornada\n",0);
+        printf("\n%s: ", player->name); Dialogo("Que os Deuses nos guardem nessa jornada\n",0);
     }
     else
     {
-        printf("\n%s ", player->name); Dialogo("Então vamos nessa\n",0);
+        printf("\n%s: ", player->name); Dialogo("Então vamos nessa\n",0);
     }
     delay(7000);
 
     clear();
 
-    Dialogo("Narrador: Então as demais duplas de aventureiros tomam seus caminhos, restando\nsomente Speed e ", 0); printf("%s ", player->name); Dialogo("escolherem. Eles observam o mapa e se\ndeparam com a imagens de dois possíveis caminhos junto de escritos que\nrespectivamente dizem “(imagem de uma caverna na montanha carmesim) Essa\nantiga caverna atravessa a colossal montanha do dragão carmesim” e “(imagem da\nfloresta das bruxas) Essa floresta está cheia de segredos obscuros e maldições\n”.",0);
+    Dialogo("Narrador: Então as demais duplas de aventureiros tomam seus caminhos, restando\nsomente Speed e ", 0); printf("%s ", player->name); Dialogo("escolherem. Eles observam o mapa e se\ndeparam com a imagens de dois possíveis caminhos junto de escritos que\nrespectivamente dizem “(imagem de uma caverna na montanha carmesim) Essa\nantiga caverna atravessa a colossal montanha do dragão carmesim” e “(imagem da\nfloresta das bruxas) Essa floresta está cheia de segredos obscuros e maldições”.\n",0);
     delay(7000);
 
     printf("\n%s\n", player->name);
@@ -959,7 +979,7 @@ case 2:
     cor(1);Dialogo("1 - Caverna da montanha carmesim \n",0);
     cor(4);Dialogo("2 - Floresta das bruxas.\n",0); cor(3);
     Dialogo("Escolha: ", 0); scanf("%d", &caminhos);
-    delay(7000);
+    delay(1000);
 
     if (caminhos == 1) //CAMINHO PARA IR PELA CAVERNA
     {
@@ -984,7 +1004,7 @@ case 2:
     cor(1); Dialogo("Caverna da montanha marmesim",0); cor(3);
     delay(500);
     clear();
-    Dialogo("Narrador:", 0); printf("%s ", player->name); Dialogo("e Speed chegam até o caminho marcado no mapa e\ndecidem analisar o local para coletar informações. Logo de cara se deparam com uma\ntoupeira de formato humanoide vestida com roupas de minerador. E para surpresa\ndos ambos, o ser desconhecido foi bem receptivo com os guerreiros. \n",0);
+    Dialogo("Narrador: ", 0); printf("%s ", player->name); Dialogo("e Speed chegam até o caminho marcado no mapa e\ndecidem analisar o local para coletar informações. Logo de cara se deparam com uma\ntoupeira de formato humanoide vestida com roupas de minerador. E para surpresa\ndos ambos, o ser desconhecido foi bem receptivo com os guerreiros. \n",0);
     delay(2000);
 
     printf("\n%s\n", player->name);
@@ -1017,7 +1037,7 @@ case 2:
     delay(500);
     cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Não achei que fosse de Ratanaba, sua energia vital exala uma origem diferente.\n",0);
     delay(500);
-    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("c... como assim? É claro que sou do reino de Ratanba! E que história é essa\nde energia vital?\n",0);
+    cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("c... como assim? É claro que sou do reino de Ratanaba! E que história é essa\nde energia vital?\n",0);
     delay(500);
     cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Calma cara, não precisa de tanto alarde assim. Nós criaturas mágica\nconseguimos ver a procedência da sua energia vital, ou seja, o local no qual você nasceu.\nSó fiz um comentário, não quis ser invasivo.\n",0);
     delay(500);
@@ -1289,13 +1309,14 @@ case 2:
     cor(1);
     Dialogo("\nFIM DA BATALHA:\n", 0);
     Dialogo("“A criatura derrotada começa a se desfazer e aos poucos vai desaparecendo”\n", 0);
-    Dialogo("Narrador: O Dragão Carmesin acabou dropando 50 moedas",0);
+    Dialogo("Narrador: O Dragão Carmesin acabou dropando 50 moedas\n",0);
     player->gold += 50;
     delay(500);
     cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Esse dragão foi duro na queda, ainda bem que estamos juntos nessa batalha.\n",0);
     delay(500);
     cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Vocês se provaram fortes guerreiros. Sintam-se a vontade de comprar algo caso queiram: \n",0);
     delay(500);
+    clear();
     menudeloja(player);
     delay(500);
     printf("\n%s\n", player->name);
@@ -1753,7 +1774,7 @@ case 2:
     cor(1);Dialogo("Howard: ",0); cor(3);Dialogo("Isso é meio estranho, mas ele está certo, vamos fazer o que temos que fazer agora.\n",0);
     delay(500);
     clear();
-    Dialogo("Narrador: Os guerreiros deixam de lado a discussão e resolvem ir para o coliseu. Lá\nsão divulgados os guerreiros que",0); printf(" %s ", player->name); Dialogo("irá enfrentar. Sendo\nrespectivamente Sans, um lutador esqueleto, Jhonny, um atirador de elite, e Thomas, o\npríncipe do reino de Valladolid.\n",0); printf(" %s ", player->name);Dialogo("entra na arena de combate e\nencontra Sans.",0);
+    Dialogo("Narrador: Os guerreiros deixam de lado a discussão e resolvem ir para o coliseu. Lá\nsão divulgados os guerreiros que",0); printf(" %s ", player->name); Dialogo("irá enfrentar. Sendo\nrespectivamente Sans, um lutador esqueleto, Jhonny, um atirador de elite, e Thomas, o\npríncipe do reino de Valladolid.\n",0); printf("%s ", player->name);Dialogo("entra na arena de combate e encontra Sans.\n",0);
     delay(500);
     cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("Senhoras e senhores, hoje temos uma luta interessante. Do\nlado esquerdo temos Sans, o nosso lutador orgulhoso. Do outro temos um lutador humano\ndo Reino de Ratanaba.\n",0);
     delay(500);
@@ -1786,15 +1807,15 @@ case 2:
     delay(500);
     cor(1);
     Dialogo("\nFIM DA BATALHA:\n", 0);
-    cor(3);
     Dialogo("Sans cai no chão derrotado inconsciente\nVocê ganha 50 ouro de apostas!\n", 0);
     player->gold += 50;
+    cor(3);
     delay(500);
     cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("O lutador",0); printf(" %s ", player->name);Dialogo("se mostrou um um forte\ncompetidor nessa luta\n",0);
     delay(500);
     cor(9);Dialogo("Thomas: ",0);cor(3);Dialogo("Você é interessante cara. Não achei que fosse tão forte assim, espero que nos\nencontremos no final desse torneio.\n",0);
     delay(500);
-    Dialogo("Narrador: ",0); printf(" %s ", player->name);Dialogo("e os demais guerreiros voltam para a loja de Lincon\npara adquirir novos itens para a próxima batalha.\n",0);
+    Dialogo("Narrador: ",0); printf("%s ", player->name);Dialogo("e os demais guerreiros voltam para a loja de Lincon\npara adquirir novos itens para a próxima batalha.\n",0);
     delay(500);
     cor(2);Dialogo("Lincon: ", 0); cor(3); Dialogo("Então você se saiu bem, não é garoto. Dê uma olhada no que tenho para vender:", 0);
     delay(500);
