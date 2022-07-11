@@ -7,8 +7,8 @@ Ratanabá Monumentus é um jogo de aventura e RPG Linear desenvolvido em C, para
 Funções   | Status
 --------- | ------
 SAVE E LOAD | COMPLETO 
-LOJA | 90% DESENVOLVIMENTO
-HISTÓRIA | 90% DESENVOLVIMENTO
+LOJA | COMPLETO
+HISTÓRIA | 98% DESENVOLVIMENTO
 BATALHA | COMPLETO
 
 ## Imagens do Projeto
