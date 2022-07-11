@@ -253,7 +253,7 @@ ataquemagico(struct personagem *player, struct enemy *enemy) {
     else
     {
         enemy->pv = enemy->pv - dano;
-        printf("\n%s", player->name); Dialogo("usou uma capsula de magia ", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);
+        printf("\n%s", player->name); Dialogo("usou uma capsula de magia no(a)", 0); printf(" %s", enemy->name); Dialogo(" e causou", 0); printf(" %d ", dano); Dialogo("de dano", 0);
         delay(500);
     }
     player->ataquemagico--;
@@ -1637,7 +1637,7 @@ case 2:
     clear();
     Dialogo("Narrador: Os guerreiros ao chegarem, observam que esse lugar é na verdade um\nreino. Eles se dirigem para a entrada das muralhas que envolvem a cidade e\npercebem que elas estão sendo seguradas por dois guardas mágicos armadurados\nde aparência animalesca. Em frente a eles, surpreendentemente, estão os todos os\noutros guerreiros de Ratanaba discutindo com os guardas.\n",0);
     delay(500);
-    cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("O que está acontecendo aqui?", 0);
+    cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("O que está acontecendo aqui?\n", 0);
     delay(500);
     cor(9);Dialogo("Brando: ", 0); cor(3); Dialogo("Esses caras estão falando que não podemos entrar na cidade porque não somos\ncidadãos do reino.\n", 0);
     delay(500);
@@ -1653,9 +1653,9 @@ case 2:
     Dialogo("2 - Vamos pessoalmente acabar com todos esses monstros!\n",0);
     Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
     delay(500);
-    cor(1);Dialogo("Guarda 01: ",0); cor(3);Dialogo(" Não dou a mínima para o que vocês querem, sumam da minha frente\n",0);
+    cor(1);Dialogo("Guarda 01: ",0); cor(3);Dialogo("Não dou a mínima para o que vocês querem, sumam da minha frente\n",0);
     delay(500);
-    cor(1);Dialogo("Howard: ",0); cor(3);Dialogo(" Que caras irritantes. Como vamos chegar em nosso objetivo?\n",0);
+    cor(1);Dialogo("Howard: ",0); cor(3);Dialogo("Que caras irritantes. Como vamos chegar em nosso objetivo?\n",0);
     delay(500);
     cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Acho que vamos ter que passar por eles na base da for…\n",0);
     cor(9);Dialogo("*Cavaleiro chega e interrompe a conversa”\n",0);
@@ -1694,7 +1694,7 @@ case 2:
     delay(500);
     cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("Esse é o espírito",0); printf(" %s. ", player->name); cor(3); Dialogo("Nós confiamos em você!\n",0);
     delay(500);
-    Dialogo("Narrador: Thomas conduz os guerreiros pela cidade e os mostra um grande coliseu\nonde ocorrerá o torneio. Lá ele diz que *nome do jogador* pode se preparar como\nquiser com o vendedor Lincon para a sua batalha.\n",0);
+    Dialogo("Narrador: Thomas conduz os guerreiros pela cidade e os mostra um grande coliseu\nonde ocorrerá o torneio. Lá ele diz que",0); printf(" %s ", player->name); Dialogo("pode se preparar como\nquiser com o vendedor Lincon para a sua batalha.\n",0);
     delay(500);
     cor(2);Dialogo("Lincon: ", 0); cor(3); Dialogo("Eae garotos, o que trouxe vocês à minha loja?\n",0);
     delay(500);
@@ -1753,7 +1753,7 @@ case 2:
     cor(1);Dialogo("Howard: ",0); cor(3);Dialogo("Isso é meio estranho, mas ele está certo, vamos fazer o que temos que fazer agora.\n",0);
     delay(500);
     clear();
-    Dialogo("Narrador: Os guerreiros deixam de lado a discussão e resolvem ir para o coliseu. Lá\nsão divulgados os guerreiros que *nome do jogador* irá enfrentar. Sendo\nrespectivamente Sans, um lutador esqueleto, Jhonny, um atirador de elite, e Thomas, o\npríncipe do reino de Valladolid.\n",0); printf(" %s ", player->name);Dialogo("entra na arena de combate e\nencontra Sans.",0);
+    Dialogo("Narrador: Os guerreiros deixam de lado a discussão e resolvem ir para o coliseu. Lá\nsão divulgados os guerreiros que",0); printf(" %s ", player->name); Dialogo("irá enfrentar. Sendo\nrespectivamente Sans, um lutador esqueleto, Jhonny, um atirador de elite, e Thomas, o\npríncipe do reino de Valladolid.\n",0); printf(" %s ", player->name);Dialogo("entra na arena de combate e\nencontra Sans.",0);
     delay(500);
     cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("Senhoras e senhores, hoje temos uma luta interessante. Do\nlado esquerdo temos Sans, o nosso lutador orgulhoso. Do outro temos um lutador humano\ndo Reino de Ratanaba.\n",0);
     delay(500);
@@ -1787,14 +1787,14 @@ case 2:
     cor(1);
     Dialogo("\nFIM DA BATALHA:\n", 0);
     cor(3);
-    Dialogo("Sans cai no chão derrotado inconsciente\nVocê ganha 50 ouro de apostas!", 0);
+    Dialogo("Sans cai no chão derrotado inconsciente\nVocê ganha 50 ouro de apostas!\n", 0);
     player->gold += 50;
     delay(500);
-    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("O lutador",0); printf(" %s ", player->name);Dialogo("se mostrou um um forte\ncompetidor nessa luta",0);
+    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("O lutador",0); printf(" %s ", player->name);Dialogo("se mostrou um um forte\ncompetidor nessa luta\n",0);
     delay(500);
     cor(9);Dialogo("Thomas: ",0);cor(3);Dialogo("Você é interessante cara. Não achei que fosse tão forte assim, espero que nos\nencontremos no final desse torneio.\n",0);
     delay(500);
-    Dialogo("Narrador: ",0); printf(" %s ", player->name);Dialogo("e os demais guerreiros voltam para a loja de Lincon\npara adquirir novos itens para a próxima batalha. ",0);
+    Dialogo("Narrador: ",0); printf(" %s ", player->name);Dialogo("e os demais guerreiros voltam para a loja de Lincon\npara adquirir novos itens para a próxima batalha.\n",0);
     delay(500);
     cor(2);Dialogo("Lincon: ", 0); cor(3); Dialogo("Então você se saiu bem, não é garoto. Dê uma olhada no que tenho para vender:", 0);
     delay(500);
@@ -1831,7 +1831,7 @@ case 2:
     Dialogo("4 - Tome cuidado, posso acabar com você facilmente da forma que eu quiser\n", 0);
     Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
     delay(500);
-    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("LUTEM!!!",0);
+    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("LUTEM!!!\n",0);
     delay(500);
     resetenemy(enemy);
     enemy->asciienemy = 1;
@@ -1849,19 +1849,19 @@ case 2:
     cor(1);
     Dialogo("\nFIM DA BATALHA:\n", 0);
     cor(3);
-    Dialogo("Jhonny cai no chão derrotado inconsciente\nVocê ganha 50 ouro de apostas!", 0);
+    Dialogo("Jhonny cai no chão derrotado inconsciente\nVocê ganha 50 ouro de apostas!\n", 0);
     player->gold += 50;
     delay(500);
     cor(1);Dialogo("Plateia: ",0);cor(3);Dialogo("ACABEM COM ESSE CARA!!!\n",0);
     delay(500);
-    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("Aparentemente a plateia não gostou da vitória do\nguerreiro estrangeiro.",0);
+    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("Aparentemente a plateia não gostou da vitória do\nguerreiro estrangeiro.\n",0);
     delay(500);
     cor(1);Dialogo("Plateia: ",0);cor(3);Dialogo("O PRÍNCIPE VAI ACABAR COM A RAÇA DESSE CARA!\n",0);
     delay(500);
-    cor(9);Dialogo("Thomas: ",0);cor(3);Dialogo("Eu mesmo o derrotarei na próxima batalha.\nNão se preocupem povo de",0);
-    cor(5);Dialogo("Valladolid",0);cor(3);
+    cor(9);Dialogo("Thomas: ",0);cor(3);Dialogo("Eu mesmo o derrotarei na próxima batalha.\nNão se preocupem povo de ",0);
+    cor(5);Dialogo("Valladolid\n",0);cor(3);
     delay(500);
-    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("Nossa próxima luta promete. Estejam todos aqui pois já já\nteremos uma grande batalha!!!",0);
+    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("Nossa próxima luta promete. Estejam todos aqui pois já já\nteremos uma grande batalha!!!\n",0);
     delay(500);
     Dialogo("Narrador: Os guerreiros mais uma vez retornam para a loja de Lincon para\nconseguirem melhorias para",0); printf(" %s\n", player->name);
     delay(500);
@@ -1879,11 +1879,12 @@ case 2:
     Dialogo("2 - Speed, vou acabar com ele.\n",0);
     Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
     delay(500);
-    Dialogo("Narrador: Os guerreiros voltam para o coliseu para a próxima batalha. Thomas vai\ndiretamente para o local da luta a espera de",0); printf(" %s ", player->name); Dialogo("Ambos se encontram\ne a batalha fica a instantes de se iniciar.", 0);
+    Dialogo("Narrador: Os guerreiros voltam para o coliseu para a próxima batalha. Thomas vai\ndiretamente para o local da luta a espera de",0); printf(" %s ", player->name); Dialogo("Ambos se encontram\ne a batalha fica a instantes de se iniciar.\n", 0);
     delay(500);
-    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("A batalha tão esperada irá se iniciar. Tendo nosso príncipe\nThomas de um lado e ",0); printf("%s ", player->name); Dialogo("de outro.", 0);
+    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("A batalha tão esperada irá se iniciar. Tendo nosso príncipe\nThomas de um lado e ",0); printf("%s ", player->name); Dialogo("de outro.\n", 0);
     delay(500);
-    cor(9);Dialogo("Thomas: ",0);cor(3);Dialogo("Serei bem rápido quando for acabar você seu insolente.",0);
+    cor(9);Dialogo("Thomas: ",0);cor(3);Dialogo("Serei bem rápido quando for acabar você seu insolente.\n",0);
+    printf("\n%s\n", player->name);
     delay(500);
     Dialogo("1 - Minhas habilidades falarão por mim.\n",0);
     Dialogo("2 - Vou derrotá-lo com tudo que tenho!\n",0);
@@ -1892,10 +1893,10 @@ case 2:
     resetenemy(enemy);
     enemy->asciienemy = 1;
     strcpy(enemy->name, "Thomas");
-    enemy->pv = 53;
+    enemy->pv = 80;
     cor(1);
     Dialogo("\nBATALHA INICIADA:\n", 0);
-    Dialogo("“Thomas é um lutador forte que usa uma lança mágica para lutar. Sua armadura reluz\ncomo ouro, ela se parece bem resistente. Tenha determinação e vença-o”", 0);
+    Dialogo("“Thomas é um lutador forte que usa uma lança mágica para lutar. Sua armadura reluz\ncomo ouro, ela se parece bem resistente. Tenha determinação e vença-o”\n", 0);
     delay(500);
     cor(3);
     delay(500);
@@ -1904,13 +1905,13 @@ case 2:
     delay(500);
     cor(1);
     Dialogo("\nFIM DA BATALHA:\n", 0);
+    Dialogo("Thomas cai no chão derrotado inconsciente.\n", 0);
     cor(3);
-    Dialogo("Thomas cai no chão derrotado inconsciente.", 0);
     player->gold += 50;
     delay(500);
     cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("O inesperado aconteceu, o lutador estrangeiro conseguiu\nvencer o nosso lutador mais forte.\n",0);
     delay(1000);
-    Dilogo("Narrador: Pouco tempo após a batalha, depois do príncipe recuperar a consciência,\nos guerreiros recorrem ao seu direito de atravessar a cidade. O príncipe\nrelutantemente dá a permissão. Dessa forma os guerreiros partem para o próximo\nlugar da jornada.\n", 0);
+    Dialogo("Narrador: Pouco tempo após a batalha, depois do príncipe recuperar a consciência,\nos guerreiros recorrem ao seu direito de atravessar a cidade. O príncipe\nrelutantemente dá a permissão. Dessa forma os guerreiros partem para o próximo\nlugar da jornada.\n", 0);
     delay(500);
     clear();
     player->nivel = 8;
@@ -1920,12 +1921,14 @@ case 2:
     break;
 
     case 8: //FINAL (PALÁCIO FANTASMA)
-    Dialogo("Obrigado por jogar nosso jogo, ele ainda está na fase beta",0);
+    Dialogo("Obrigado por jogar nosso jogo, ele ainda está na fase beta\n\n",0);
     delay(500);
     printf("Nosso repositório é: \n");
     delay(500);
     cor(3);
     printf("1 - GitHub: https://github.com/juniodevs/Ratanaba-Monumentus--RPGText\n");
+    clear();
+    menu(player, enemy);
     break;
 }
 }
