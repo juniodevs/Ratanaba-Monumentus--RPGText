@@ -329,6 +329,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
             localdaseta(2, posicaodatecla2); printf("* - Ataque magico\n");
             localdaseta(3, posicaodatecla2); printf("* - Beber pocao de vida\n");
             localdaseta(4, posicaodatecla2); printf("* - Jogar Adaga\n");
+            localdaseta(5, posicaodatecla2); printf("VOCE POSSUI %d CAPSULAS\n\t\t\t   %d POCOES E %d ADAGAS\n", player->ataquemagico, player->pocao, player->adagas);
             printf("\t\t\t------------------\n");
 
             ASCIIinimigo(inimigo);
@@ -498,8 +499,6 @@ void debugmode(struct personagem *player, struct enemy *inimigo)
             resetenemy(inimigo);
             resetvida(player);
             inimigo->asciienemy = 3;
-            player->adagas = 0;
-            player->ataquemagico = 0;
             batalha(player, inimigo);
             break;
         case 2:
