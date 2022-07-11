@@ -27,7 +27,7 @@ struct enemy {
     int defesa;
 }inimigo; //PRE DEFINIÇÃO DE INIMIGO
 
-struct finalboss {
+typedef struct {
     char name[18];
     int pv;
     int ataque;
@@ -84,8 +84,6 @@ regeneracao(struct personagem *player){
         delay(1000);
     }
     }
-    
-
 } //FUNÇÃO DE REGENERAÇÃO DE PV (PERSONAGEM)
 
 void ASCIIinimigo(struct enemy *enemy) //TEMPLATE PARA ASCII
@@ -121,11 +119,6 @@ cor(1); printf("                       /~()-{---");cor(2);printf("\t~~_}\ \(    
 cor(1); printf("                        /~)");cor(2);printf("     \t\(,_(,)'\n");
 cor(1); printf("                        ~ ~");cor(2);printf("       \t_>, _>\n");
 cor(3);
-
-
-
-
-
     }
     else
     {
@@ -1949,6 +1942,8 @@ case 2:
     printf("1 - GitHub: https://github.com/juniodevs/Ratanaba-Monumentus--RPGText\n");
     clear();
     menu(player, enemy);
+
+
     break;
 }
 }
@@ -1969,9 +1964,14 @@ int main()
     player.pocao = 0;
     player.pvjogador = 100;
     inimigo.asciienemy = 1;
-
+    boss *bossfinal = (boss*)malloc(sizeof(boss));
+    strcpy(bossfinal->name, "Boss Final");
+    bossfinal->pv = 100;
+    bossfinal->ataque = rand() % 20 + 20;
+    bossfinal->defesa = rand() % 20 + 20;
     menu(&player, &inimigo);
 
     SetConsoleOutputCP(CPAGE_DEFAULT);
+    free(bossfinal);
   return 0;
 }
