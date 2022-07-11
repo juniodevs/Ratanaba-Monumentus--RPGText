@@ -8,12 +8,16 @@ Funções   | Status
 --------- | ------
 SAVE E LOAD | COMPLETO 
 LOJA | 90% DESENVOLVIMENTO
-HISTÓRIA | 80% DESENVOLVIMENTO
-BATALHA | 95% DESENVOLVIMENTO
+HISTÓRIA | 90% DESENVOLVIMENTO
+BATALHA | COMPLETO
 
 ## Imagens do Projeto
 
-EM BREVE
+### LOGO
+<img src="IMAGES/RATANABALOGO.PNG" width="250"/>
+
+### BANNER
+<img src="IMAGES/BANNERZINHA.png"/>
 
 ## Como posso jogar?
 
