@@ -281,7 +281,11 @@ receberataque(struct personagem *player, struct enemy *enemy) {
 batalha(struct personagem *player, struct enemy *inimigo){
 
     int posicaodatecla2 = 1, KeyDown2 = 0; //VARIAVEIS DE CONTROLE DE TECLAS
-    int contadordeturno = 0; //contador de turnos
+
+
+    int *contadordeturno = {0}; //ponteiro para contador de turno
+    contadordeturno = malloc(1); //alocando memoria para o contador de turno
+    contadordeturno [0] = 0;  //iniciando contador de turno
 
     #define MAX 4 
     #define MIN 1
@@ -301,7 +305,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
             printf("                         O inimigo tem %d pv\n", inimigo->pv);
             printf("                         ==================\n");
             printf("\t\t\t-[MENU DE BATALHA]-\n");
-            printf("\t\t\tTurno\t [%d]\n", contadordeturno);
+            printf("\t\t\tTurno\t [%d]\n", contadordeturno[0]);
             localdaseta(1, posicaodatecla2); printf("* - Ataque corporal\n"); 
             localdaseta(2, posicaodatecla2); printf("* - Ataque magico\n");
             localdaseta(3, posicaodatecla2); printf("* - Beber pocao de vida\n");
@@ -320,7 +324,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
             posicaodatecla2 = posicaodatecla2;
             }
       }
-    contadordeturno++;
+    contadordeturno[0]++;
     switch (posicaodatecla2)
     {
     case 1: //ATAQUE CORPORAL
@@ -356,6 +360,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
     else
     {
         int contadordeturno = 0;
+        int contadordeturno [0] = 0; 
         system("cls");
         break;
     }
@@ -1634,6 +1639,15 @@ case 2:
     cor(5); Dialogo("Cidade das criaturas mágicas Valladolid",0); cor(3);
     delay(500);
     clear();
+    Dialogo("Narrador: Os guerreiros ao chegarem, observam que esse lugar é na verdade um\nreino. Eles se dirigem para a entrada das muralhas que envolvem a cidade e\npercebem que elas estão sendo seguradas por dois guardas mágicos armadurados\nde aparência animalesca. Em frente a eles, surpreendentemente, estão os todos os\noutros guerreiros de Ratanaba discutindo com os guardas.\n",0);
+    delay(500);
+    cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("O que está acontecendo aqui?", 0);
+    delay(500);
+    cor(9);Dialogo("Brando: ", 0); cor(3); Dialogo("Esses caras estão falando que não podemos entrar na cidade porque não somos\ncidadãos do reino.\n", 0);
+    delay(500);
+    cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Isso é uma palhaçada! Precisamos passar por esse lugar para chegar na\npróxima localização do mapa.",0);
+
+
 
     break;
 
