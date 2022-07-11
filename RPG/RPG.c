@@ -281,11 +281,7 @@ receberataque(struct personagem *player, struct enemy *enemy) {
 batalha(struct personagem *player, struct enemy *inimigo){
 
     int posicaodatecla2 = 1, KeyDown2 = 0; //VARIAVEIS DE CONTROLE DE TECLAS
-
-
-    int *contadordeturno = {0}; //ponteiro para contador de turno
-    contadordeturno = malloc(1); //alocando memoria para o contador de turno
-    contadordeturno [0] = 0;  //iniciando contador de turno
+    int contadordeturno = 0; //contador de turnos
 
     #define MAX 4 
     #define MIN 1
@@ -305,7 +301,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
             printf("                         O inimigo tem %d pv\n", inimigo->pv);
             printf("                         ==================\n");
             printf("\t\t\t-[MENU DE BATALHA]-\n");
-            printf("\t\t\tTurno\t [%d]\n", contadordeturno[0]);
+            printf("\t\t\tTurno\t [%d]\n", contadordeturno);
             localdaseta(1, posicaodatecla2); printf("* - Ataque corporal\n"); 
             localdaseta(2, posicaodatecla2); printf("* - Ataque magico\n");
             localdaseta(3, posicaodatecla2); printf("* - Beber pocao de vida\n");
@@ -324,7 +320,7 @@ batalha(struct personagem *player, struct enemy *inimigo){
             posicaodatecla2 = posicaodatecla2;
             }
       }
-    contadordeturno[0]++;
+    contadordeturno++;
     switch (posicaodatecla2)
     {
     case 1: //ATAQUE CORPORAL
@@ -360,7 +356,6 @@ batalha(struct personagem *player, struct enemy *inimigo){
     else
     {
         int contadordeturno = 0;
-        int contadordeturno [0] = 0; 
         system("cls");
         break;
     }
@@ -1636,7 +1631,8 @@ case 2:
     break;
     
     case 7: //CIDADE DE VALLADOID
-    cor(5); Dialogo("Cidade das criaturas mágicas Valladolid",0); cor(3);
+    cor(5);Dialogo("Cidade das criaturas mágicas Valladolid",0);cor(3);
+    player->pvjogador = 100;
     delay(500);
     clear();
     Dialogo("Narrador: Os guerreiros ao chegarem, observam que esse lugar é na verdade um\nreino. Eles se dirigem para a entrada das muralhas que envolvem a cidade e\npercebem que elas estão sendo seguradas por dois guardas mágicos armadurados\nde aparência animalesca. Em frente a eles, surpreendentemente, estão os todos os\noutros guerreiros de Ratanaba discutindo com os guardas.\n",0);
@@ -1645,14 +1641,168 @@ case 2:
     delay(500);
     cor(9);Dialogo("Brando: ", 0); cor(3); Dialogo("Esses caras estão falando que não podemos entrar na cidade porque não somos\ncidadãos do reino.\n", 0);
     delay(500);
-    cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Isso é uma palhaçada! Precisamos passar por esse lugar para chegar na\npróxima localização do mapa.",0);
+    cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Isso é uma palhaçada! Precisamos passar por esse lugar para chegar na\npróxima localização do mapa.\n",0);
+    delay(500);
+    cor(1);Dialogo("Guarda 01: ",0); cor(3);Dialogo("Não sejam ridículos, óbvio que não poderão entrar em nosso reino.\n",0);
+    delay(500);
+    cor(1);Dialogo("Guarda 02: ",0); cor(3);Dialogo("Exatamente! Por que nós deveríamos liberar a passagem para vocês?\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Então esses são os perigos que o senhor Cultrapali mencionou.\n",0);
+    Dialogo("2 - Vamos pessoalmente acabar com todos esses monstros!\n",0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    cor(1);Dialogo("Guarda 01: ",0); cor(3);Dialogo(" Não dou a mínima para o que vocês querem, sumam da minha frente\n",0);
+    delay(500);
+    cor(1);Dialogo("Howard: ",0); cor(3);Dialogo(" Que caras irritantes. Como vamos chegar em nosso objetivo?\n",0);
+    delay(500);
+    cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Acho que vamos ter que passar por eles na base da for…\n",0);
+    cor(9);Dialogo("*Cavaleiro chega e interrompe a conversa”\n",0);
+    delay(500);
+    cor(9);Dialogo("Thomas: ",0); cor(3);Dialogo("O que esses idiotas querem guardas?\n",0);
+    delay(500);
+    cor(1);Dialogo("Guarda 02: ",0); cor(3);Dialogo("Querem entrar em nossa cidade para chegarem em outro lugar.\n",0);
+    delay(500);
+    cor(4);Dialogo("Sheldon: ",0); cor(3);Dialogo("Como assim idiotas? Você quer brigar com a gente cara?\n",0);
+    delay(500);
+    cor(9);Dialogo("Thomas: ",0); cor(3);Dialogo("Como se vocês fossem capazes de me enfrentar. Não sejam tolos.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Então prove sua força e nos enfrente!\n",0);
+    Dialogo("2 - Quanta arrogância, em frente-nós se for capaz\n",0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    cor(9);Dialogo("Thomas: ", 0);cor(3);Dialogo("Não vou perder meu tempo dessa forma com fracotes.\n",0);
+    delay(500);
+    cor(9);Dialogo("Brando: ", 0);cor(3);Dialogo("Esse cara tá me dando nos nervos. Se está tão seguro de sua força então nos\nenfrente.\n",0);
+    delay(500);
+    cor(9);Dialogo("Thomas: ", 0);cor(3);Dialogo("Vamos resolver dessa forma, em nosso reino irá acontecer um grande torneio de\nluta. Se vocês conseguirem chegar ao final e ganharem, podem seguir viagem. O que\nacham?\n",0);
+    delay(500);
+    cor(1);Dialogo("Howard: ",0); cor(3);Dialogo("É claro que aceitamos!! Vamos mostrar pra você que somos capazes!\n",0);
+    delay(500);
+    cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Vamos fazer você provar da própria arrogância!\n",0);
+    delay(500);
+    cor(9);Dialogo("Thomas: ", 0);cor(3);Dialogo("Vamos? Só um de vocês poderá entrar nesse torneio.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Eu irei! Vou fazer esse cara entender que somos guerreiros orgulhosos e fortes.\n",0);
+    Dialogo("2 - Vou entrar nesse torneio. Ele feriu o nosso orgulho de guerreiros de Ratanaba.\n",0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("Esse é o espírito",0); printf(" %s. ", player->name); cor(3); Dialogo("Nós confiamos em você!\n",0);
+    delay(500);
+    Dialogo("Narrador: Thomas conduz os guerreiros pela cidade e os mostra um grande coliseu\nonde ocorrerá o torneio. Lá ele diz que *nome do jogador* pode se preparar como\nquiser com o vendedor Lincon para a sua batalha.\n",0);
+    delay(500);
+    cor(2);Dialogo("Lincon: ", 0); cor(3); Dialogo("Eae garotos, o que trouxe vocês à minha loja?\n",0);
+    delay(500);
+    cor(2);Dialogo("Gyro: ", 0); cor(3);Dialogo("Viemos em busca de coisas que possam ajudar nosso amigo aqui para o torneio.\n",0);
+    delay(500);
+    cor(2);Dialogo("Lincon: ", 0); cor(3); Dialogo("Vejam o que posso oferecer a você amigo:\n",0);
+    clear();
+    menudeloja(player);
+    delay(500);
+    cor(2);Dialogo("Lincon: ", 0); cor(3); Dialogo("Espero que isso seja de ajuda em sua batalha",0); printf(" %s. \n", player->name);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Isso vai ser de grande ajuda nesse torneio.\n",0);
+    Dialogo("2 - Acho que posso me virar com isso.\n",0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("Já fizemos o que tínhamos que fazer, vamos para o coliseu.\n",0);
+    delay(500);
+    cor(2);Dialogo("Lincon: ", 0); cor(3); Dialogo("Espera, você aí, de onde você é guerreiro?\n",0);
+    delay(500);
+    cor(5);Dialogo("Speed: ", 0); cor(3); Dialogo("O… o que? Como assim?\n",0);
+    delay(500);
+    cor(2);Dialogo("Lincon: ", 0); cor(3); Dialogo("Vocês são de Ratanaba não são? Essa sua armadura está ornamentada com\nsímbolos da nação de Kanto\n",0);
+    delay(500);
+    cor(9);Dialogo("Brando: ", 0);cor(3);Dialogo("Verdade, nunca vi uma armadura assim em nosso reino.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Acredito em Speed, talvez seja só um engano.\n",0);
+    Dialogo("2 - Isso é verdade Speed? Essa armadura não é da nossa nação?\n",0);
+    Dialogo("3 - Confio no que Speed falou, isso é só um engano.\n",0);
+    Dialogo("4 - Como assim Kanto?\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    if (escolhas == 1 || escolhas == 3)
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Verdade, devemos nos atentar a outras coisas agora cara, isso é perda de tempo.\n",0);
+        speed = 1;
+        player->amizade++;
+    }
+    else if (escolhas == 2 || escolhas == 4)
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Não faço ideia do que esse cara esteja falando. Vamos focar no que devemos fazer agora.\n",0);
+        speed = 2;
+        player->amizade--;
 
-
+    }
+    else
+    {
+        cor(5); Dialogo("Speed: ", 0); cor(3); Dialogo("Claro que não cara, ele com certeza se enganou quanto a isso (fala isso em um tom mais alto).\n",0);
+        speed = 1;
+        player->amizade++;
+    }
+    delay(500);
+    cor(1);Dialogo("Howard: ",0); cor(3);Dialogo("Isso é meio estranho, mas ele está certo, vamos fazer o que temos que fazer agora.\n",0);
+    delay(500);
+    clear();
+    Dialogo("Narrador: Os guerreiros deixam de lado a discussão e resolvem ir para o coliseu. Lá\nsão divulgados os guerreiros que *nome do jogador* irá enfrentar. Sendo\nrespectivamente Sans, um lutador esqueleto, Jhonny, um atirador de elite, e Thomas, o\npríncipe do reino de Valladolid.\n",0); printf(" %s ", player->name);Dialogo("entra na arena de combate e\nencontra Sans.",0);
+    delay(500);
+    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("Senhoras e senhores, hoje temos uma luta interessante. Do\nlado esquerdo temos Sans, o nosso lutador orgulhoso. Do outro temos um lutador humano\ndo Reino de Ratanaba.\n",0);
+    delay(500);
+    cor(1);Dialogo("Plateia: ",0);cor(3);Dialogo("ACABA COM ELE SANS!!!\n",0);
+    delay(500);
+    cor(6);Dialogo("Sans: ",0);cor(3);Dialogo("Olá guerreiro estrangeiro, será uma honra lutar com você nesse torneio.\nPrometo dar o meu máximo nessa batalha.\n",0);
+    delay(500);
+    printf("\n%s\n", player->name);
+    delay(500);
+    Dialogo("1 - Faremos uma batalha justa e honrosa meu amigo.\n",0);
+    Dialogo("2 - Vou acabar com você!!?\n",0);
+    Dialogo("3 - Gosto do seu espírito de luta, será uma honra lutar com você!\n",0);
+    Dialogo("4 - Em nome do reino de Ratanaba, eu vou derrota-lo!\n", 0);
+    Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
+    delay(500);
+    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("LUTEM!!!\n",0);
+    delay(500);
+    resetenemy(enemy);
+    enemy->asciienemy = 1;
+    strcpy(enemy->name, "Sans");
+    enemy->pv = 60;
+    cor(1);
+    Dialogo("\nBATALHA INICIADA:\n", 0);
+    Dialogo("“Sans é um poderoso lutador extremamente ágil e experiente com o combate com os\npunhos. Tenha determinação e vença-o”.\n", 0);
+    delay(500);
+    cor(3);
+    delay(500);
+    system("pause");
+    batalha(player, enemy);
+    delay(500);
+    cor(1);
+    Dialogo("\nFIM DA BATALHA:\n", 0);
+    cor(3);
+    Dialogo("Sans cai no chão derrotado inconsciente\nVocê ganha 50 ouro de apostas!", 0);
+    player->gold += 50;
+    delay(500);
+    cor(10);Dialogo("Apresentador do Coliseu: ",0);cor(3);Dialogo("O lutador",0); printf(" %s ", player->name);Dialogo("se mostrou um um forte\ncompetidor nessa luta",0);
+    delay(500);
+    cor(9);Dialogo("Thomas: ",0);cor(3);Dialogo(" Você é interessante cara. Não achei que fosse tão forte assim, espero que nos\nencontremos no final desse torneio.\n",0);
+    delay(500);
+    Dialogo("Narrador: ",0); printf(" %s ", player->name);Dialogo("e os demais guerreiros voltam para a loja de Lincon\npara adquirir novos itens para a próxima batalha. ",0);
+    delay(500);
+    cor(2);Dialogo("Lincon: ", 0); cor(3); Dialogo("Então você se saiu bem, não é garoto. Dê uma olhada no que tenho para vender:", 0);
+    delay(500);
+    
 
     break;
 
     case 8: //FINAL (PALÁCIO FANTASMA)
-
     break;
 }
 }
