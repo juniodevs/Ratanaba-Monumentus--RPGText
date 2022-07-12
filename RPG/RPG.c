@@ -227,7 +227,7 @@ jogaradaga(struct personagem *player, struct enemy *enemy) {
     if(dano <= 0)
     {
         dano = 0;
-        printf("\n%s ", enemy->name); Dialogo(" defendeu a adaga", 0); printf(" %d ", dano); Dialogo("de dano", 0);
+        printf("\n%s ", enemy->name); Dialogo("defendeu a adaga", 0); printf(" %d ", dano); Dialogo("de dano", 0);
         delay(1000);
     }
     else

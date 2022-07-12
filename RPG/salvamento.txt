@@ -1,13 +1,13 @@
-nome: Krato
-vida: 43
-nivel: 8
-ataque: 33
-coins: 88
-defesa: 13
+nome: Jumas
+vida: 100
+nivel: 2
+ataque: 37
+coins: 100
+defesa: 0
 espada: 0
 pocoes: 0
-nomeinimigo: Thomas
+nomeinimigo: 
 asciienemy: 1
-vidainimigo: -11
-ataqueinimigo: 23
-defesainimigo: 21
+vidainimigo: 0
+ataqueinimigo: 0
+defesainimigo: 0
