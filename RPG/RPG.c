@@ -701,7 +701,7 @@ case 1:
     system("cls");
     Dialogo("Bem-vindo", 0); printf(" %s\n", player->name);
     clear();
-
+    resetvida(player);
     player->nivel = 2;
     salvarjogo(player, enemy);
     resetenemy(enemy);

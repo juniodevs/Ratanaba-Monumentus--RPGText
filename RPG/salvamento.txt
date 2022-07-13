@@ -1,7 +1,7 @@
-nome: Jumas
+nome: John
 vida: 100
 nivel: 2
-ataque: 37
+ataque: 34
 coins: 100
 defesa: 0
 espada: 0
