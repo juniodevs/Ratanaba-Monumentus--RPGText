@@ -989,7 +989,7 @@ case 2:
 
 
     case 3: //CAMINHO CAVERNA DA MONTANHA CARMESIM (PRIMEIRA ESCOLHA)
-    cor(1); Dialogo("Caverna da montanha marmesim",0); cor(3);
+    cor(1); Dialogo("Caverna da montanha carmesim",0); cor(3);
     delay(500);
     clear();
     Dialogo("Narrador: ", 0); printf("%s ", player->name); Dialogo("e Speed chegam até o caminho marcado no mapa e\ndecidem analisar o local para coletar informações. Logo de cara se deparam com uma\ntoupeira de formato humanoide vestida com roupas de minerador. E para surpresa\ndos ambos, o ser desconhecido foi bem receptivo com os guerreiros. \n",0);
