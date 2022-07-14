@@ -340,9 +340,9 @@ batalha(struct personagem *player, struct enemy *inimigo)
     switch (posicaodatecla2)
     {
     case 1: //ATAQUE CORPORAL
-        printf("                   O                              O\n");
-        printf("              {o)xxx|===========-  *  -===========|xxx(o}\n");
-        printf("                   O                              O\n\n\n");
+        printf("\t\t     O                              O\n");
+        printf("\t\t{o)xxx|===========-  *  -===========|xxx(o}\n");
+        printf("\t\t     O                              O\n\n\n");
         atacar(player, inimigo);
         verificacaodemorte(player, inimigo);
 
@@ -556,7 +556,7 @@ void menu(struct personagem *player, struct enemy *inimigo) //MENU PRINCIPAL
         case 3: //CRÉDITOS
             system("cls");
             DialogocomClear("Obrigado por jogar!", 0);
-            DialogocomClear("História por: Julio Cesar \nVisual: Sergio Mota \nProgramacao: Júnior Veras", 0);
+            DialogocomClear("História por: Julio Cesar \nVisual: Sergio Mota \nProgramacao: Júnior Veras\nRepositório: github.com/juniodevs/Ratanaba-Monumentus--RPGText", 0);
             menu(player, inimigo);
             break;
         case 4: //SAIR
@@ -770,7 +770,6 @@ case 2:
     Dialogo("3 - Se preciso for, darei a minha vida pelo reino!\n",0);
     Dialogo("4 - Farei o que tiver ao meu alcance para ajudá-los.\n", 0);
     Dialogo("Escolha: ", 0); scanf("%d", &escolhas);
-
 
     if (escolhas == 1 || escolhas == 3)
     {
