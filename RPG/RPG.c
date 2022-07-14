@@ -1101,7 +1101,7 @@ case 2:
     cor(2); Dialogo("Lewers: ", 0); cor(3); Dialogo("Se já escolheram o que queriam, me acompanhem.\n",0);
     delay(500);
     Dialogo("Narrador: ", 0); cor(2); Dialogo("Lewers ", 0); cor(3); Dialogo("adentra a caverna na frente enquanto os guerreiros o acompanham.\nLogo no início é possível perceber que aquela estranha caverna aparenta estar viva, com\ntodo aquela aparência sangrenta, com estalactites que se assemelham a dentes, e diversos\ncristais vermelhos. É possível ver escrituras nas paredes que dizem “Tudo nesse lugar está\nvivo, mais vivo até mesmo do que os que aqui pisam, porque para eles, está reservada uma\nmorte sangrenta.”Depois de entrarem na caverna, instantes antes de chegarem ao lugar\n",0);
-    Dialogo("que",0); cor(2);Dialogo(" Lewers ", 0); cor(3); Dialogo("está, ",0); cor(5); Dialogo("Speed ", 0); cor(3); Dialogo("fala com ",0); printf("%s\n\n", player->name);
+    Dialogo("que ",0); cor(2);Dialogo("Lewers ", 0); cor(3); Dialogo("está, ",0); cor(5); Dialogo("Speed ", 0); cor(3); Dialogo("fala com ",0); printf("%s\n\n", player->name);
     delay(7000);
     if (speed == 1)
     {
@@ -1149,7 +1149,7 @@ case 2:
     delay(5000);
     clear();
     resetenemy(enemy);
-    enemy->asciienemy = 2;
+    enemy->asciienemy = 2; //asciienemy = 2 Zumbilesca
     strcpy(enemy->name, "Zumbilesca");
     enemy->pv = 30;
     cor(1);
@@ -1264,7 +1264,7 @@ case 2:
         acerto = 0;
         Dialogo("Narrador: Um Raio vermelho sai da parede e acerta sua mão.\n",0);
         Dialogo("Você recebeu 5 de dano.\n",0);
-        player->pvjogador -= 5;
+        player->pvjogador -= 5; //Dano do Raio vermelho
     }
     }
     delay(500);
@@ -1935,7 +1935,7 @@ case 2:
     printf("Nosso repositório é: \n");
     delay(500);
     cor(3);
-    printf("1 - GitHub: https://github.com/juniodevs/Ratanaba-Monumentus--RPGText\n");
+    printf("1 - GitHub: https://github.com/juniodevs/Ratanaba-Monumentus--RPGText\n2 - Muito Obrigado por jogar!\n");
     clear();
     menu(player, enemy);
     break;
