@@ -388,7 +388,7 @@ void Dialogo(char text[], int seconds) //FUNÇÃO DE DIALOGO
         for(x=0; text[x]!=NULL; x++)
         {
         printf("%c",text[x]);
-        for(y=0; y<=8888888; y++)
+        for(y=0; y<=5555555; y++)
         {
         }
         }
@@ -401,9 +401,6 @@ void clear() //FUNÇÃO PARA LIMPAR TELA
     printf("\n[Pressione Enter para continuar]");
     char enter = 0;
     while (enter != '\r' && enter != '\n') // VERIFICAÇÃO DO ENTER
-    {
-        enter = getchar();
-    }
     {
         enter = getchar();
     }
@@ -434,10 +431,7 @@ void DialogocomClear(char text[], int seconds) //FUNÇÃO DIALOGO COM CLEAR
     {
         enter = getchar();
     }
-    {
-        enter = getchar();
-    }
-    
+
     // LIMPAR A TELA APOS O TEXTO UTILIZANDO O ENTER
     system("cls");
 }

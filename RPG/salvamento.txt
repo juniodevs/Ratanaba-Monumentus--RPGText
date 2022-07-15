@@ -1,7 +1,7 @@
-nome: John
+nome: Kratos
 vida: 100
 nivel: 2
-ataque: 34
+ataque: 36
 coins: 100
 defesa: 0
 espada: 0
